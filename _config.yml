@@ -29,7 +29,7 @@ description: >-                        # used by seo meta and the atom feed
   INterest in Artificial Intelligence.
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
-url: 'https://groveraruquipa.github.io/'
+url: "https://groveraruquipa.github.io"
 
 github:
   username: GroverAruquipa             # change to your github username
