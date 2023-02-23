@@ -76,7 +76,7 @@ Force sensing using compliant structures to link linearly the displacement and t
 
 This method of highly resolute force sensing has notably been studied by Guelpa to provide a sensor with a range of 50 mN with a resolution of 5 nM.
 
-<img src="https://github.com/GroverAruquipa/GroverAruquipa.github.io/blob/main/media/Industrial_ROS/kukaros2.png" width="50%">
+<img src="../media/industrial_ROS/kukaros1.PNG" width="50%">
 
 <img src="../media/industrial_ROS/kukaros2.png" width="50%">
 
