@@ -76,9 +76,9 @@ Force sensing using compliant structures to link linearly the displacement and t
 
 This method of highly resolute force sensing has notably been studied by Guelpa to provide a sensor with a range of 50 mN with a resolution of 5 nM.
 
-<img src="../media/industrial_ROS/kukaros1.PNG" width="50%">
+<img src="../media/industrial_ROS/kukaros1.png" width="50%">
 
-<img src="../media/industrial_ROS/kukaros2.png" width="90%">
+<img src="../media/industrial_ROS/kukaros2.png" width="50%">
 
 [2] Guelpa, V., Laurent, G. J., Sandoz, P., & Clévy, C. (2015). **Vision-based microforce measurement with a large range-to-resolution ratio using a twin-scale pattern.** _IEEE/ASME Transactions on Mechatronics_, 20(6), 3148-3156., DOI [10.1109/TMECH.2015.2407053](https://doi.org/10.1109/TMECH.2015.2407053)
 
