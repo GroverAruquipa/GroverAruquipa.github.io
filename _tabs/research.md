@@ -86,7 +86,7 @@ This method of highly resolute force sensing has notably been studied by Guelpa 
 
 More recently, Bhwanath Tiwari extended the degrees of freedom of force - displacement sensors by creating a compliant structure with embedding a **large range periodic pattern** to measure 3 DoF forces and torque with a nano-Newton resolution.
 
-![](https://raw.githubusercontent.com/AntoineAndre/antoineandre.github.io/gh-pages/media/capteur_force_bhawanath.png)
+<img src="../media/industrial_ROS/kukaros1.PNG" width="50%">
 
 [3] Tiwari, B., Blot, M., Laurent, G. J., Agnus, J., Sandoz, P., Lutz, P., & Clevy, C. T. (2021). **A High Range-to-Resolution Multi-axis Force and Torque Sensing Platform.** _IEEE/ASME Transactions on Mechatronics_. DOI [10.1109/TMECH.2021.3071444](https://doi.org/10.1109/TMECH.2021.3071444)
 
