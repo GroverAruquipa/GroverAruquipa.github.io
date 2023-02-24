@@ -101,9 +101,9 @@ This method was tested through both simulations and experimentations and **perfo
 
 # Planning of a Robot with ROS
 In order to 
-<img src="../media/industrial_ROS/kukaros1.png" width="50%">
+<img src="../media/Industrial_ROS/kukaros1.png" width="50%">
 In order to 
-<img src="../media/industrial_ROS/kukaros2.png" width="50%">
+<img src="../media/Industrial_ROS/kukaros2.png" width="50%">
 
 
 # Radio frecuency Systems
