@@ -27,7 +27,7 @@ Theoretical Part developed in progress of publication, finishing the 3D design m
 
 Performances study on the most resolute planar continuum robot with the largest range of actuation
 
-<video src="../media/parallel_robots/stewart_gripper1_Trim.mp4" width="75%" controls autoplay loop></video>
+<video src="../media/Stewart_platform/hexapo-sim2_Trim.mp4" width="75%" controls autoplay loop></video>
 
 
 Research was conducted by Benjamin Mauzé during his PhD and showed the nanometric resolutions of the robot with a centimetric range.
@@ -42,15 +42,12 @@ Force sensing using compliant structures to link linearly the displacement and t
 
 This method of highly resolute force sensing has notably been studied by Guelpa to provide a sensor with a range of 50 mN with a resolution of 5 nM.
 
-<img src="../media/papers/parallel_robot/delta1.png" width="50%">
 
 <img src="../media/papers/parallel_robot/full_delta.png" width="50%">
 
 
-<img src="../media/papers/parallel_robot/cae_parallel.png" width="50%">
 
-<img src="../media/papers/parallel_robot/control_communication.png" width="50%">
-
+<img src="../media/papers/parallel_robot/combined_parallel.png" width="100%">
 
 
 
@@ -69,14 +66,20 @@ Example
 <video src="../media/parallel_robots/stewart_gripper1_Trim.mp4" width="75%" controls autoplay loop></video>
 
 
-## High resolution alignment
-# Bio=Inspired Control Systems
+# Bio Inspired Control Systems
+<img src="../media/papers/parallel_robot/bio_inpired_architecture.png" width="100%">
 
 
-# Trading with Reinforcenment learning
+# Trading with Reinforcement learning
+<img src="../media/papers/trading/rewards_1.png" width="50%">
+
+<img src="../media/papers/trading/trading_1.png" width="50%">
 
 
-## Performances
+## Tube Concentric Tubes
+<video src="../media/Tube_concentric/tube_Trim.mp4" width="75%" controls autoplay loop></video>
+
+
 
 This method was tested through both simulations and experimentations and **performances of pose measurement resolutions** can be summarized as follow:
 
@@ -90,11 +93,14 @@ This method was tested through both simulations and experimentations and **perfo
 | $\gamma$ | 118 $\mu$rad. | $\pi/8$ rad.     |
 
 # Planning of a Robot with ROS
-In tihs section is presented
-<img src="../media/papers/industrial_ROS/kukaros1.png" width="50%">
+<img src="../media/industrial_ROS/kukaros1.png" width="50%">
 
+<img src="../media/industrial_ROS/kukaros2.png" width="50%">
 
 
 # Radio frecuency Systems
 In this section is presented
+<video src="../media/GNU_Radio/GNU1_Trim.mp4" width="75%" controls autoplay loop></video>
+
+
 
