@@ -59,24 +59,31 @@ Example
 [3] Tiwari, B., Blot, M., Laurent, G. J., Agnus, J., Sandoz, P., Lutz, P., & Clevy, C. T. (2021). **A High Range-to-Resolution Multi-axis Force and Torque Sensing Platform.** _IEEE/ASME Transactions on Mechatronics_. DOI [10.1109/TMECH.2021.3071444](https://doi.org/10.1109/TMECH.2021.3071444)
 
 ## Design of a Tricept Model 
-
+In order to 
 <video src="../media/parallel_robots/first_prototype_tricept_Trim.mp4" width="75%" controls autoplay loop></video>
 
 ## Design of a Parallel Redundant Hand
+In order to 
 <video src="../media/parallel_robots/stewart_gripper1_Trim.mp4" width="75%" controls autoplay loop></video>
 
 
 # Bio Inspired Control Systems
+In order to 
 <img src="../media/papers/parallel_robot/bio_inpired_architecture.png" width="100%">
 
 
 # Trading with Reinforcement learning
+In order to 
 <img src="../media/papers/trading/rewards_1.png" width="50%">
+
+In order to 
 
 <img src="../media/papers/trading/trading_1.png" width="50%">
 
 
 ## Tube Concentric Tubes
+In order to 
+
 <video src="../media/Tube_concentric/tube_Trim.mp4" width="75%" controls autoplay loop></video>
 
 
@@ -93,8 +100,9 @@ This method was tested through both simulations and experimentations and **perfo
 | $\gamma$ | 118 $\mu$rad. | $\pi/8$ rad.     |
 
 # Planning of a Robot with ROS
+In order to 
 <img src="../media/industrial_ROS/kukaros1.png" width="50%">
-
+In order to 
 <img src="../media/industrial_ROS/kukaros2.png" width="50%">
 
 
