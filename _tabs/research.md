@@ -27,7 +27,8 @@ Theoretical Part developed in progress of publication, finishing the 3D design m
 
 Performances study on the most resolute planar continuum robot with the largest range of actuation
 
-<video src="../media/parallel_robots/first_prototype_tricept_Trim.mp4" width="75%" controls autoplay loop></video>
+<video src="../media/parallel_robots/stewart_gripper1_Trim.mp4" width="75%" controls autoplay loop></video>
+
 
 Research was conducted by Benjamin Mauzé during his PhD and showed the nanometric resolutions of the robot with a centimetric range.
 
@@ -66,9 +67,6 @@ Example
 
 ## Design of a Parallel Redundant Hand
 <video src="../media/parallel_robots/stewart_gripper1_Trim.mp4" width="75%" controls autoplay loop></video>
-
-# Analysis of Redundancies in Parallel Robots
-<video src="../media/Stewart_platform/hexapo-sim2_Trim.mp4" width="75%" controls autoplay loop></video>
 
 
 ## High resolution alignment
