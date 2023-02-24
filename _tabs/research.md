@@ -50,13 +50,13 @@ This method of highly resolute force sensing has notably been studied by Guelpa 
 <img src="../media/papers/parallel_robot/combined_parallel.png" width="100%">
 
 
-
+[1] Aruquipa G. , Rojas G. (2021). **Design and Implementation of a Delta Robot Based on FPGA for the Automation of the Collection of Solid Products.** _IEEE/ICIEAM_. DOI [10.1109/ICIEAM51226.2021.9446417](https://doi.org/10.1109/ICIEAM51226.2021.9446417.)
 ### Optimization of the materials
 
 More recently, Bhwanath Tiwari extended the degrees of freedom of force - displacement sensors by creating a compliant structure with embedding a **large range periodic pattern** to measure 3 DoF forces and torque with a nano-Newton resolution.
 
-Example
-[3] Tiwari, B., Blot, M., Laurent, G. J., Agnus, J., Sandoz, P., Lutz, P., & Clevy, C. T. (2021). **A High Range-to-Resolution Multi-axis Force and Torque Sensing Platform.** _IEEE/ASME Transactions on Mechatronics_. DOI [10.1109/TMECH.2021.3071444](https://doi.org/10.1109/TMECH.2021.3071444)
+
+[2] Aruquipa G. , Rojas G. (2021). **Design And Manufacture of A Delta Type Parallel Robot from the Study of Materials.** _IEEE/ICMIMT_. DOI [10.1109/TMECH.2021.3071444](https://doi.org/10.1109/ICMIMT52186.2021.9476134)
 
 ## Design of a Tricept Model 
 In order to 
@@ -71,6 +71,7 @@ In order to
 In order to 
 <img src="../media/papers/parallel_robot/bio_inpired_architecture.png" width="100%">
 
+[3] Aruquipa G. , Diaz G. (2022). **An IoT architecture based on the control of Bio Inspired manufacturing system for the detection of anomalies with vibration sensors.** _Procedia Computer Science_. DOI [10.1016/j.procs.2022.01.242](https://doi.org/10.1016/j.procs.2022.01.242)
 
 # Trading with Reinforcement learning
 In order to 
@@ -80,6 +81,7 @@ In order to
 
 <img src="../media/papers/trading/trading_1.png" width="50%">
 
+[4] Aruquipa G. , Rojas G. (2021). **Analysis of Algorithmic Trading with Q-Learning in the Forex Market.** _IEEE_. DOI [10.1109/ESCI50559.2021.9396948](https://doi.org/10.1109/ESCI50559.2021.9396948)
 
 ## Tube Concentric Tubes
 In order to 
