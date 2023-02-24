@@ -19,19 +19,6 @@ math: true
 
 <video src="../media/parallel_robots/first_prototype_tricept_Trim.mp4" width="75%" controls autoplay loop></video>
 
-## Performances
-
-This method was tested through both simulations and experimentations and **performances of pose measurement resolutions** can be summarized as follow:
-
-| Axis     | Resolution    | Range of measure |
-| -------- | ------------- | ---------------- |
-| $x$      | 1 nm          | 11.6 cm          |
-| $y$      | 1 nm          | 11.6 cm          |
-| $z$      | < 0.1 mm      | /                |
-| $\alpha$ | 4.1 $\mu$rad. | $2\pi$ rad.      |
-| $\beta$  | 120 $\mu$rad. | $\pi/8$ rad.     |
-| $\gamma$ | 118 $\mu$rad. | $\pi/8$ rad.     |
-
 ## Theory behind the pose measurement method
 
 The methods of pose measurement based on the periodic patterns phase evolution are detailled in the following posts:
@@ -56,7 +43,7 @@ To provide as much explanations as possible on the method of pose measurement ba
 
 ![](../media/industrial_ROS/kukaros1.PNG)
 
-# Applications to microrobotics
+# Projects Related to Parallel Robots
 
 ## Microrobot calibration
 
@@ -90,3 +77,28 @@ More recently, Bhwanath Tiwari extended the degrees of freedom of force - displa
 [3] Tiwari, B., Blot, M., Laurent, G. J., Agnus, J., Sandoz, P., Lutz, P., & Clevy, C. T. (2021). **A High Range-to-Resolution Multi-axis Force and Torque Sensing Platform.** _IEEE/ASME Transactions on Mechatronics_. DOI [10.1109/TMECH.2021.3071444](https://doi.org/10.1109/TMECH.2021.3071444)
 
 ## High resolution alignment
+# Bio=Inspired Control Systems
+
+
+# Trading with Reinforcenment learning
+
+
+## Performances
+
+This method was tested through both simulations and experimentations and **performances of pose measurement resolutions** can be summarized as follow:
+
+| Axis     | Resolution    | Range of measure |
+| -------- | ------------- | ---------------- |
+| $x$      | 1 nm          | 11.6 cm          |
+| $y$      | 1 nm          | 11.6 cm          |
+| $z$      | < 0.1 mm      | /                |
+| $\alpha$ | 4.1 $\mu$rad. | $2\pi$ rad.      |
+| $\beta$  | 120 $\mu$rad. | $\pi/8$ rad.     |
+| $\gamma$ | 118 $\mu$rad. | $\pi/8$ rad.     |
+
+# Planning of a Robot with ROS
+
+
+# Radio frecuency Systems
+
+
