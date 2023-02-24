@@ -97,8 +97,8 @@ This method was tested through both simulations and experimentations and **perfo
 | $\gamma$ | 118 $\mu$rad. | $\pi/8$ rad.     |
 
 # Planning of a Robot with ROS
-
+In tihs section is presented
 
 # Radio frecuency Systems
-
+In this section is presented
 
