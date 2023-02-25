@@ -96,8 +96,7 @@ The **parameter for the simulation of the tube concentric Robot** can be summari
 | $Tube_ 2$      | 0.6123 $\mu$m          | 11.02           | 0.155 m          |
 | $Tube_3$      | 0.6123 $\mu$m      | 11.02                |  0.12 m        |
 
-In this way the equation to calculate the possition of the tube concentric robot is: 
-$x=1/k (1-cos(\phi))$, $y=1/k sin(\theta)$ and $z=0$
+
 # Planning of a KUKA Robot with ROS
 In order to 
 
