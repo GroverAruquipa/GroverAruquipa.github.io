@@ -73,46 +73,71 @@ In order to apply the method **TRIZ**, which is well explained in the following 
 For this project the full Report is available in the following link [Report](https://github.com/GroverAruquipa/Innovation2) and the model designed in the software Solidworks is available in the following link [3D_parallel_ Hand_Model](https://grabcad.com/library/stewart-manipulator-1).
 
 # Bio Inspired Control Systems
-In order to 
+## An IoT architecture based on the control of Bio Inspired manufacturing system for the detection of anomalies with vibration sensors
+In this work is is implemented an Iot architecture based on the control of a Bio Inspired manufacturing system, where the vibration sensors are used to detect anomalies in the system. The following figure shows the architecture of the system, where the vibration sensors are used to detect the anomalies in the system, and the Raspberry pi is used to control the system, the architectures observed below:
 <img src="../media/papers/parallel_robot/bio_inpired_architecture.png" width="100%">
+This architecture was implemented in order to observe the vibration parameters of a DC motor in a belt conveyor, using the vibration sensors, as a feedback in the descentrealized control system. The foll work is based on the following publication:
 
 [3] Aruquipa G. , Diaz G. (2022). **An IoT architecture based on the control of Bio Inspired manufacturing system for the detection of anomalies with vibration sensors.** _Procedia Computer Science_. DOI [10.1016/j.procs.2022.01.242](https://doi.org/10.1016/j.procs.2022.01.242)
 
 # Trading with Reinforcement learning
-In order to 
+
+This work shows an implementation of Deep
+reinforcement learning in currency pairs for the FOREX
+currency market, using deep learning techniques combined with
+reinforced learning, profit is obtained using databases extracted
+from recent years, the results found are analyzed, such as the loss
+function, compensation and behavior. of the system.
+
 <img src="../media/papers/trading/rewards_1.png" width="50%">
 
-In order to 
+In the following table, It's possible to observe the results of the trading system, where the **reward** is the profit obtained in the trading system, and the **loss** is the loss obtained in the trading system. Therefore, its presented an algorithm working in a stochastic behavioral.
 
 <img src="../media/papers/trading/trading_1.png" width="50%">
+
+Finally, the results are presented in the following publication:
 
 [4] Aruquipa G. , Rojas G. (2021). **Analysis of Algorithmic Trading with Q-Learning in the Forex Market.** _IEEE_. DOI [10.1109/ESCI50559.2021.9396948](https://doi.org/10.1109/ESCI50559.2021.9396948)
 
 ## Tube Concentric Robots
-In order to 
+
+In this project, a deformable robot called Tube concentric Robot was explored, where the direct kinematics and a simulation carried out in Matalb were analyzed, which validates this step. The following video shows the simulation of the robot in the software Matlab, in order to understand the direct kinematics of the robot.
 
 <video src="../media/Tube_concentric/tube_Trim.mp4" width="75%" controls autoplay loop></video>
 
-
+Additionally the parameters of the robot were analyzed, where the following table shows the parameters of the robot, where the **t** is the thickness of the tube, the **c** is the curvature of the tube and the **d** is the distance between the tubes.
 
 The **parameter for the simulation of the tube concentric Robot** can be summarized as follows:
 
+| Number Tube     | t    | c | d |
+| -------- | ------------- | ---------------- | ---------------- |
+| $Tube_1$      | 0.6123 $\mu$m          | 13.94          | 0.12 m          |
+| $Tube_ 2$      | 0.6123 $\mu$m          | 11.02           | 0.155 m          |
+| $Tube_3$      | 0.6123 $\mu$m      | 11.02                |  0.12 m        |
 
-In this way the equation to calculate the position of the tube concentric robot is: 
+In this way the implemented code is abvailable in the following link [Tube_concentric](https://github.com/GroverAruquipa/Micro_robotics_TPs) and the full report is available in the following link [Report](https://github.com/GroverAruquipa/Microrobotics_tp22)
 
 # Planning of a KUKA Robot with ROS
-In order to 
+This work is an implementation of a KUKA robot with ROS, using the package **kuka_experimental**, where the robot is controlled with the package **moveit**. The following video shows the simulation of the robot in the software Gazebo, where is possible to understand the inverse kinematics of the robot. 
 
 <img src="../media/Industrial_ROS/kukaros1.png" width="50%">
 
-In order to 
+Additionally, is used pytorch in order to use **YOLO** in order to detect the objects in the environment, where the following image shows the simulation of the robot in the software Gazebo, the interest3ing part is the detection of the objects in the environment and the planning of the robot in order to avoid the objects. and follow the center of the object.
 
 <img src="../media/Industrial_ROS/kukaros2.png" width="50%">
 
+The full code is available in the following link [KUKA_ROS](https://github.com/GroverAruquipa/kuka_ros_yolo), where is presented different packages of the robot, based on the **kuka_experimental** package.
 
 # Radio frecuency Systems
-In this section is presented
+
+This project presents an applicacion of the GNU Radio, in order to characterize the radio frecuency systems, using the Raspberry Pi 4, and the communication between the Raspberry Pi 4 and the PC, using sockets in order to run an external interface developed using **Tkinter**. The following video shows the simulation of the robot in the software Gazebo, where is possible to understand the inverse kinematics of the robot.
 <video src="../media/GNU_Radio/GNU1_Trim.mp4" width="75%" controls autoplay loop></video>
 
+The following image sohws the communication between the Raspberry Pi 4 and the PC, where the Raspberry Pi 4 is used to control the GNU Radio, and the PC is used to control the external interface developed using **Tkinter**.
+
+<img src="../media/GNU_Radio/scheme3a.png" width="50%">
 
 
+<img src="../media/GNU_Radio/second.png" width="50%">
+
+In this way, the final report and the implemented codes is available in the following link [frequency](https://github.com/GroverAruquipa/PROJECT_M1_Report) , by this way this project was developed, based in the work presented in the following link [Report](http://jmfriedt.free.fr/) where is available the instructions to implement the project.
