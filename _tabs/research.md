@@ -131,7 +131,7 @@ The full code is available in the following link [KUKA_ROS](https://github.com/G
 # Radio frequency Systems
 
 This project presents an application of the GNU Radio, in order to characterize the radio frecuency systems, using the Raspberry Pi 4, and the communication between the Raspberry Pi 4 and the PC, using sockets in order to run an external interface developed using **Tkinter**. The following video shows the simulation of the robot in the software Gazebo, where is possible to understand the inverse kinematics of the robot.
-<video src="../media/GNU_Radio/GNU1_Trim.mp4" width="75%" controls autoplay loop></video>
+<video src="../media/GNU_Radio/GNU1_Trim.mp4" width="75%" ></video>
 
 The following image shows the communication between the Raspberry Pi 4 and the PC, where the Raspberry Pi 4 is used to control the GNU Radio, and the PC is used to control the external interface developed using **Tkinter**.
 
