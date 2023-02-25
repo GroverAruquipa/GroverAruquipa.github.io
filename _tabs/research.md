@@ -74,9 +74,9 @@ For this project the full Report is available in the following link [Report](htt
 
 # Bio Inspired Control Systems
 ## An IoT architecture based on the control of Bio Inspired manufacturing system for the detection of anomalies with vibration sensors
-In this work is is implemented an Iot architecture based on the control of a Bio Inspired manufacturing system, where the vibration sensors are used to detect anomalies in the system. The following figure shows the architecture of the system, where the vibration sensors are used to detect the anomalies in the system, and the Raspberry pi is used to control the system, the architectures observed below:
+In this work is implemented an Iot architecture based on the control of a Bio Inspired manufacturing system, where the vibration sensors are used to detect anomalies in the system. The following figure shows the architecture of the system, where the vibration sensors are used to detect the anomalies in the system, and the Raspberry pi is used to control the system, the architectures observed below:
 <img src="../media/papers/parallel_robot/bio_inpired_architecture.png" width="100%">
-This architecture was implemented in order to observe the vibration parameters of a DC motor in a belt conveyor, using the vibration sensors, as a feedback in the descentrealized control system. The foll work is based on the following publication:
+This architecture was implemented in order to observe the vibration parameters of a DC motor in a belt conveyor, using the vibration sensors, as feedback in the descentrealized control system. The foll work is based on the following publication:
 
 [3] Aruquipa G. , Diaz G. (2022). **An IoT architecture based on the control of Bio Inspired manufacturing system for the detection of anomalies with vibration sensors.** _Procedia Computer Science_. DOI [10.1016/j.procs.2022.01.242](https://doi.org/10.1016/j.procs.2022.01.242)
 
@@ -87,7 +87,7 @@ reinforcement learning in currency pairs for the FOREX
 currency market, using deep learning techniques combined with
 reinforced learning, profit is obtained using databases extracted
 from recent years, the results found are analyzed, such as the loss
-function, compensation and behavior. of the system.
+function, compensation and behavior. Of the system.
 
 <img src="../media/papers/trading/rewards_1.png" width="50%">
 
@@ -122,18 +122,18 @@ This work is an implementation of a KUKA robot with ROS, using the package **kuk
 
 <img src="../media/Industrial_ROS/kukaros1.png" width="50%">
 
-Additionally, is used pytorch in order to use **YOLO** in order to detect the objects in the environment, where the following image shows the simulation of the robot in the software Gazebo, the interest3ing part is the detection of the objects in the environment and the planning of the robot in order to avoid the objects. and follow the center of the object.
+Additionally, is used pytorch in order to use **YOLO** in order to detect the objects in the environment, where the following image shows the simulation of the robot in the software Gazebo, the interest3ing part is the detection of the objects in the environment and the planning of the robot in order to avoid the objects. And follow the center of the object.
 
 <img src="../media/Industrial_ROS/kukaros2.png" width="50%">
 
 The full code is available in the following link [KUKA_ROS](https://github.com/GroverAruquipa/kuka_ros_yolo), where is presented different packages of the robot, based on the **kuka_experimental** package.
 
-# Radio frecuency Systems
+# Radio frequency Systems
 
-This project presents an applicacion of the GNU Radio, in order to characterize the radio frecuency systems, using the Raspberry Pi 4, and the communication between the Raspberry Pi 4 and the PC, using sockets in order to run an external interface developed using **Tkinter**. The following video shows the simulation of the robot in the software Gazebo, where is possible to understand the inverse kinematics of the robot.
+This project presents an application of the GNU Radio, in order to characterize the radio frecuency systems, using the Raspberry Pi 4, and the communication between the Raspberry Pi 4 and the PC, using sockets in order to run an external interface developed using **Tkinter**. The following video shows the simulation of the robot in the software Gazebo, where is possible to understand the inverse kinematics of the robot.
 <video src="../media/GNU_Radio/GNU1_Trim.mp4" width="75%" controls autoplay loop></video>
 
-The following image sohws the communication between the Raspberry Pi 4 and the PC, where the Raspberry Pi 4 is used to control the GNU Radio, and the PC is used to control the external interface developed using **Tkinter**.
+The following image shows the communication between the Raspberry Pi 4 and the PC, where the Raspberry Pi 4 is used to control the GNU Radio, and the PC is used to control the external interface developed using **Tkinter**.
 
 <img src="../media/GNU_Radio/scheme3a.png" width="50%">
 
