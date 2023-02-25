@@ -58,14 +58,16 @@ Additionally, We were focused on the construction of the Delta Robot, where we o
 [2] Aruquipa G. , Rojas G. (2021). **Design And Manufacture of A Delta Type Parallel Robot from the Study of Materials.** _IEEE/ICMIMT_. DOI [10.1109/TMECH.2021.3071444](https://doi.org/10.1109/ICMIMT52186.2021.9476134)
 
 ## Design of a Tricept Parallel Robot 
-In order to analyze the parallel robots with redundancies, the tricept-like model was analyzed, where the inverse kinematics was analyzed and the simulation was performed in the software Solidworks. The following video shows the simulation of the robot in the software Solidworks, in order to understand the inverse kinematics of the robot.vased in prismatic joints.
+In order to analyze the parallel robots with redundancies, the parallel tricept model was analyzed, where the inverse kinematics was analyzed and the simulation was performed in the software Solidworks. The following video shows the simulation of the robot in the software Solidworks, in order to understand the inverse kinematics of the robot.vased in prismatic joints.
 <video src="../media/parallel_robots/first_prototype_tricept_Trim.mp4" width="75%" controls autoplay loop></video>
-This model was designed following the publication of the following link [Tricept](https://www.researchgate.net/publication/2281005_A_New_Tricept-Like_Robot_with_Three_Prismatic_Joints_and_Three_Rotational_Joints). 
+
+This model was designed following the publication of the following link [Tricept_model](https://www.researchgate.net/publication/2281005_A_New_Tricept-Like_Robot_with_Three_Prismatic_Joints_and_Three_Rotational_Joints). 
 And the grabcad repository is available in the following link [3DTricept](https://grabcad.com/library/first-tricept-model-1).
 
 
 ## Design of a Parallel Redundant Hand based in the Stewart Platform
 In order to apply the method **TRIZ**, which is well explained in the following link [TRIZ](https://www.triz-journal.com/), in order to create a new parallel robot, the **Stewart Platform** was analyzed, where the **redundancies** of the platform were analyzed, therefore designing an innovation process in order create a robotic hand with the same characteristics of the Stewart Platform, but with a **higher stiffness** and **higher dexterity**. The following video shows the simulation of the robot in the software Solidworks.
+
 <video src="../media/parallel_robots/stewart_gripper1_Trim.mp4" width="75%" controls autoplay loop></video>
 
 For this project the full Report is available in the following link [Report](https://github.com/GroverAruquipa/Innovation2) and the model designed in the software Solidworks is available in the following link [3D_parallel_ Hand_Model](https://grabcad.com/library/stewart-manipulator-1).
@@ -101,7 +103,7 @@ The **parameter for the simulation of the tube concentric Robot** can be summari
 | $Tube_ 2$      | 0.6123 $\mu$m          | 11.02           | 0.155 m          |
 | $Tube_3$      | 0.6123 $\mu$m      | 11.02                |  0.12 m        |
 
-In this way the equation to calculate the possition of the tube concentric robot is: 
+In this way the equation to calculate the position of the tube concentric robot is: 
 
 # Planning of a KUKA Robot with ROS
 In order to 
