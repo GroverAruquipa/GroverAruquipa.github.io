@@ -1,6 +1,6 @@
 ---
-layout: tags
-icon: fas fa-tag
+title: Curriculum Vitae
+icon: fas fa-graduation-cap
 order: 2
 ---
 
@@ -13,7 +13,7 @@ order: 2
 |-----------------------|---------------------------------------------|
 | **2021 - 2023** | **M. Sc. In Electrical Engineer:Smart Integrated Systems** |
 | | *UBFC (Burgundy Franche-Comté University)* |
-| **2019 - going** | **Master in Mechatronics Systems** |
+| **2019 - Ongoing** | **Master in Mechatronics Systems** |
 | | *UCB (Bolivian Catholic University)* |
 | **2014 - 2019** | **Engineering degree in mechatronics** |
 | | *UCB (Bolivian Catholic University)* |
