@@ -30,18 +30,16 @@ Performances study on the most resolute planar continuum robot with the largest 
 <video src="../media/Stewart_platform/hexapo-sim2_Trim.mp4" width="75%" controls autoplay loop></video>
 
 
-Research was conducted by Benjamin Mauzé during his PhD and showed the nanometric resolutions of the robot with a centimetric range.
-
+This work is available in X, where 
 
 
 ## Design and Optimization of a Delta Robot
 
 ### General Design
 
-Force sensing using compliant structures to link linearly the displacement and the force is particularly interesting, especially when combined with the high resolution allowed by periodic patterns pose sensing.
 
-This method of highly resolute force sensing has notably been studied by Guelpa to provide a sensor with a range of 50 mN with a resolution of 5 nM.
 
+In this work, was analyzed a manufacturer system, based in a Delta Robot. Therefore, It's possible to observe in the following figure how the system is developed, finding the inverse kinematics of the delta robot, the belt conveyors and a decentralized system.
 
 <img src="../media/papers/parallel_robot/full_delta.png" width="50%">
 
@@ -83,25 +81,24 @@ In order to
 
 [4] Aruquipa G. , Rojas G. (2021). **Analysis of Algorithmic Trading with Q-Learning in the Forex Market.** _IEEE_. DOI [10.1109/ESCI50559.2021.9396948](https://doi.org/10.1109/ESCI50559.2021.9396948)
 
-## Tube Concentric Tubes
+## Tube Concentric Robots
 In order to 
 
 <video src="../media/Tube_concentric/tube_Trim.mp4" width="75%" controls autoplay loop></video>
 
 
 
-This method was tested through both simulations and experimentations and **performances of pose measurement resolutions** can be summarized as follow:
+The **parameter for the simulation of the tube concentric Robot** can be summarized as follows:
 
-| Axis     | Resolution    | Range of measure |
-| -------- | ------------- | ---------------- |
-| $x$      | 1 nm          | 11.6 cm          |
-| $y$      | 1 nm          | 11.6 cm          |
-| $z$      | < 0.1 mm      | /                |
-| $\alpha$ | 4.1 $\mu$rad. | $2\pi$ rad.      |
-| $\beta$  | 120 $\mu$rad. | $\pi/8$ rad.     |
-| $\gamma$ | 118 $\mu$rad. | $\pi/8$ rad.     |
+| Number Tube     | t    | c | d |
+| -------- | ------------- | ---------------- | ---------------- |
+| $Tube_1$      | 0.6123 $\mu$m          | 13.94          | 0.12 m          |
+| $Tube_ 2$      | 0.6123 $\mu$m          | 11.02           | 0.155 m          |
+| $Tube_3$      | 0.6123 $\mu$m      | 11.02                |  0.12 m        |
 
-# Planning of a Robot with ROS
+In this way the equation to calculate the possition of the tube concentric robot is: 
+$x=1/k (1-cos(\phi))$, $y=1/k sin(\theta)$ and $z=0$
+# Planning of a KUKA Robot with ROS
 In order to 
 
 <img src="../media/Industrial_ROS/kukaros1.png" width="50%">
