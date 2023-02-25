@@ -61,7 +61,7 @@ Additionally, We were focused on the construction of the Delta Robot, where we o
 In order to analyze the parallel robots with redundancies, the parallel tricept model was analyzed, where the inverse kinematics was analyzed and the simulation was performed in the software Solidworks. The following video shows the simulation of the robot in the software Solidworks, in order to understand the inverse kinematics of the robot.vased in prismatic joints.
 <video src="../media/parallel_robots/first_prototype_tricept_Trim.mp4" width="75%" controls autoplay loop></video>
 
-This model was designed following the publication of the following link [Tricept_model](https://www.researchgate.net/publication/2281005_A_New_Tricept-Like_Robot_with_Three_Prismatic_Joints_and_Three_Rotational_Joints). 
+This model was designed following the publication of the following link [Tricep_model](https://www.researchgate.net/publication/2281005_A_New_Tricept-Like_Robot_with_Three_Prismatic_Joints_and_Three_Rotational_Joints). 
 And the grabcad repository is available in the following link [3DTricept](https://grabcad.com/library/first-tricept-model-1).
 
 
@@ -97,11 +97,6 @@ In order to
 
 The **parameter for the simulation of the tube concentric Robot** can be summarized as follows:
 
-| Number Tube     | t    | c | d |
-| -------- | ------------- | ---------------- | ---------------- |
-| $Tube_1$      | 0.6123 $\mu$m          | 13.94          | 0.12 m          |
-| $Tube_ 2$      | 0.6123 $\mu$m          | 11.02           | 0.155 m          |
-| $Tube_3$      | 0.6123 $\mu$m      | 11.02                |  0.12 m        |
 
 In this way the equation to calculate the position of the tube concentric robot is: 
 
