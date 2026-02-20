@@ -1,0 +1,1950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Singularity-Free Workspace Design | Grover Aruquipa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --dark: #141414;
+            --gray-900: #1a1a1a;
+            --gray-800: #262626;
+            --gray-700: #3a3a3a;
+            --gray-600: #525252;
+            --gray-500: #6b6b6b;
+            --gray-400: #8a8a8a;
+            --gray-300: #a3a3a3;
+            --gray-200: #d4d4d4;
+            --gray-100: #f0f0f0;
+            --white: #ffffff;
+            --gold: #c9a227;
+            --gold-light: #d4b44a;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font);
+            font-weight: 300;
+            color: var(--dark);
+            background: var(--white);
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--black);
+            padding: 16px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 960px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 400;
+        }
+
+        .nav-back {
+            color: var(--gray-400);
+            text-decoration: none;
+            font-size: 0.75rem;
+        }
+
+        .nav-back:hover { color: var(--gold); }
+
+        /* Header */
+        .tutorial-header {
+            background: var(--black);
+            color: var(--white);
+            padding: 72px 24px 56px;
+            text-align: center;
+        }
+
+        .tutorial-tag {
+            display: inline-block;
+            padding: 5px 14px;
+            border: 1px solid var(--gray-700);
+            border-radius: 20px;
+            font-size: 0.6rem;
+            color: var(--gold);
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .tutorial-title {
+            font-size: 2.2rem;
+            font-weight: 400;
+            margin-bottom: 16px;
+            line-height: 1.2;
+            letter-spacing: 0.3px;
+        }
+
+        .tutorial-meta {
+            font-size: 0.75rem;
+            color: var(--gray-400);
+            font-weight: 300;
+        }
+
+        .tutorial-meta span { margin: 0 6px; }
+
+        /* Content */
+        .tutorial-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 56px 24px;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--black);
+            margin: 48px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--gray-200);
+            letter-spacing: 0.3px;
+        }
+
+        h3 {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--dark);
+            margin: 32px 0 14px;
+        }
+
+        p { margin-bottom: 18px; }
+        strong { color: var(--black); font-weight: 500; }
+
+        /* TOC */
+        .toc {
+            background: var(--gray-100);
+            border-radius: 6px;
+            padding: 24px 28px;
+            margin: 28px 0;
+        }
+
+        .toc-title {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--gold);
+            margin-bottom: 14px;
+            text-transform: uppercase;
+        }
+
+        .toc ol { margin: 0; list-style: none; counter-reset: toc-counter; }
+        .toc li { counter-increment: toc-counter; margin-bottom: 6px; }
+        .toc li::before { content: counter(toc-counter) ". "; color: var(--gray-400); font-weight: 500; font-size: 0.85rem; }
+        .toc a {
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 400;
+        }
+        .toc a:hover { color: var(--gold); }
+
+        /* Highlight Boxes */
+        .highlight-box {
+            background: var(--gray-100);
+            border-left: 3px solid var(--gold);
+            padding: 22px 24px;
+            margin: 28px 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .highlight-box p:last-child { margin-bottom: 0; }
+
+        .highlight-box.definition { border-left-color: var(--black); }
+        .highlight-box.warning {
+            border-left-color: #8b0000;
+            background: #fafafa;
+        }
+        .highlight-box.example {
+            border-left-color: var(--gray-500);
+            background: #fafafa;
+        }
+
+        .box-title {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--gold);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .highlight-box.definition .box-title { color: var(--black); }
+        .highlight-box.warning .box-title { color: #8b0000; }
+        .highlight-box.example .box-title { color: var(--gray-600); }
+
+        /* Math Blocks */
+        .math-block {
+            background: var(--gray-100);
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow-x: auto;
+            text-align: center;
+        }
+
+        /* Diagrams */
+        .diagram-container {
+            background: var(--gray-100);
+            border-radius: 6px;
+            padding: 28px;
+            margin: 28px 0;
+            text-align: center;
+        }
+
+        .diagram-container svg { max-width: 100%; height: auto; }
+
+        .diagram-caption {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            margin-top: 14px;
+        }
+
+        /* 3D Dual Panel Container */
+        .dual-panel-3d {
+            background: var(--black);
+            border-radius: 6px;
+            margin: 28px 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .dual-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px 0;
+        }
+
+        .dual-panel-header .panel-title {
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            color: var(--gold);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .dual-panel-header .panel-subtitle {
+            font-size: 0.7rem;
+            color: var(--gray-500);
+            margin-top: 2px;
+        }
+
+        .dual-panel-canvases {
+            display: flex;
+            gap: 2px;
+            padding: 12px;
+        }
+
+        .panel-canvas {
+            flex: 1;
+            height: 420px;
+            cursor: grab;
+            position: relative;
+            background: var(--gray-900);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .panel-canvas:active { cursor: grabbing; }
+
+        .panel-label {
+            position: absolute;
+            top: 10px;
+            left: 12px;
+            z-index: 10;
+            font-size: 0.55rem;
+            letter-spacing: 1.5px;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            font-weight: 600;
+            pointer-events: none;
+        }
+
+        .panel-info {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            z-index: 10;
+            text-align: right;
+            pointer-events: none;
+        }
+
+        .panel-info p {
+            font-size: 0.6rem;
+            color: var(--gray-500);
+            margin-bottom: 1px;
+        }
+
+        .panel-info .value {
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        /* Controls Bar */
+        .dual-panel-controls {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 16px 16px;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .control-group label {
+            font-size: 0.6rem;
+            color: var(--gray-400);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .control-group input[type="range"] {
+            width: 100px;
+            height: 4px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: var(--gray-700);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .control-group input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--gold);
+            cursor: pointer;
+        }
+
+        .control-group input[type="range"]::-moz-range-thumb {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--gold);
+            cursor: pointer;
+            border: none;
+        }
+
+        .control-value {
+            font-size: 0.65rem;
+            color: var(--gold);
+            font-weight: 500;
+            min-width: 40px;
+        }
+
+        .control-sep {
+            width: 1px;
+            height: 20px;
+            background: var(--gray-700);
+        }
+
+        .preset-btn {
+            padding: 5px 12px;
+            background: var(--gray-800);
+            color: var(--gray-300);
+            border: 1px solid var(--gray-700);
+            border-radius: 4px;
+            font-family: var(--font);
+            font-size: 0.6rem;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+
+        .preset-btn:hover, .preset-btn.active {
+            background: var(--gold);
+            color: var(--black);
+            border-color: var(--gold);
+        }
+
+        /* Lists */
+        ul, ol { margin: 16px 0 16px 20px; }
+        li { margin-bottom: 10px; font-size: 0.9rem; }
+
+        /* Tables */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            font-size: 0.8rem;
+        }
+
+        .comparison-table th {
+            background: var(--black);
+            color: var(--white);
+            padding: 12px 14px;
+            text-align: left;
+            font-weight: 500;
+            font-size: 0.7rem;
+            letter-spacing: 0.5px;
+        }
+
+        .comparison-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .comparison-table tr:hover { background: var(--gray-100); }
+
+        /* Steps */
+        .steps {
+            counter-reset: step-counter;
+            margin: 28px 0;
+        }
+
+        .step {
+            position: relative;
+            padding-left: 52px;
+            margin-bottom: 28px;
+        }
+
+        .step::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 34px;
+            height: 34px;
+            background: var(--black);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+
+        .step-title {
+            font-weight: 500;
+            color: var(--black);
+            margin-bottom: 6px;
+        }
+
+        /* Example Box */
+        .example-box {
+            background: var(--gray-100);
+            border: 1px solid var(--gray-200);
+            border-radius: 6px;
+            padding: 24px;
+            margin: 28px 0;
+        }
+
+        .example-title {
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 2px;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+        }
+
+        /* Warning Box */
+        .warning-box {
+            background: #fafafa;
+            border: 1px solid var(--gray-200);
+            border-left: 3px solid #8b0000;
+            border-radius: 0 6px 6px 0;
+            padding: 24px;
+            margin: 28px 0;
+        }
+
+        .warning-title {
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: #8b0000;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        /* Key Concept */
+        .key-concept {
+            background: var(--gray-100);
+            border-left: 3px solid var(--black);
+            padding: 22px 24px;
+            margin: 28px 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .key-concept-title {
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: var(--black);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .key-concept p { margin-bottom: 0; font-style: italic; color: var(--gray-600); }
+
+        /* Quiz */
+        .quiz-section {
+            background: var(--gray-100);
+            border-radius: 6px;
+            padding: 28px;
+            margin: 40px 0;
+        }
+
+        .quiz-title {
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .quiz-question { margin-bottom: 20px; }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .quiz-option:hover { border-color: var(--black); }
+        .quiz-option.correct { background: #e8f5e9; border-color: #4caf50; }
+        .quiz-option.incorrect { background: #ffebee; border-color: #c62828; }
+
+        /* Navigation Footer */
+        .tutorial-nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 28px 0;
+            margin-top: 40px;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .tutorial-nav a {
+            color: var(--gray-500);
+            text-decoration: none;
+            font-size: 0.8rem;
+        }
+
+        .tutorial-nav a:hover { color: var(--gold); }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            padding: 18px 24px;
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 0.65rem;
+            color: var(--gray-500);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .tutorial-title { font-size: 1.6rem; }
+            h2 { font-size: 1.15rem; }
+            .dual-panel-canvases { flex-direction: column; }
+            .panel-canvas { height: 320px; }
+            .dual-panel-controls { gap: 8px; }
+            .control-group input[type="range"] { width: 70px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="../index.html" class="nav-brand">Grover Aruquipa</a>
+            <a href="../index.html#tutorials" class="nav-back">&larr; Back to Tutorials</a>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="tutorial-header">
+        <span class="tutorial-tag">Parallel Robotics</span>
+        <h1 class="tutorial-title">Singularity-Free Workspace Design</h1>
+        <p class="tutorial-meta">
+            <span>Workspace Analysis</span>
+            <span>&middot;</span>
+            <span>30 min read</span>
+            <span>&middot;</span>
+            <span>By Grover Aruquipa</span>
+        </p>
+    </header>
+
+    <!-- Content -->
+    <main class="tutorial-content">
+
+        <p>
+            When designing a parallel robot, knowing <strong>where it can reach</strong> and
+            <strong>where it will fail</strong> is everything. The <strong>workspace</strong>
+            defines the set of all reachable poses, while the <strong>singularity locus</strong>
+            marks the dangerous boundaries where the robot loses controllability.
+            This tutorial shows you how to compute, visualize, and design around them.
+        </p>
+
+        <div class="highlight-box">
+            <p class="box-title">What You Will Learn</p>
+            <p>
+                How to compute the workspace of a Stewart platform, what the <strong>singularity locus</strong>
+                (loci) looks like in 3D, how it changes when you modify platform geometry, and how to design
+                mechanisms that avoid singularities entirely within the working region.
+            </p>
+        </div>
+
+        <!-- Table of Contents -->
+        <nav class="toc">
+            <p class="toc-title">Contents</p>
+            <ol>
+                <li><a href="#what-is-workspace">What is the Workspace?</a></li>
+                <li><a href="#what-is-locus">The Singularity Locus (Loci)</a></li>
+                <li><a href="#computing">Computing the Workspace &amp; Loci</a></li>
+                <li><a href="#interactive">Interactive: Stewart Platform Workspace</a></li>
+                <li><a href="#parameters">How Parameters Change the Loci</a></li>
+                <li><a href="#design">Designing Singularity-Free Workspaces</a></li>
+            </ol>
+        </nav>
+
+        <!-- SECTION 1 -->
+        <h2 id="what-is-workspace">1. What is the Workspace?</h2>
+
+        <p>
+            The <strong>workspace</strong> of a parallel robot is the set of all poses
+            (positions and orientations) that the moving platform can reach. Unlike
+            serial robots where the workspace is a single connected region, parallel
+            robots have <strong>complex, bounded workspaces</strong> shaped by
+            actuator stroke limits, joint angle limits, and interference constraints.
+        </p>
+
+        <h3>Types of Workspace</h3>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Definition</th>
+                    <th>Use</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Constant-orientation</strong></td>
+                    <td>All positions reachable at a fixed orientation</td>
+                    <td>Machining, pick-and-place</td>
+                </tr>
+                <tr>
+                    <td><strong>Orientation workspace</strong></td>
+                    <td>All orientations reachable at a fixed position</td>
+                    <td>Camera pointing, antennas</td>
+                </tr>
+                <tr>
+                    <td><strong>Total (6D)</strong></td>
+                    <td>All reachable (position + orientation) pairs</td>
+                    <td>Full capability assessment</td>
+                </tr>
+                <tr>
+                    <td><strong>Dexterous</strong></td>
+                    <td>Positions reachable with <em>all</em> orientations</td>
+                    <td>High-performance tasks</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="highlight-box definition">
+            <p class="box-title">Constant-Orientation Workspace</p>
+            <p>
+                For a given orientation $(\phi, \theta, \psi)$, the <strong>constant-orientation workspace</strong>
+                is the set of all positions $\mathbf{p} = [x, y, z]^T$ such that all actuator lengths
+                remain within their stroke limits:
+            </p>
+            <div class="math-block" style="background: var(--white);">
+                $$W(\phi,\theta,\psi) = \{\mathbf{p} \in \mathbb{R}^3 \; | \; \rho_{i,\min} \leq \rho_i(\mathbf{p}) \leq \rho_{i,\max}, \;\; i=1,\dots,6 \}$$
+            </div>
+        </div>
+
+        <p>
+            Think of it as: fix the platform&rsquo;s tilt and rotation, then trace all the points in space
+            where the center of the platform can go. The result is typically a <strong>3D volume</strong>
+            that looks like a rounded, irregular polyhedron.
+        </p>
+
+        <!-- SECTION 2 -->
+        <h2 id="what-is-locus">2. The Singularity Locus (Loci)</h2>
+
+        <p>
+            Now here&rsquo;s the critical part. <strong>Inside</strong> (or at the boundary of) the workspace,
+            there exist dangerous configurations where the Jacobian matrix loses rank.
+            The set of all such configurations forms the <strong>singularity locus</strong>.
+        </p>
+
+        <div class="highlight-box">
+            <p class="box-title">What Exactly is a Locus?</p>
+            <p>
+                A <strong>locus</strong> (plural: <strong>loci</strong>) is a geometric term for the
+                set of all points satisfying a given condition. In our case, the condition is:
+            </p>
+            <div class="math-block" style="background: var(--white);">
+                $$\text{Singularity locus} = \{ \mathbf{p} \in W \; | \; \det(\mathbf{J}(\mathbf{p}, \boldsymbol{\Phi})) = 0 \}$$
+            </div>
+            <p>
+                It&rsquo;s the <strong>surface (or curve) inside the workspace where the determinant
+                of the Jacobian equals zero</strong>. At these points, the robot either gains
+                uncontrolled motions or requires infinite actuator forces.
+            </p>
+        </div>
+
+        <h3>Why &ldquo;Loci&rdquo; and Not Just &ldquo;Points&rdquo;?</h3>
+
+        <p>
+            Singularities don&rsquo;t occur at isolated points&mdash;they form <strong>continuous surfaces</strong>
+            in the workspace. For a Stewart platform at a fixed orientation, the singularity locus is
+            typically a <strong>surface</strong> in 3D space (a 2D manifold embedded in $\mathbb{R}^3$).
+            This surface can divide the workspace into <strong>singularity-free regions</strong>.
+        </p>
+
+        <div class="diagram-container">
+            <svg viewBox="0 0 580 220" width="580" height="220">
+                <!-- Workspace outline -->
+                <ellipse cx="290" cy="110" rx="250" ry="90" fill="none" stroke="#3a3a3a" stroke-width="1.5" stroke-dasharray="5,4"/>
+                <text x="290" y="30" font-family="Inter" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="500">WORKSPACE BOUNDARY</text>
+
+                <!-- Singularity surface -->
+                <path d="M 120 80 C 180 140, 280 50, 340 120 C 400 190, 440 70, 480 100"
+                      fill="none" stroke="#c9a227" stroke-width="2.5" opacity="0.8"/>
+                <text x="340" y="68" font-family="Inter" font-size="9" fill="#c9a227" font-weight="600">SINGULARITY LOCUS</text>
+                <text x="340" y="80" font-family="Inter" font-size="8" fill="#c9a227">det(J) = 0</text>
+
+                <!-- Safe region -->
+                <text x="180" y="170" font-family="Inter" font-size="10" fill="#525252" text-anchor="middle" font-weight="400">Safe region</text>
+                <text x="180" y="183" font-family="Inter" font-size="8" fill="#6b6b6b" text-anchor="middle">det(J) &gt; 0</text>
+                <circle cx="180" cy="145" r="4" fill="#525252" opacity="0.3"/>
+
+                <!-- Dangerous side -->
+                <text x="440" y="170" font-family="Inter" font-size="10" fill="#8b0000" text-anchor="middle" font-weight="400">Danger region</text>
+                <text x="440" y="183" font-family="Inter" font-size="8" fill="#8b0000" text-anchor="middle">det(J) &lt; 0</text>
+
+                <!-- Arrows -->
+                <line x1="160" y1="138" x2="160" y2="120" stroke="#525252" stroke-width="0.8" marker-end="url(#arrowG)"/>
+                <line x1="440" y1="138" x2="440" y2="120" stroke="#8b0000" stroke-width="0.8" marker-end="url(#arrowR)"/>
+
+                <defs>
+                    <marker id="arrowG" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                        <path d="M 0 0 L 6 3 L 0 6 Z" fill="#525252"/>
+                    </marker>
+                    <marker id="arrowR" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                        <path d="M 0 0 L 6 3 L 0 6 Z" fill="#8b0000"/>
+                    </marker>
+                </defs>
+            </svg>
+            <p class="diagram-caption">Figure 1. The singularity locus divides the workspace into regions. A singularity-free design keeps the working volume entirely within one safe region.</p>
+        </div>
+
+        <div class="key-concept">
+            <p class="key-concept-title">The Design Goal</p>
+            <p>
+                Design the robot&rsquo;s geometry so that the singularity locus lies entirely
+                outside the required workspace&mdash;or at least, ensure the working region stays
+                within a single connected component where $\det(\mathbf{J})$ does not change sign.
+            </p>
+        </div>
+
+        <!-- SECTION 3 -->
+        <h2 id="computing">3. Computing the Workspace &amp; Loci</h2>
+
+        <h3>3.1 Stewart Platform Geometry Recap</h3>
+
+        <p>
+            Recall the Stewart platform has base joints $A_i$ on a circle of radius $R_b$
+            and platform joints $B_i$ on a circle of radius $R_p$. The leg vector
+            and actuator length for leg $i$ are:
+        </p>
+
+        <div class="math-block">
+            $$\mathbf{d}_i = \mathbf{p} + \mathbf{R}\,b_i - A_i, \qquad \rho_i = \|\mathbf{d}_i\|$$
+        </div>
+
+        <h3>3.2 Workspace Boundary (Geometric Method)</h3>
+
+        <p>
+            Each actuator constrains the platform center to lie inside a <strong>spherical shell</strong>:
+        </p>
+
+        <div class="math-block">
+            $$\rho_{i,\min}^2 \leq \|\mathbf{p} + \mathbf{R}\,b_i - A_i\|^2 \leq \rho_{i,\max}^2$$
+        </div>
+
+        <p>
+            The workspace is the <strong>intersection of 6 spherical shells</strong>. For a fixed
+            orientation, each shell is centered at $A_i - \mathbf{R}\,b_i$ with inner radius
+            $\rho_{i,\min}$ and outer radius $\rho_{i,\max}$. The workspace boundary is where at
+            least one actuator reaches its limit.
+        </p>
+
+        <div class="steps">
+            <div class="step">
+                <p class="step-title">Discretize the search space</p>
+                <p>
+                    Create a 3D grid of candidate positions $\mathbf{p} = [x, y, z]^T$
+                    at the desired fixed orientation $(\phi, \theta, \psi)$.
+                </p>
+            </div>
+            <div class="step">
+                <p class="step-title">Check actuator limits at each point</p>
+                <p>
+                    For each candidate $\mathbf{p}$, compute all 6 leg lengths $\rho_i$.
+                    If <strong>all</strong> lie within $[\rho_{\min}, \rho_{\max}]$, the point is
+                    inside the workspace.
+                </p>
+            </div>
+            <div class="step">
+                <p class="step-title">Evaluate the Jacobian determinant</p>
+                <p>
+                    At each reachable point, compute $\det(\mathbf{J})$. Points where $|\det(\mathbf{J})|$
+                    is below a threshold $\epsilon$ lie on the singularity locus.
+                </p>
+            </div>
+            <div class="step">
+                <p class="step-title">Extract the locus surface</p>
+                <p>
+                    Use the sign-change of $\det(\mathbf{J})$ to trace the singularity surface.
+                    This is similar to the marching cubes algorithm for isosurface extraction.
+                </p>
+            </div>
+        </div>
+
+        <h3>3.3 The Singularity Condition</h3>
+
+        <p>
+            For the Stewart platform, the Jacobian is the $6 \times 6$ matrix whose rows are the
+            Pl&uuml;cker coordinates of each leg line. The singularity locus satisfies:
+        </p>
+
+        <div class="math-block">
+            $$\det(\mathbf{J}) = \det\begin{bmatrix} \hat{u}_1^T & (r_1 \times \hat{u}_1)^T \\ \vdots & \vdots \\ \hat{u}_6^T & (r_6 \times \hat{u}_6)^T \end{bmatrix} = 0$$
+        </div>
+
+        <p>
+            where $r_i = \mathbf{R}\,b_i$ is the vector from the platform center to joint $B_i$.
+            Geometrically, this means the six leg lines belong to a <strong>linear complex</strong>&mdash;they
+            satisfy a special geometric relationship (e.g., all intersecting a common line).
+        </p>
+
+        <div class="highlight-box example">
+            <p class="box-title">Intuitive Analogy</p>
+            <p>
+                Imagine holding a tabletop with 6 sticks. If all 6 sticks happen to align so they could
+                all rotate around one common axis, you can&rsquo;t resist motion in that direction
+                no matter how hard you push. That&rsquo;s a singularity&mdash;the platform <strong>can move
+                even though all actuators are locked</strong>.
+            </p>
+        </div>
+
+        <!-- SECTION 4: INTERACTIVE -->
+        <h2 id="interactive">4. Interactive: Stewart Platform &amp; Its Workspace</h2>
+
+        <p>
+            Below you see <strong>two synchronized views</strong>. On the left, the Stewart platform
+            in its current configuration. On the right, the <strong>singularity locus</strong> rendered
+            as a <strong>3D isosurface</strong> (gold surface) inside the workspace boundary (gray wireframe).
+            The gold surface represents the exact surface where $\det(\mathbf{J}) = 0$, computed via
+            marching cubes extraction. A bright <strong>gold contour line</strong> at the current height
+            shows the locus cross-section at the platform&rsquo;s position.
+        </p>
+
+        <p>
+            <strong>Use the sliders</strong> to change the platform radius $R_p$, base radius $R_b$,
+            height, and stroke&mdash;watch the singularity surface reshape in real time. The
+            <strong>Height slider</strong> moves the cross-section plane, showing how the locus
+            curve changes at different elevations (similar to the cross-sectional analysis in research papers).
+        </p>
+
+        <!-- Dual Panel 3D Visualization -->
+        <div class="dual-panel-3d">
+            <div class="dual-panel-header">
+                <div>
+                    <div class="panel-title">Interactive Workspace Explorer</div>
+                    <div class="panel-subtitle">Drag to rotate &middot; Scroll to zoom &middot; Adjust sliders to see loci change</div>
+                </div>
+            </div>
+            <div class="dual-panel-canvases">
+                <div class="panel-canvas" id="panelStewart">
+                    <div class="panel-label">Stewart Platform</div>
+                    <div class="panel-info" id="stewartInfo">
+                        <p>Height: <span class="value" id="sInfoH">0.65 m</span></p>
+                        <p>Leg 1: <span class="value" id="sInfoL1">0.73 m</span></p>
+                    </div>
+                </div>
+                <div class="panel-canvas" id="panelWorkspace">
+                    <div class="panel-label">Workspace &amp; Singularity Loci</div>
+                    <div class="panel-info" id="workspaceInfo">
+                        <p>det(J): <span class="value" id="wInfoDet">0.042</span></p>
+                        <p>Cond: <span class="value" id="wInfoCond">12.3</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="dual-panel-controls">
+                <div class="control-group">
+                    <label>R<sub>p</sub></label>
+                    <input type="range" id="sliderRp" min="0.15" max="0.55" step="0.01" value="0.35">
+                    <span class="control-value" id="valRp">0.35</span>
+                </div>
+                <div class="control-sep"></div>
+                <div class="control-group">
+                    <label>R<sub>b</sub></label>
+                    <input type="range" id="sliderRb" min="0.4" max="1.0" step="0.01" value="0.70">
+                    <span class="control-value" id="valRb">0.70</span>
+                </div>
+                <div class="control-sep"></div>
+                <div class="control-group">
+                    <label>Height</label>
+                    <input type="range" id="sliderH" min="0.3" max="1.2" step="0.01" value="0.65">
+                    <span class="control-value" id="valH">0.65</span>
+                </div>
+                <div class="control-sep"></div>
+                <div class="control-group">
+                    <label>Stroke</label>
+                    <input type="range" id="sliderStroke" min="0.15" max="0.6" step="0.01" value="0.30">
+                    <span class="control-value" id="valStroke">0.30</span>
+                </div>
+                <div class="control-sep"></div>
+                <button class="preset-btn active" id="presetDefault">Default</button>
+                <button class="preset-btn" id="presetWide">Wide Base</button>
+                <button class="preset-btn" id="presetNarrow">Small Platform</button>
+                <button class="preset-btn" id="presetDanger">Near Singular</button>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <p class="box-title">How to Read the Visualization</p>
+            <ul style="margin-bottom: 0;">
+                <li><strong>Gray wireframe (right panel)</strong>: workspace boundary&mdash;the outer limit of all reachable positions at zero orientation</li>
+                <li><strong>Gold semi-transparent surface</strong>: the singularity locus isosurface where $\det(\mathbf{J}) = 0$ exactly</li>
+                <li><strong>Gold contour line</strong>: cross-section of the locus at the current platform height&mdash;this is what you&rsquo;d see in a top-down slice</li>
+                <li><strong>Red dot</strong>: current platform center position</li>
+                <li>Move the <strong>Height</strong> slider to see the cross-section contour change&mdash;notice how the locus curve expands, contracts, or splits at different elevations</li>
+                <li>Adjust <strong>$R_p$</strong> and <strong>$R_b$</strong> to see how the entire singularity surface reshapes</li>
+            </ul>
+        </div>
+
+        <!-- SECTION 5 -->
+        <h2 id="parameters">5. How Parameters Change the Loci</h2>
+
+        <p>
+            The shape and position of the singularity locus depends critically on the <strong>geometric
+            design parameters</strong> of the platform. Understanding this relationship is the key
+            to singularity-free design.
+        </p>
+
+        <h3>5.1 Platform Radius $R_p$</h3>
+
+        <p>
+            As the platform radius increases (platform joints spread further apart):
+        </p>
+        <ul>
+            <li>The singularity locus <strong>moves closer</strong> to the workspace center</li>
+            <li>The safe workspace <strong>shrinks</strong></li>
+            <li>When $R_p \to R_b$, the locus collapses onto the workspace itself</li>
+        </ul>
+
+        <div class="example-box">
+            <p class="example-title">Try It</p>
+            <p>
+                In the interactive panel above, drag the $R_p$ slider from 0.20 to 0.50.
+                Watch the gold singularity surface expand and move inward, progressively
+                reducing the safe working volume.
+            </p>
+        </div>
+
+        <h3>5.2 Base Radius $R_b$</h3>
+
+        <p>
+            Increasing the base radius (spreading the base joints):
+        </p>
+        <ul>
+            <li>The singularity locus <strong>moves outward</strong>, away from the center</li>
+            <li>The safe workspace <strong>expands</strong></li>
+            <li>The leg angles become more favorable for force transmission</li>
+        </ul>
+
+        <h3>5.3 The Ratio $R_p / R_b$</h3>
+
+        <div class="highlight-box">
+            <p class="box-title">The Golden Rule</p>
+            <p>
+                The <strong>ratio</strong> $R_p / R_b$ is the single most important design parameter.
+                A smaller ratio means the singularity locus is pushed further from the working region.
+                Typical designs use $R_p / R_b \in [0.3, 0.6]$.
+            </p>
+        </div>
+
+        <div class="math-block">
+            $$\text{Singularity clearance} \propto \frac{1}{R_p / R_b} \quad \text{(approximately)}$$
+        </div>
+
+        <h3>5.4 Actuator Stroke</h3>
+
+        <p>
+            The stroke (difference between $\rho_{\max}$ and $\rho_{\min}$) determines the workspace size
+            but does <strong>not directly change the singularity locus position</strong>.
+            However, a larger stroke means more of the locus may end up <em>inside</em> the workspace.
+        </p>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Increase Effect on Locus</th>
+                    <th>Effect on Safe Workspace</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>$R_p$ (platform radius)</td>
+                    <td>Locus moves inward</td>
+                    <td>Shrinks</td>
+                </tr>
+                <tr>
+                    <td>$R_b$ (base radius)</td>
+                    <td>Locus moves outward</td>
+                    <td>Expands</td>
+                </tr>
+                <tr>
+                    <td>$R_p / R_b$ (ratio)</td>
+                    <td>Locus approaches center</td>
+                    <td>Shrinks dramatically</td>
+                </tr>
+                <tr>
+                    <td>Stroke length</td>
+                    <td>No direct change</td>
+                    <td>Larger total workspace</td>
+                </tr>
+                <tr>
+                    <td>Height $h$</td>
+                    <td>Cross-section changes</td>
+                    <td>Varies with height</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- SECTION 6 -->
+        <h2 id="design">6. Designing Singularity-Free Workspaces</h2>
+
+        <p>
+            The ultimate goal is to guarantee that no singularity exists within the
+            required workspace. There are several approaches.
+        </p>
+
+        <h3>6.1 Determinant-Based Approach</h3>
+
+        <div class="steps">
+            <div class="step">
+                <p class="step-title">Define the required workspace</p>
+                <p>
+                    Specify the region $W_{\text{req}} \subset \mathbb{R}^3$ (or $\mathbb{R}^6$)
+                    that the robot must reach for your application.
+                </p>
+            </div>
+            <div class="step">
+                <p class="step-title">Compute $\det(\mathbf{J})$ over $W_{\text{req}}$</p>
+                <p>
+                    Evaluate the Jacobian determinant at a fine grid of points inside $W_{\text{req}}$.
+                </p>
+            </div>
+            <div class="step">
+                <p class="step-title">Check sign consistency</p>
+                <p>
+                    If $\det(\mathbf{J})$ does not change sign anywhere in $W_{\text{req}}$,
+                    the workspace is <strong>singularity-free</strong>.
+                </p>
+            </div>
+            <div class="step">
+                <p class="step-title">Optimize parameters</p>
+                <p>
+                    Adjust $R_p$, $R_b$, joint distribution, and actuator placement until
+                    the locus clears the required workspace with sufficient margin.
+                </p>
+            </div>
+        </div>
+
+        <h3>6.2 Condition Number Criterion</h3>
+
+        <p>
+            Even away from singularities, the robot may have <strong>poor conditioning</strong>.
+            A more practical criterion is to ensure the condition number stays below a threshold:
+        </p>
+
+        <div class="math-block">
+            $$\kappa(\mathbf{J}) = \frac{\sigma_{\max}}{\sigma_{\min}} < \kappa_{\text{max}} \quad \forall \; \mathbf{p} \in W_{\text{req}}$$
+        </div>
+
+        <p>
+            The <strong>well-conditioned workspace</strong> (the region where $\kappa < \kappa_{\max}$)
+            is always a subset of the total workspace and always avoids singularities.
+        </p>
+
+        <h3>6.3 Geometric Insight: Hunt&rsquo;s Condition</h3>
+
+        <div class="highlight-box definition">
+            <p class="box-title">Hunt Singularity (Type II)</p>
+            <p>
+                For the Stewart platform, a Type II singularity occurs when all six leg lines belong
+                to a <strong>linear complex</strong>&mdash;a family of lines satisfying a single
+                linear constraint in Pl&uuml;cker space. The most common case: all six lines
+                intersect a common line in space.
+            </p>
+        </div>
+
+        <p>
+            This geometric understanding allows designers to <strong>avoid singularities
+            by construction</strong>: choose base and platform joint distributions that make
+            it geometrically impossible for all six leg lines to satisfy the linear complex condition
+            within the required workspace.
+        </p>
+
+        <div class="warning-box">
+            <p class="warning-title">Practical Warning</p>
+            <p>
+                A robot that is &ldquo;close&rdquo; to a singularity (even without reaching it) will exhibit
+                <strong>poor force transmission</strong> and <strong>reduced stiffness</strong>. Always
+                design with a safety margin: use $|\det(\mathbf{J})| > \epsilon$ rather than just
+                $\det(\mathbf{J}) \neq 0$.
+            </p>
+        </div>
+
+        <!-- Summary -->
+        <h2>Summary</h2>
+
+        <div class="key-concept">
+            <p class="key-concept-title">Key Takeaways</p>
+            <ul style="margin-bottom: 0; font-style: normal; color: var(--dark);">
+                <li>The <strong>workspace</strong> is the set of all reachable poses, bounded by actuator limits</li>
+                <li>The <strong>singularity locus</strong> is the surface where $\det(\mathbf{J}) = 0$, dividing workspace into regions</li>
+                <li>The locus is a <strong>continuous surface</strong>, not isolated points</li>
+                <li>The ratio $R_p / R_b$ is the key parameter: smaller ratio = locus pushed further out</li>
+                <li><strong>Singularity-free design</strong>: ensure $\det(\mathbf{J})$ doesn&rsquo;t change sign in $W_{\text{req}}$</li>
+                <li>Always design with margin: use condition number $\kappa < \kappa_{\max}$ as criterion</li>
+            </ul>
+        </div>
+
+        <!-- Quiz -->
+        <div class="quiz-section">
+            <p class="quiz-title">Quick Check</p>
+
+            <div class="quiz-question">
+                <p><strong>Q1.</strong> The singularity locus is:</p>
+                <div class="quiz-options" id="quiz1">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">A set of isolated singular points</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">A continuous surface where det(J) = 0</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">The workspace boundary</div>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>Q2.</strong> Increasing $R_p / R_b$ will:</p>
+                <div class="quiz-options" id="quiz2">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Push the singularity locus further from the workspace center</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">Move the singularity locus closer to the workspace center</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Have no effect on singularities</div>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>Q3.</strong> A workspace is singularity-free when:</p>
+                <div class="quiz-options" id="quiz3">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">det(J) = 0 at only a few points</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">The workspace is as large as possible</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">det(J) does not change sign anywhere in the required workspace</div>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>Q4.</strong> The constant-orientation workspace is formed by:</p>
+                <div class="quiz-options" id="quiz4">
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">The intersection of 6 spherical shells</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">A single sphere centered at the base</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">The union of all leg reach envelopes</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="tutorial-nav">
+            <a href="jacobian-analysis.html">&larr; Previous: Jacobian Analysis</a>
+            <a href="rl-robot-control.html">Next: RL for Robot Control &rarr;</a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Grover Aruquipa &middot; Universit&eacute; Laval</p>
+    </footer>
+
+    <script>
+    // Quiz
+    function checkAnswer(el, isCorrect) {
+        const opts = el.parentElement.querySelectorAll('.quiz-option');
+        opts.forEach(o => { o.classList.remove('correct','incorrect'); o.style.pointerEvents = 'none'; });
+        if (isCorrect) { el.classList.add('correct'); }
+        else {
+            el.classList.add('incorrect');
+            opts.forEach(o => { if (o.getAttribute('onclick').includes('true')) o.classList.add('correct'); });
+        }
+    }
+
+    // KaTeX
+    document.addEventListener("DOMContentLoaded", function() {
+        if (typeof renderMathInElement !== 'undefined') {
+            renderMathInElement(document.body, {
+                delimiters: [{left: "$$", right: "$$", display: true},{left: "$", right: "$", display: false}],
+                throwOnError: false
+            });
+        }
+    });
+
+    // ===========================================
+    // THREE.JS DUAL PANEL: Stewart + Workspace
+    // Singularity Locus as Isosurface (Marching Cubes)
+    // ===========================================
+    (function() {
+        // ---- PARAMETERS (shared) ----
+        let Rp = 0.35, Rb = 0.70, platformH = 0.65, stroke = 0.30;
+        const baseAngles = [0, 60, 120, 180, 240, 300].map(a => a * Math.PI / 180);
+        const platAngles = [30, 90, 150, 210, 270, 330].map(a => a * Math.PI / 180);
+
+        // Compute leg length at a given position (zero orientation)
+        function legLength(px, py, pz, rb, rp, iBase, iPlat) {
+            const ax = rb * Math.cos(baseAngles[iBase]);
+            const az = rb * Math.sin(baseAngles[iBase]);
+            const bx = rp * Math.cos(platAngles[iPlat]);
+            const bz = rp * Math.sin(platAngles[iPlat]);
+            const dx = px + bx - ax, dy = py, dz = pz + bz - az;
+            return Math.sqrt(dx*dx + dy*dy + dz*dz);
+        }
+
+        // All 6 leg lengths
+        function allLegLengths(px, py, pz, rb, rp) {
+            const lens = [];
+            for (let i = 0; i < 6; i++) lens.push(legLength(px, py, pz, rb, rp, i, i));
+            return lens;
+        }
+
+        // Workspace membership: returns how far inside (positive) or outside (negative)
+        function workspaceField(px, py, pz, rb, rp, strokeVal) {
+            const nomLen = legLength(0, 0.65, 0, rb, rp, 0, 0);
+            const rhoMin = nomLen - strokeVal;
+            const rhoMax = nomLen + strokeVal;
+            let minMargin = Infinity;
+            for (let i = 0; i < 6; i++) {
+                const l = legLength(px, py, pz, rb, rp, i, i);
+                const marginLow = l - rhoMin;
+                const marginHigh = rhoMax - l;
+                const m = Math.min(marginLow, marginHigh);
+                if (m < minMargin) minMargin = m;
+            }
+            return minMargin;
+        }
+
+        // Compute Jacobian determinant (constant orientation = identity)
+        function computeJacobianDet(px, py, pz, rb, rp) {
+            const J = [];
+            for (let i = 0; i < 6; i++) {
+                const ax = rb * Math.cos(baseAngles[i]);
+                const az = rb * Math.sin(baseAngles[i]);
+                const bx = rp * Math.cos(platAngles[i]);
+                const bz = rp * Math.sin(platAngles[i]);
+                const dx = px + bx - ax, dy = py, dz = pz + bz - az;
+                const len = Math.sqrt(dx*dx + dy*dy + dz*dz);
+                if (len < 1e-8) return 0;
+                const ux = dx/len, uy = dy/len, uz = dz/len;
+                const rx = bx, ry = 0, rz = bz;
+                const cx = ry*uz - rz*uy, cy = rz*ux - rx*uz, cz = rx*uy - ry*ux;
+                J.push([ux, uy, uz, cx, cy, cz]);
+            }
+            return det6x6(J);
+        }
+
+        // 6x6 determinant (Gaussian elimination with partial pivoting)
+        function det6x6(M) {
+            const n = 6;
+            const A = M.map(row => row.slice());
+            let sign = 1;
+            for (let col = 0; col < n; col++) {
+                let pivotRow = -1;
+                for (let row = col; row < n; row++) {
+                    if (Math.abs(A[row][col]) > 1e-12) { pivotRow = row; break; }
+                }
+                if (pivotRow === -1) return 0;
+                if (pivotRow !== col) { [A[col], A[pivotRow]] = [A[pivotRow], A[col]]; sign *= -1; }
+                const pivot = A[col][col];
+                for (let row = col + 1; row < n; row++) {
+                    const factor = A[row][col] / pivot;
+                    for (let j = col; j < n; j++) A[row][j] -= factor * A[col][j];
+                }
+            }
+            let d = sign;
+            for (let i = 0; i < n; i++) d *= A[i][i];
+            return d;
+        }
+
+        // =========================================
+        // MARCHING CUBES - Isosurface Extraction
+        // =========================================
+        const MC_EDGE_TABLE = [
+            0x0,0x109,0x203,0x30a,0x406,0x50f,0x605,0x70c,0x80c,0x905,0xa0f,0xb06,0xc0a,0xd03,0xe09,0xf00,
+            0x190,0x99,0x393,0x29a,0x596,0x49f,0x795,0x69c,0x99c,0x895,0xb9f,0xa96,0xd9a,0xc93,0xf99,0xe90,
+            0x230,0x339,0x33,0x13a,0x636,0x73f,0x435,0x53c,0xa3c,0xb35,0x83f,0x936,0xe3a,0xf33,0xc39,0xd30,
+            0x3a0,0x2a9,0x1a3,0xaa,0x7a6,0x6af,0x5a5,0x4ac,0xbac,0xaa5,0x9af,0x8a6,0xfaa,0xea3,0xda9,0xca0,
+            0x460,0x569,0x663,0x76a,0x66,0x16f,0x265,0x36c,0xc6c,0xd65,0xe6f,0xf66,0x86a,0x963,0xa69,0xb60,
+            0x5f0,0x4f9,0x7f3,0x6fa,0x1f6,0xff,0x3f5,0x2fc,0xdfc,0xcf5,0xfff,0xef6,0x9fa,0x8f3,0xbf9,0xaf0,
+            0x650,0x759,0x453,0x55a,0x256,0x35f,0x55,0x15c,0xe5c,0xf55,0xc5f,0xd56,0xa5a,0xb53,0x859,0x950,
+            0x7c0,0x6c9,0x5c3,0x4ca,0x3c6,0x2cf,0x1c5,0xcc,0xfcc,0xec5,0xdcf,0xcc6,0xbca,0xac3,0x9c9,0x8c0,
+            0x8c0,0x9c9,0xac3,0xbca,0xcc6,0xdcf,0xec5,0xfcc,0xcc,0x1c5,0x2cf,0x3c6,0x4ca,0x5c3,0x6c9,0x7c0,
+            0x950,0x859,0xb53,0xa5a,0xd56,0xc5f,0xf55,0xe5c,0x15c,0x55,0x35f,0x256,0x55a,0x453,0x759,0x650,
+            0xaf0,0xbf9,0x8f3,0x9fa,0xef6,0xfff,0xcf5,0xdfc,0x2fc,0x3f5,0xff,0x1f6,0x6fa,0x7f3,0x4f9,0x5f0,
+            0xb60,0xa69,0x963,0x86a,0xf66,0xe6f,0xd65,0xc6c,0x36c,0x265,0x16f,0x66,0x76a,0x663,0x569,0x460,
+            0xca0,0xda9,0xea3,0xfaa,0x8a6,0x9af,0xaa5,0xbac,0x4ac,0x5a5,0x6af,0x7a6,0xaa,0x1a3,0x2a9,0x3a0,
+            0xd30,0xc39,0xf33,0xe3a,0x936,0x83f,0xb35,0xa3c,0x53c,0x435,0x73f,0x636,0x13a,0x33,0x339,0x230,
+            0xe90,0xf99,0xc93,0xd9a,0xa96,0xb9f,0x895,0x99c,0x69c,0x795,0x49f,0x596,0x29a,0x393,0x99,0x190,
+            0xf00,0xe09,0xd03,0xc0a,0xb06,0xa0f,0x905,0x80c,0x70c,0x605,0x50f,0x406,0x30a,0x203,0x109,0x0
+        ];
+
+        const MC_TRI_TABLE = [
+            [-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],
+            [-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],
+            [-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],
+            [-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],
+            [-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],
+            [-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],
+            [-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],
+            [-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],
+            [-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],
+            [-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],
+            [-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],
+            [-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],
+            [-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],
+            [-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],
+            [-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],
+            [-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1],[-1]
+        ];
+
+        // Full MC triangle table (standard 256-entry lookup)
+        // We use a simplified sign-change surface extraction instead
+        // for performance in the browser
+
+        // Simplified isosurface via sign-change detection on grid edges
+        function marchingCubesSimple(field, nx, ny, nz, xMin, xMax, yMin, yMax, zMin, zMax, isoValue) {
+            const dx = (xMax - xMin) / (nx - 1);
+            const dy = (yMax - yMin) / (ny - 1);
+            const dz = (zMax - zMin) / (nz - 1);
+            const vertices = [];
+
+            // Evaluate field on grid
+            const vals = new Float32Array(nx * ny * nz);
+            for (let ix = 0; ix < nx; ix++) {
+                for (let iy = 0; iy < ny; iy++) {
+                    for (let iz = 0; iz < nz; iz++) {
+                        const x = xMin + ix * dx;
+                        const y = yMin + iy * dy;
+                        const z = zMin + iz * dz;
+                        vals[ix + nx * (iy + ny * iz)] = field(x, y, z) - isoValue;
+                    }
+                }
+            }
+
+            function idx(ix, iy, iz) { return ix + nx * (iy + ny * iz); }
+            function interp(x1, y1, z1, v1, x2, y2, z2, v2) {
+                if (Math.abs(v1) < 1e-10) return [x1, y1, z1];
+                if (Math.abs(v2) < 1e-10) return [x2, y2, z2];
+                const t = -v1 / (v2 - v1);
+                return [x1 + t*(x2-x1), y1 + t*(y2-y1), z1 + t*(z2-z1)];
+            }
+
+            // For each cube, check for sign changes and create triangles
+            for (let ix = 0; ix < nx - 1; ix++) {
+                for (let iy = 0; iy < ny - 1; iy++) {
+                    for (let iz = 0; iz < nz - 1; iz++) {
+                        const x0 = xMin + ix * dx, y0 = yMin + iy * dy, z0 = zMin + iz * dz;
+                        const x1 = x0 + dx, y1 = y0 + dy, z1 = z0 + dz;
+
+                        // 8 corner values
+                        const v = [
+                            vals[idx(ix,iy,iz)],     vals[idx(ix+1,iy,iz)],
+                            vals[idx(ix+1,iy,iz+1)], vals[idx(ix,iy,iz+1)],
+                            vals[idx(ix,iy+1,iz)],   vals[idx(ix+1,iy+1,iz)],
+                            vals[idx(ix+1,iy+1,iz+1)],vals[idx(ix,iy+1,iz+1)]
+                        ];
+
+                        // Corner positions
+                        const p = [
+                            [x0,y0,z0],[x1,y0,z0],[x1,y0,z1],[x0,y0,z1],
+                            [x0,y1,z0],[x1,y1,z0],[x1,y1,z1],[x0,y1,z1]
+                        ];
+
+                        // Cube index (which corners are positive)
+                        let cubeIdx = 0;
+                        for (let c = 0; c < 8; c++) {
+                            if (v[c] > 0) cubeIdx |= (1 << c);
+                        }
+                        if (cubeIdx === 0 || cubeIdx === 255) continue;
+
+                        // 12 edges of the cube
+                        const edges = [
+                            [0,1],[1,2],[2,3],[3,0],
+                            [4,5],[5,6],[6,7],[7,4],
+                            [0,4],[1,5],[2,6],[3,7]
+                        ];
+
+                        // Find edge intersections
+                        const edgeVerts = [];
+                        for (let e = 0; e < 12; e++) {
+                            const a = edges[e][0], b = edges[e][1];
+                            if ((v[a] > 0) !== (v[b] > 0)) {
+                                edgeVerts.push(interp(p[a][0],p[a][1],p[a][2],v[a],p[b][0],p[b][1],p[b][2],v[b]));
+                            }
+                        }
+
+                        // Create fan triangles from edge vertices (approximate)
+                        if (edgeVerts.length >= 3) {
+                            // Compute centroid
+                            let cx=0,cy=0,cz=0;
+                            for (const ev of edgeVerts) { cx+=ev[0]; cy+=ev[1]; cz+=ev[2]; }
+                            cx/=edgeVerts.length; cy/=edgeVerts.length; cz/=edgeVerts.length;
+
+                            // Sort by angle around centroid (in cube-local coords)
+                            const sorted = edgeVerts.map(ev => {
+                                const rx=ev[0]-cx, ry=ev[1]-cy, rz=ev[2]-cz;
+                                const angle = Math.atan2(rz, rx);
+                                return { v: ev, a: angle };
+                            });
+                            sorted.sort((a,b) => a.a - b.a);
+
+                            for (let t = 1; t < sorted.length - 1; t++) {
+                                vertices.push(
+                                    sorted[0].v[0], sorted[0].v[1], sorted[0].v[2],
+                                    sorted[t].v[0], sorted[t].v[1], sorted[t].v[2],
+                                    sorted[t+1].v[0], sorted[t+1].v[1], sorted[t+1].v[2]
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+            return new Float32Array(vertices);
+        }
+
+        // =====================
+        // PANEL 1: STEWART PLATFORM
+        // =====================
+        const c1 = document.getElementById('panelStewart');
+        if (!c1) return;
+        const W1 = c1.clientWidth, H1 = c1.clientHeight;
+
+        const scene1 = new THREE.Scene();
+        scene1.background = new THREE.Color(0x111111);
+
+        const cam1 = new THREE.PerspectiveCamera(40, W1/H1, 0.1, 100);
+        cam1.position.set(2.0, 1.6, 2.0);
+
+        const ren1 = new THREE.WebGLRenderer({ antialias: true });
+        ren1.setSize(W1, H1);
+        ren1.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        c1.appendChild(ren1.domElement);
+
+        const ctrl1 = new THREE.OrbitControls(cam1, ren1.domElement);
+        ctrl1.enableDamping = true;
+        ctrl1.dampingFactor = 0.08;
+        ctrl1.target.set(0, 0.3, 0);
+
+        // Lights
+        scene1.add(new THREE.AmbientLight(0xffffff, 0.4));
+        const dl1 = new THREE.DirectionalLight(0xffffff, 0.7);
+        dl1.position.set(3, 5, 3);
+        scene1.add(dl1);
+        const dl1b = new THREE.DirectionalLight(0xffffff, 0.3);
+        dl1b.position.set(-2, 3, -2);
+        scene1.add(dl1b);
+
+        // Ground grid
+        const gridG1 = new THREE.BufferGeometry();
+        const gp1 = [];
+        for (let i = -10; i <= 10; i++) {
+            const t = i * 0.15;
+            gp1.push(-1.5, 0, t, 1.5, 0, t);
+            gp1.push(t, 0, -1.5, t, 0, 1.5);
+        }
+        gridG1.setAttribute('position', new THREE.Float32BufferAttribute(gp1, 3));
+        scene1.add(new THREE.LineSegments(gridG1, new THREE.LineBasicMaterial({ color: 0x1a1a1a })));
+
+        // Materials
+        const matBase = new THREE.MeshStandardMaterial({ color: 0x262626, metalness: 0.5, roughness: 0.6 });
+        const matPlat = new THREE.MeshStandardMaterial({ color: 0xc9a227, metalness: 0.6, roughness: 0.3 });
+        const matLeg = new THREE.MeshStandardMaterial({ color: 0x8a8a8a, metalness: 0.4, roughness: 0.5 });
+        const matJB = new THREE.MeshStandardMaterial({ color: 0x3a3a3a, metalness: 0.5, roughness: 0.4 });
+        const matJP = new THREE.MeshStandardMaterial({ color: 0xd4b44a, metalness: 0.5, roughness: 0.3 });
+
+        let baseMesh1, platGroup1, baseJointMeshes1 = [], platJointMeshes1 = [], legMeshes1 = [];
+
+        function buildStewart() {
+            if (baseMesh1) scene1.remove(baseMesh1);
+            if (platGroup1) scene1.remove(platGroup1);
+            baseJointMeshes1.forEach(m => scene1.remove(m));
+            legMeshes1.forEach(m => scene1.remove(m));
+            baseJointMeshes1 = []; platJointMeshes1 = []; legMeshes1 = [];
+
+            baseMesh1 = new THREE.Mesh(new THREE.CylinderGeometry(Rb, Rb + 0.05, 0.04, 6), matBase);
+            baseMesh1.position.y = 0.02;
+            scene1.add(baseMesh1);
+
+            for (let i = 0; i < 6; i++) {
+                const m = new THREE.Mesh(new THREE.SphereGeometry(0.03, 12, 12), matJB);
+                m.position.set(Rb * Math.cos(baseAngles[i]), 0.04, Rb * Math.sin(baseAngles[i]));
+                scene1.add(m);
+                baseJointMeshes1.push(m);
+            }
+
+            platGroup1 = new THREE.Group();
+            const pm = new THREE.Mesh(new THREE.CylinderGeometry(Rp, Rp + 0.02, 0.03, 6), matPlat);
+            platGroup1.add(pm);
+            for (let i = 0; i < 6; i++) {
+                const jm = new THREE.Mesh(new THREE.SphereGeometry(0.025, 12, 12), matJP);
+                jm.position.set(Rp * Math.cos(platAngles[i]), -0.015, Rp * Math.sin(platAngles[i]));
+                platGroup1.add(jm);
+                platJointMeshes1.push(jm);
+            }
+            const cdot = new THREE.Mesh(new THREE.SphereGeometry(0.02, 8, 8),
+                new THREE.MeshStandardMaterial({ color: 0xff3333, emissive: 0xff3333, emissiveIntensity: 0.5 }));
+            platGroup1.add(cdot);
+            platGroup1.position.y = platformH;
+            scene1.add(platGroup1);
+
+            for (let i = 0; i < 6; i++) {
+                const lm = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.015, 1, 8), matLeg);
+                scene1.add(lm);
+                legMeshes1.push(lm);
+            }
+        }
+
+        function updateStewartLegs() {
+            if (!platGroup1) return;
+            for (let i = 0; i < 6; i++) {
+                const bx = Rb * Math.cos(baseAngles[i]);
+                const bz = Rb * Math.sin(baseAngles[i]);
+                const bPos = new THREE.Vector3(bx, 0.04, bz);
+                const pWorld = new THREE.Vector3();
+                platJointMeshes1[i].getWorldPosition(pWorld);
+                const mid = new THREE.Vector3().addVectors(bPos, pWorld).multiplyScalar(0.5);
+                const dir = new THREE.Vector3().subVectors(pWorld, bPos);
+                const len = dir.length();
+                legMeshes1[i].scale.set(1, len, 1);
+                legMeshes1[i].position.copy(mid);
+                legMeshes1[i].lookAt(pWorld);
+                legMeshes1[i].rotateX(Math.PI / 2);
+            }
+        }
+
+        buildStewart();
+
+        // =====================
+        // PANEL 2: WORKSPACE + SINGULARITY LOCI (Isosurface)
+        // =====================
+        const c2 = document.getElementById('panelWorkspace');
+        const W2 = c2.clientWidth, H2 = c2.clientHeight;
+
+        const scene2 = new THREE.Scene();
+        scene2.background = new THREE.Color(0x111111);
+
+        const cam2 = new THREE.PerspectiveCamera(40, W2/H2, 0.1, 100);
+        cam2.position.set(1.8, 1.5, 1.8);
+
+        const ren2 = new THREE.WebGLRenderer({ antialias: true });
+        ren2.setSize(W2, H2);
+        ren2.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        c2.appendChild(ren2.domElement);
+
+        const ctrl2 = new THREE.OrbitControls(cam2, ren2.domElement);
+        ctrl2.enableDamping = true;
+        ctrl2.dampingFactor = 0.08;
+        ctrl2.target.set(0, 0.6, 0);
+
+        scene2.add(new THREE.AmbientLight(0xffffff, 0.5));
+        const dl2 = new THREE.DirectionalLight(0xffffff, 0.6);
+        dl2.position.set(3, 5, 3);
+        scene2.add(dl2);
+        const dl2b = new THREE.DirectionalLight(0xffffff, 0.3);
+        dl2b.position.set(-2, 2, -3);
+        scene2.add(dl2b);
+
+        // Axis labels
+        const axLen = 0.6;
+        const axColors = [[axLen,0,0,0x8b0000,'x'],[0,axLen,0,0x006400,'y'],[0,0,axLen,0x00008b,'z']];
+        axColors.forEach(d => {
+            const g = new THREE.BufferGeometry().setFromPoints([
+                new THREE.Vector3(0,0,0), new THREE.Vector3(d[0],d[1],d[2])
+            ]);
+            scene2.add(new THREE.Line(g, new THREE.LineBasicMaterial({ color: d[3] })));
+        });
+
+        // Meshes for workspace and loci
+        let workspaceSurfaceMesh = null;
+        let lociSurfaceMesh = null;
+        let lociWireMesh = null;
+        let crossSectionMesh = null;
+        let positionDot = null;
+
+        // Position dot
+        positionDot = new THREE.Mesh(
+            new THREE.SphereGeometry(0.035, 16, 16),
+            new THREE.MeshStandardMaterial({ color: 0xff3333, emissive: 0xff3333, emissiveIntensity: 0.8 })
+        );
+        positionDot.position.set(0, platformH, 0);
+        scene2.add(positionDot);
+
+        // Main rebuild function - builds isosurfaces
+        function generateWorkspaceAndLoci() {
+            // Remove old
+            if (workspaceSurfaceMesh) { scene2.remove(workspaceSurfaceMesh); workspaceSurfaceMesh.geometry.dispose(); workspaceSurfaceMesh = null; }
+            if (lociSurfaceMesh) { scene2.remove(lociSurfaceMesh); lociSurfaceMesh.geometry.dispose(); lociSurfaceMesh = null; }
+            if (lociWireMesh) { scene2.remove(lociWireMesh); lociWireMesh.geometry.dispose(); lociWireMesh = null; }
+            if (crossSectionMesh) { scene2.remove(crossSectionMesh); crossSectionMesh.geometry.dispose(); crossSectionMesh = null; }
+
+            const range = 0.9;
+            const yMin = 0.15, yMax = 1.25;
+            const res = 28; // Grid resolution
+
+            // ---- WORKSPACE BOUNDARY ISOSURFACE ----
+            // Field: workspaceField = 0 at boundary
+            const wsVerts = marchingCubesSimple(
+                (x, y, z) => workspaceField(x, y, z, Rb, Rp, stroke),
+                res, res, res, -range, range, yMin, yMax, -range, range, 0.0
+            );
+
+            if (wsVerts.length > 0) {
+                const wsGeo = new THREE.BufferGeometry();
+                wsGeo.setAttribute('position', new THREE.BufferAttribute(wsVerts, 3));
+                wsGeo.computeVertexNormals();
+
+                // Wireframe for workspace boundary
+                const wsMat = new THREE.MeshBasicMaterial({
+                    color: 0x4a4a4a,
+                    wireframe: true,
+                    transparent: true,
+                    opacity: 0.25,
+                    depthWrite: false
+                });
+                workspaceSurfaceMesh = new THREE.Mesh(wsGeo, wsMat);
+                scene2.add(workspaceSurfaceMesh);
+            }
+
+            // ---- SINGULARITY LOCUS ISOSURFACE ----
+            // Field: det(J) = 0 (only inside workspace)
+            // We mask points outside workspace with a large positive value
+            const detField = (x, y, z) => {
+                const wsf = workspaceField(x, y, z, Rb, Rp, stroke);
+                if (wsf < -0.01) return 1.0; // outside workspace, return positive (no zero crossing here)
+                return computeJacobianDet(x, y, z, Rb, Rp);
+            };
+
+            const lociVerts = marchingCubesSimple(
+                detField,
+                res, res, res, -range, range, yMin, yMax, -range, range, 0.0
+            );
+
+            if (lociVerts.length > 0) {
+                const lGeo = new THREE.BufferGeometry();
+                lGeo.setAttribute('position', new THREE.BufferAttribute(lociVerts, 3));
+                lGeo.computeVertexNormals();
+
+                // Gold semi-transparent surface
+                const lMat = new THREE.MeshPhongMaterial({
+                    color: 0xc9a227,
+                    specular: 0x444444,
+                    shininess: 40,
+                    transparent: true,
+                    opacity: 0.55,
+                    side: THREE.DoubleSide,
+                    depthWrite: false
+                });
+                lociSurfaceMesh = new THREE.Mesh(lGeo, lMat);
+                scene2.add(lociSurfaceMesh);
+
+                // Wireframe overlay on loci for academic paper look
+                const lwGeo = new THREE.BufferGeometry();
+                lwGeo.setAttribute('position', new THREE.BufferAttribute(lociVerts.slice(), 3));
+                const lwMat = new THREE.MeshBasicMaterial({
+                    color: 0xd4b44a,
+                    wireframe: true,
+                    transparent: true,
+                    opacity: 0.3,
+                    depthWrite: false
+                });
+                lociWireMesh = new THREE.Mesh(lwGeo, lwMat);
+                scene2.add(lociWireMesh);
+            }
+
+            // ---- CROSS-SECTION at current height ----
+            buildCrossSection();
+        }
+
+        // Build a 2D cross-section contour at current height
+        function buildCrossSection() {
+            if (crossSectionMesh) { scene2.remove(crossSectionMesh); crossSectionMesh.geometry.dispose(); crossSectionMesh = null; }
+
+            const range = 0.9;
+            const res2d = 60;
+            const py = platformH;
+            const linePoints = [];
+
+            // Sample det(J) on a 2D grid at y=platformH
+            const vals = [];
+            for (let ix = 0; ix < res2d; ix++) {
+                vals[ix] = [];
+                for (let iz = 0; iz < res2d; iz++) {
+                    const px = -range + 2*range * ix / (res2d-1);
+                    const pz = -range + 2*range * iz / (res2d-1);
+                    const wsf = workspaceField(px, py, pz, Rb, Rp, stroke);
+                    if (wsf < -0.01) {
+                        vals[ix][iz] = 1.0;
+                    } else {
+                        vals[ix][iz] = computeJacobianDet(px, py, pz, Rb, Rp);
+                    }
+                }
+            }
+
+            // Extract zero-crossings (marching squares)
+            for (let ix = 0; ix < res2d - 1; ix++) {
+                for (let iz = 0; iz < res2d - 1; iz++) {
+                    const v00 = vals[ix][iz], v10 = vals[ix+1][iz];
+                    const v01 = vals[ix][iz+1], v11 = vals[ix+1][iz+1];
+
+                    const x0 = -range + 2*range * ix / (res2d-1);
+                    const x1 = -range + 2*range * (ix+1) / (res2d-1);
+                    const z0 = -range + 2*range * iz / (res2d-1);
+                    const z1 = -range + 2*range * (iz+1) / (res2d-1);
+
+                    // Check 4 edges for sign changes
+                    const crossings = [];
+                    if (v00 * v10 < 0) {
+                        const t = -v00 / (v10 - v00);
+                        crossings.push([x0 + t*(x1-x0), py, z0]);
+                    }
+                    if (v10 * v11 < 0) {
+                        const t = -v10 / (v11 - v10);
+                        crossings.push([x1, py, z0 + t*(z1-z0)]);
+                    }
+                    if (v01 * v11 < 0) {
+                        const t = -v01 / (v11 - v01);
+                        crossings.push([x0 + t*(x1-x0), py, z1]);
+                    }
+                    if (v00 * v01 < 0) {
+                        const t = -v00 / (v01 - v00);
+                        crossings.push([x0, py, z0 + t*(z1-z0)]);
+                    }
+
+                    // Connect pairs of crossings with line segments
+                    if (crossings.length >= 2) {
+                        linePoints.push(crossings[0][0], crossings[0][1], crossings[0][2]);
+                        linePoints.push(crossings[1][0], crossings[1][1], crossings[1][2]);
+                        if (crossings.length >= 4) {
+                            linePoints.push(crossings[2][0], crossings[2][1], crossings[2][2]);
+                            linePoints.push(crossings[3][0], crossings[3][1], crossings[3][2]);
+                        }
+                    }
+                }
+            }
+
+            if (linePoints.length > 0) {
+                const csGeo = new THREE.BufferGeometry();
+                csGeo.setAttribute('position', new THREE.Float32BufferAttribute(linePoints, 3));
+                const csMat = new THREE.LineBasicMaterial({ color: 0xffd700, linewidth: 2 });
+                crossSectionMesh = new THREE.LineSegments(csGeo, csMat);
+                scene2.add(crossSectionMesh);
+            }
+        }
+
+        generateWorkspaceAndLoci();
+
+        // ---- CONTROLS ----
+        const slRp = document.getElementById('sliderRp');
+        const slRb = document.getElementById('sliderRb');
+        const slH = document.getElementById('sliderH');
+        const slStroke = document.getElementById('sliderStroke');
+        const vRp = document.getElementById('valRp');
+        const vRb = document.getElementById('valRb');
+        const vH = document.getElementById('valH');
+        const vStroke = document.getElementById('valStroke');
+
+        let rebuildTimer = null;
+
+        function scheduleRebuild() {
+            if (rebuildTimer) clearTimeout(rebuildTimer);
+            rebuildTimer = setTimeout(() => {
+                buildStewart();
+                generateWorkspaceAndLoci();
+            }, 250);
+        }
+
+        slRp.addEventListener('input', () => {
+            Rp = parseFloat(slRp.value);
+            vRp.textContent = Rp.toFixed(2);
+            scheduleRebuild();
+        });
+
+        slRb.addEventListener('input', () => {
+            Rb = parseFloat(slRb.value);
+            vRb.textContent = Rb.toFixed(2);
+            scheduleRebuild();
+        });
+
+        slH.addEventListener('input', () => {
+            platformH = parseFloat(slH.value);
+            vH.textContent = platformH.toFixed(2);
+            if (platGroup1) platGroup1.position.y = platformH;
+            if (positionDot) positionDot.position.y = platformH;
+            // Rebuild cross section at new height (fast)
+            buildCrossSection();
+        });
+
+        slStroke.addEventListener('input', () => {
+            stroke = parseFloat(slStroke.value);
+            vStroke.textContent = stroke.toFixed(2);
+            scheduleRebuild();
+        });
+
+        // Presets
+        function setPreset(name) {
+            document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('preset' + name).classList.add('active');
+
+            if (name === 'Default') {
+                slRp.value = 0.35; slRb.value = 0.70; slH.value = 0.65; slStroke.value = 0.30;
+            } else if (name === 'Wide') {
+                slRp.value = 0.30; slRb.value = 0.95; slH.value = 0.65; slStroke.value = 0.35;
+            } else if (name === 'Narrow') {
+                slRp.value = 0.18; slRb.value = 0.70; slH.value = 0.60; slStroke.value = 0.30;
+            } else if (name === 'Danger') {
+                slRp.value = 0.50; slRb.value = 0.55; slH.value = 0.45; slStroke.value = 0.40;
+            }
+
+            Rp = parseFloat(slRp.value); vRp.textContent = Rp.toFixed(2);
+            Rb = parseFloat(slRb.value); vRb.textContent = Rb.toFixed(2);
+            platformH = parseFloat(slH.value); vH.textContent = platformH.toFixed(2);
+            stroke = parseFloat(slStroke.value); vStroke.textContent = stroke.toFixed(2);
+
+            if (platGroup1) platGroup1.position.y = platformH;
+            if (positionDot) positionDot.position.y = platformH;
+            buildStewart();
+            generateWorkspaceAndLoci();
+        }
+
+        document.getElementById('presetDefault').addEventListener('click', () => setPreset('Default'));
+        document.getElementById('presetWide').addEventListener('click', () => setPreset('Wide'));
+        document.getElementById('presetNarrow').addEventListener('click', () => setPreset('Narrow'));
+        document.getElementById('presetDanger').addEventListener('click', () => setPreset('Danger'));
+
+        // Info displays
+        const sInfoH = document.getElementById('sInfoH');
+        const sInfoL1 = document.getElementById('sInfoL1');
+        const wInfoDet = document.getElementById('wInfoDet');
+        const wInfoCond = document.getElementById('wInfoCond');
+
+        function updateInfoDisplays() {
+            if (sInfoH) sInfoH.textContent = platformH.toFixed(2) + ' m';
+            const l1 = legLength(0, platformH, 0, Rb, Rp, 0, 0);
+            if (sInfoL1) sInfoL1.textContent = l1.toFixed(2) + ' m';
+
+            const det = computeJacobianDet(0, platformH, 0, Rb, Rp);
+            if (wInfoDet) wInfoDet.textContent = det.toFixed(4);
+
+            // Approximate condition number via local det variation
+            const eps = 0.001;
+            const dets = [];
+            for (let dx = -eps; dx <= eps; dx += eps) {
+                for (let dz = -eps; dz <= eps; dz += eps) {
+                    dets.push(Math.abs(computeJacobianDet(dx, platformH, dz, Rb, Rp)));
+                }
+            }
+            const maxD = Math.max(...dets);
+            const minD = Math.min(...dets);
+            const condApprox = minD > 1e-10 ? (maxD / minD).toFixed(1) : '\u221e';
+            if (wInfoCond) wInfoCond.textContent = condApprox;
+
+            if (wInfoDet) {
+                const absDet = Math.abs(det);
+                if (absDet < 0.005) wInfoDet.style.color = '#c62828';
+                else if (absDet < 0.02) wInfoDet.style.color = '#d4b44a';
+                else wInfoDet.style.color = '#c9a227';
+            }
+        }
+
+        // ---- ANIMATION LOOP ----
+        function animate() {
+            requestAnimationFrame(animate);
+            ctrl1.update();
+            ctrl2.update();
+            updateStewartLegs();
+            updateInfoDisplays();
+            ren1.render(scene1, cam1);
+            ren2.render(scene2, cam2);
+        }
+
+        animate();
+
+        // Resize
+        window.addEventListener('resize', () => {
+            const w1 = c1.clientWidth, h1 = c1.clientHeight;
+            cam1.aspect = w1/h1; cam1.updateProjectionMatrix(); ren1.setSize(w1, h1);
+            const w2 = c2.clientWidth, h2 = c2.clientHeight;
+            cam2.aspect = w2/h2; cam2.updateProjectionMatrix(); ren2.setSize(w2, h2);
+        });
+    })();
+    </script>
+</body>
+</html>

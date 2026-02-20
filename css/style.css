@@ -1,0 +1,886 @@
+/* ========================================
+   GROVER ARUQUIPA - ACADEMIC PORTFOLIO
+   Elegant Black, White & Gold Design
+   ======================================== */
+
+:root {
+    --black: #0a0a0a;
+    --dark: #141414;
+    --gray-900: #1a1a1a;
+    --gray-800: #262626;
+    --gray-700: #3a3a3a;
+    --gray-600: #525252;
+    --gray-500: #6b6b6b;
+    --gray-400: #8a8a8a;
+    --gray-300: #a3a3a3;
+    --gray-200: #d4d4d4;
+    --gray-100: #f0f0f0;
+    --white: #ffffff;
+    --gold: #c9a227;
+    --gold-light: #d4b44a;
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: var(--font);
+    font-weight: 300;
+    color: var(--dark);
+    background: var(--white);
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* ========== CONTAINERS ========== */
+.container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.container-narrow {
+    max-width: 580px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ========== HEADER ========== */
+.header {
+    background: var(--black);
+    color: var(--white);
+    padding: 56px 24px;
+    text-align: center;
+}
+
+.header-content {
+    max-width: 580px;
+    margin: 0 auto;
+}
+
+.profile-photo {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: var(--gray-800);
+    border: 2px solid var(--gray-700);
+    margin: 0 auto 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.55rem;
+    color: var(--gray-500);
+    letter-spacing: 1px;
+    overflow: hidden;
+}
+
+.profile-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.header-name {
+    font-size: 1.9rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+
+.header-title {
+    font-size: 0.9rem;
+    color: var(--gray-300);
+    margin-bottom: 4px;
+    font-weight: 300;
+}
+
+.header-institution {
+    font-size: 0.8rem;
+    color: var(--gray-400);
+    margin-bottom: 4px;
+}
+
+.header-expected {
+    font-size: 0.75rem;
+    color: var(--gray-500);
+}
+
+.languages {
+    margin-top: 18px;
+    font-size: 0.7rem;
+    color: var(--gray-400);
+}
+
+.lang-level { color: var(--gray-500); }
+.lang-divider { margin: 0 8px; color: var(--gray-600); }
+
+.header-links {
+    margin-top: 22px;
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+.header-links a {
+    font-size: 0.75rem;
+    color: var(--gray-400);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.header-links a:hover { color: var(--gold); }
+
+.header-links .cv-link {
+    padding: 5px 12px;
+    border: 1px solid var(--gray-600);
+    border-radius: 3px;
+    color: var(--gray-300);
+}
+
+.header-links .cv-link:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+/* ========== STATS ========== */
+.stats-section {
+    background: var(--gray-100);
+    padding: 36px 24px;
+}
+
+.stats-grid {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.stat-item { text-align: center; }
+
+.stat-number {
+    display: block;
+    font-size: 1.7rem;
+    font-weight: 500;
+    color: var(--black);
+}
+
+.stat-label {
+    font-size: 0.65rem;
+    color: var(--gray-500);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* ========== SECTIONS ========== */
+.section-title {
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    color: var(--gold);
+    margin-bottom: 28px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.section-title.light { color: var(--gold-light); }
+
+.section-subtitle {
+    font-size: 0.85rem;
+    color: var(--gray-500);
+    margin-top: -18px;
+    margin-bottom: 24px;
+}
+
+/* ========== STATEMENT ========== */
+.statement-section {
+    padding: 56px 24px;
+    text-align: center;
+}
+
+.statement-main {
+    font-size: 1.3rem;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--dark);
+}
+
+.statement-main em {
+    font-style: normal;
+    color: var(--gold);
+    font-weight: 400;
+}
+
+.statement-sub {
+    font-size: 0.85rem;
+    color: var(--gray-500);
+    margin-top: 18px;
+    line-height: 1.8;
+}
+
+/* ========== SKILLS HEXAGON ========== */
+.skills-section {
+    padding: 56px 24px;
+    background: var(--gray-100);
+}
+
+.skills-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: center;
+}
+
+.hexagon-container {
+    display: flex;
+    justify-content: center;
+}
+
+.hexagon-svg {
+    width: 240px;
+    height: 240px;
+}
+
+.hex-grid {
+    fill: none;
+    stroke: var(--gray-400);
+    stroke-width: 0.5;
+    opacity: 0.3;
+}
+
+.hex-axis {
+    stroke: var(--gray-400);
+    stroke-width: 0.5;
+    opacity: 0.3;
+}
+
+.skill-polygon {
+    fill: var(--black);
+    fill-opacity: 0.08;
+    stroke: var(--black);
+    stroke-width: 2;
+}
+
+.skill-point {
+    fill: var(--black);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.skill-point:hover,
+.skill-point.active {
+    fill: var(--gold);
+    r: 8;
+}
+
+.hex-label {
+    font-size: 9px;
+    fill: var(--gray-600);
+    font-weight: 400;
+    font-family: var(--font);
+}
+
+.skill-details {
+    min-height: 160px;
+}
+
+.skill-placeholder {
+    text-align: center;
+    color: var(--gray-400);
+    padding-top: 40px;
+}
+
+.skill-placeholder .arrow {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+}
+
+.skill-placeholder p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+.skill-info h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--black);
+    margin-bottom: 14px;
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.skill-tag {
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    background: var(--white);
+    border: 1px solid var(--gray-300);
+    border-radius: 12px;
+    color: var(--gray-600);
+}
+
+.skill-bar {
+    background: var(--white);
+    border-radius: 3px;
+    overflow: hidden;
+    height: 5px;
+}
+
+.skill-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--black), var(--gold));
+}
+
+.skill-level {
+    font-size: 0.7rem;
+    color: var(--gray-500);
+    margin-top: 6px;
+}
+
+/* ========== JOURNEY ========== */
+.journey-section {
+    padding: 56px 24px;
+}
+
+.journey-timeline {
+    position: relative;
+}
+
+.journey-item {
+    display: flex;
+    gap: 18px;
+    padding-bottom: 28px;
+    position: relative;
+}
+
+.journey-item:last-child { padding-bottom: 0; }
+
+.journey-item::before {
+    content: '';
+    position: absolute;
+    left: 13px;
+    top: 30px;
+    bottom: 0;
+    width: 1px;
+    background: var(--gray-200);
+}
+
+.journey-item:last-child::before { display: none; }
+
+.journey-flag {
+    width: 28px;
+    flex-shrink: 0;
+    padding-top: 3px;
+}
+
+.journey-flag img {
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+}
+
+.journey-content { flex: 1; }
+
+.journey-year {
+    font-size: 0.65rem;
+    color: var(--gray-400);
+    letter-spacing: 0.5px;
+    display: block;
+    margin-bottom: 3px;
+}
+
+.journey-item.current .journey-year {
+    color: var(--gold);
+    font-weight: 500;
+}
+
+.journey-content h3 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--black);
+    margin-bottom: 2px;
+}
+
+.journey-place {
+    font-size: 0.75rem;
+    color: var(--gray-500);
+    margin-bottom: 5px;
+}
+
+.journey-desc {
+    font-size: 0.75rem;
+    color: var(--gray-400);
+    line-height: 1.6;
+}
+
+/* ========== PROTOTYPES ========== */
+.prototypes-section {
+    padding: 56px 24px;
+    background: var(--black);
+    color: var(--white);
+}
+
+.prototypes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.prototype-card {
+    background: var(--gray-900);
+    border-radius: 5px;
+    padding: 16px;
+    transition: background 0.2s;
+}
+
+.prototype-card:hover { background: var(--gray-800); }
+
+.prototype-image {
+    width: 100%;
+    height: 100px;
+    background: var(--gray-800);
+    border-radius: 3px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.55rem;
+    color: var(--gray-600);
+    letter-spacing: 1px;
+    overflow: hidden;
+}
+
+.prototype-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.prototype-status {
+    display: inline-block;
+    font-size: 0.55rem;
+    padding: 2px 7px;
+    background: var(--gray-700);
+    color: var(--gray-400);
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.prototype-status.main {
+    background: var(--gold);
+    color: var(--black);
+}
+
+.prototype-card h3 {
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-top: 10px;
+    margin-bottom: 3px;
+}
+
+.prototype-card p {
+    font-size: 0.7rem;
+    color: var(--gray-400);
+}
+
+/* ========== PUBLICATIONS ========== */
+.publications-section {
+    padding: 56px 24px;
+}
+
+.publications-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.publication-item {
+    display: grid;
+    grid-template-columns: 45px 1fr auto;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--gray-200);
+    align-items: start;
+}
+
+.pub-year {
+    font-size: 0.75rem;
+    color: var(--gray-400);
+    font-weight: 500;
+}
+
+.pub-content h4 {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 3px;
+    color: var(--black);
+    font-style: italic;
+}
+
+.pub-content p {
+    font-size: 0.7rem;
+    color: var(--gray-500);
+}
+
+.pub-status {
+    font-size: 0.55rem;
+    padding: 3px 7px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+.pub-status.review {
+    background: var(--gray-100);
+    color: var(--gray-600);
+}
+
+.pub-status.submitted {
+    background: var(--black);
+    color: var(--white);
+}
+
+.pub-status.prep {
+    background: var(--gray-200);
+    color: var(--gray-500);
+}
+
+/* ========== TUTORIALS ========== */
+.tutorials-section {
+    padding: 56px 24px;
+    background: var(--gray-100);
+}
+
+.tutorial-filters {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 5px 12px;
+    font-size: 0.7rem;
+    border: 1px solid var(--gray-300);
+    border-radius: 16px;
+    cursor: pointer;
+    background: var(--white);
+    color: var(--gray-500);
+    font-family: var(--font);
+    transition: all 0.2s;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: var(--black);
+    color: var(--white);
+    border-color: var(--black);
+}
+
+.tutorials-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.tutorial-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 5px;
+    padding: 18px;
+    text-decoration: none;
+    color: var(--dark);
+    transition: all 0.2s;
+    display: block;
+}
+
+.tutorial-card:hover { border-color: var(--black); }
+
+.tutorial-card.coming {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.tutorial-card.hidden { display: none; }
+
+.tutorial-icon {
+    font-size: 1.3rem;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.tutorial-card h4 {
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 5px;
+    line-height: 1.3;
+}
+
+.tutorial-time {
+    font-size: 0.65rem;
+    color: var(--gray-400);
+}
+
+/* ========== NEWS ========== */
+.news-section {
+    padding: 56px 24px;
+}
+
+.news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.news-item {
+    display: flex;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.news-date {
+    font-size: 0.7rem;
+    color: var(--gold);
+    min-width: 65px;
+    font-weight: 500;
+}
+
+.news-item p {
+    font-size: 0.8rem;
+    color: var(--dark);
+}
+
+/* ========== AWARDS ========== */
+.awards-section {
+    padding: 56px 24px;
+    background: var(--gray-100);
+}
+
+.awards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.award-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    background: var(--white);
+    border-radius: 4px;
+}
+
+.award-year {
+    font-size: 0.7rem;
+    color: var(--gold);
+    font-weight: 600;
+    min-width: 36px;
+}
+
+.award-title {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--dark);
+    margin-bottom: 1px;
+}
+
+.award-org {
+    font-size: 0.7rem;
+    color: var(--gray-500);
+}
+
+/* ========== MENTORS ========== */
+.mentors-section {
+    padding: 56px 24px;
+}
+
+.mentors-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.mentor-card {
+    padding: 18px;
+    background: var(--gray-100);
+    border-radius: 5px;
+}
+
+.mentor-card h3 {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 3px;
+    color: var(--black);
+}
+
+.mentor-title {
+    font-size: 0.7rem;
+    color: var(--gray-500);
+}
+
+.mentor-inst {
+    font-size: 0.7rem;
+    color: var(--gray-400);
+    margin-bottom: 8px;
+}
+
+.mentor-role {
+    font-size: 0.6rem;
+    padding: 2px 7px;
+    background: var(--white);
+    border-radius: 2px;
+    color: var(--gray-500);
+}
+
+/* ========== VOLUNTEER ========== */
+.volunteer-section {
+    padding: 36px 24px;
+    text-align: center;
+    border-top: 1px solid var(--gray-200);
+}
+
+.volunteer-title {
+    font-size: 0.6rem;
+    letter-spacing: 1.5px;
+    color: var(--gray-400);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    font-weight: 500;
+}
+
+.volunteer-list {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.volunteer-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.volunteer-logo {
+    height: 28px;
+    width: auto;
+    object-fit: contain;
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: all 0.2s;
+}
+
+.volunteer-item:hover .volunteer-logo {
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
+.volunteer-name {
+    font-size: 0.8rem;
+    color: var(--gray-600);
+    font-weight: 500;
+}
+
+.volunteer-status {
+    font-size: 0.6rem;
+    color: var(--gold);
+    margin-left: 4px;
+}
+
+/* ========== CONTACT ========== */
+.contact-section {
+    padding: 56px 24px;
+    background: var(--black);
+    color: var(--white);
+    text-align: center;
+}
+
+.contact-text {
+    font-size: 0.9rem;
+    color: var(--gray-400);
+    margin-bottom: 22px;
+    line-height: 1.7;
+}
+
+.contact-email {
+    display: inline-block;
+    font-size: 1rem;
+    color: var(--white);
+    text-decoration: none;
+    padding: 10px 22px;
+    border: 1px solid var(--gray-600);
+    border-radius: 3px;
+    margin-bottom: 22px;
+    transition: all 0.2s;
+}
+
+.contact-email:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+.contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+.contact-links a {
+    font-size: 0.75rem;
+    color: var(--gray-500);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.contact-links a:hover { color: var(--gold); }
+
+/* ========== FOOTER ========== */
+.footer {
+    background: var(--dark);
+    padding: 18px 24px;
+    text-align: center;
+}
+
+.footer p {
+    font-size: 0.65rem;
+    color: var(--gray-500);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 640px) {
+    .header-name { font-size: 1.5rem; }
+    .stats-grid { gap: 28px; }
+    .statement-main { font-size: 1.1rem; }
+    
+    .skills-wrapper,
+    .prototypes-grid,
+    .tutorials-grid,
+    .awards-grid,
+    .mentors-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hexagon-svg { width: 200px; height: 200px; }
+
+    .publication-item {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+
+    .pub-status { justify-self: start; }
+    .header-links { gap: 12px; }
+    .volunteer-list { gap: 24px; }
+}

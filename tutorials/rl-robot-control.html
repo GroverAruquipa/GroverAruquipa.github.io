@@ -1,0 +1,2328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RL for Robot Control | Grover Aruquipa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --dark: #141414;
+            --gray-900: #1a1a1a;
+            --gray-800: #262626;
+            --gray-700: #3a3a3a;
+            --gray-600: #525252;
+            --gray-500: #6b6b6b;
+            --gray-400: #8a8a8a;
+            --gray-300: #a3a3a3;
+            --gray-200: #d4d4d4;
+            --gray-100: #f0f0f0;
+            --white: #ffffff;
+            --gold: #c9a227;
+            --gold-light: #d4b44a;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font);
+            font-weight: 300;
+            color: var(--dark);
+            background: var(--white);
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .nav {
+            background: var(--black);
+            padding: 16px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 960px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 400;
+        }
+
+        .nav-back {
+            color: var(--gray-400);
+            text-decoration: none;
+            font-size: 0.75rem;
+        }
+
+        .nav-back:hover { color: var(--gold); }
+
+        .tutorial-header {
+            background: var(--black);
+            color: var(--white);
+            padding: 72px 24px 56px;
+            text-align: center;
+        }
+
+        .tutorial-tag {
+            display: inline-block;
+            padding: 5px 14px;
+            border: 1px solid var(--gray-700);
+            border-radius: 20px;
+            font-size: 0.6rem;
+            color: var(--gold);
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .tutorial-title {
+            font-size: 2.2rem;
+            font-weight: 400;
+            margin-bottom: 16px;
+            line-height: 1.2;
+            letter-spacing: 0.3px;
+        }
+
+        .tutorial-meta {
+            font-size: 0.75rem;
+            color: var(--gray-400);
+            font-weight: 300;
+        }
+
+        .tutorial-meta span { margin: 0 6px; }
+
+        .tutorial-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 56px 24px;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--black);
+            margin: 48px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--gray-200);
+            letter-spacing: 0.3px;
+        }
+
+        h3 {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--dark);
+            margin: 32px 0 14px;
+        }
+
+        p { margin-bottom: 18px; }
+        strong { color: var(--black); font-weight: 500; }
+
+        .toc {
+            background: var(--gray-100);
+            border-radius: 6px;
+            padding: 24px 28px;
+            margin: 28px 0;
+        }
+
+        .toc-title {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--gold);
+            margin-bottom: 14px;
+            text-transform: uppercase;
+        }
+
+        .toc ol { margin: 0; list-style: none; counter-reset: toc-counter; }
+        .toc li { counter-increment: toc-counter; margin-bottom: 6px; }
+        .toc li::before { content: counter(toc-counter) ". "; color: var(--gray-400); font-weight: 500; font-size: 0.85rem; }
+        .toc a {
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 400;
+        }
+        .toc a:hover { color: var(--gold); }
+
+        .highlight-box {
+            background: var(--gray-100);
+            border-left: 3px solid var(--gold);
+            padding: 22px 24px;
+            margin: 28px 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .highlight-box p:last-child { margin-bottom: 0; }
+        .highlight-box.definition { border-left-color: var(--black); }
+        .highlight-box.warning { border-left-color: #8b0000; background: #fafafa; }
+        .highlight-box.example { border-left-color: var(--gray-500); background: #fafafa; }
+
+        .box-title {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--gold);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .highlight-box.definition .box-title { color: var(--black); }
+        .highlight-box.warning .box-title { color: #8b0000; }
+        .highlight-box.example .box-title { color: var(--gray-600); }
+
+        .math-block {
+            background: var(--gray-100);
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow-x: auto;
+            text-align: center;
+        }
+
+        .diagram-container {
+            background: var(--gray-100);
+            border-radius: 6px;
+            padding: 28px;
+            margin: 28px 0;
+            text-align: center;
+        }
+
+        .diagram-container svg { max-width: 100%; height: auto; }
+
+        .diagram-caption {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            margin-top: 14px;
+        }
+
+        /* 3D Panel */
+        .viz-3d {
+            background: var(--black);
+            border-radius: 6px;
+            margin: 28px 0;
+            overflow: hidden;
+        }
+
+        .viz-header {
+            padding: 16px 20px 0;
+        }
+
+        .viz-header .panel-title {
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            color: var(--gold);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .viz-header .panel-subtitle {
+            font-size: 0.7rem;
+            color: var(--gray-500);
+            margin-top: 2px;
+        }
+
+        .viz-canvas {
+            width: 100%;
+            height: 480px;
+            cursor: grab;
+            position: relative;
+            background: var(--gray-900);
+            margin: 12px 0 0;
+        }
+
+        .viz-canvas:active { cursor: grabbing; }
+
+        .viz-label {
+            position: absolute;
+            top: 10px;
+            left: 12px;
+            z-index: 10;
+            font-size: 0.55rem;
+            letter-spacing: 1.5px;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            font-weight: 600;
+            pointer-events: none;
+        }
+
+        .viz-info {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            z-index: 10;
+            text-align: right;
+            pointer-events: none;
+        }
+
+        .viz-info p {
+            font-size: 0.6rem;
+            color: var(--gray-500);
+            margin-bottom: 1px;
+        }
+
+        .viz-info .value {
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        /* Dual panel for RL viz */
+        .dual-panel-3d {
+            background: var(--black);
+            border-radius: 6px;
+            margin: 28px 0;
+            overflow: hidden;
+        }
+
+        .dual-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px 0;
+        }
+
+        .dual-panel-header .panel-title {
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            color: var(--gold);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .dual-panel-header .panel-subtitle {
+            font-size: 0.7rem;
+            color: var(--gray-500);
+            margin-top: 2px;
+        }
+
+        .dual-panel-canvases {
+            display: flex;
+            gap: 2px;
+            padding: 12px;
+        }
+
+        .panel-canvas {
+            flex: 1;
+            height: 420px;
+            cursor: grab;
+            position: relative;
+            background: var(--gray-900);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .panel-canvas:active { cursor: grabbing; }
+
+        .panel-label {
+            position: absolute;
+            top: 10px;
+            left: 12px;
+            z-index: 10;
+            font-size: 0.55rem;
+            letter-spacing: 1.5px;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            font-weight: 600;
+            pointer-events: none;
+        }
+
+        .panel-info {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            z-index: 10;
+            text-align: right;
+            pointer-events: none;
+        }
+
+        .panel-info p {
+            font-size: 0.6rem;
+            color: var(--gray-500);
+            margin-bottom: 1px;
+        }
+
+        .panel-info .value {
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        /* Controls */
+        .viz-controls {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 16px 16px;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .control-group label {
+            font-size: 0.6rem;
+            color: var(--gray-400);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .control-group input[type="range"] {
+            width: 100px;
+            height: 4px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: var(--gray-700);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .control-group input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--gold);
+            cursor: pointer;
+        }
+
+        .control-group input[type="range"]::-moz-range-thumb {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--gold);
+            cursor: pointer;
+            border: none;
+        }
+
+        .control-value {
+            font-size: 0.65rem;
+            color: var(--gold);
+            font-weight: 500;
+            min-width: 40px;
+        }
+
+        .control-sep {
+            width: 1px;
+            height: 20px;
+            background: var(--gray-700);
+        }
+
+        .action-btn {
+            padding: 6px 16px;
+            background: var(--gold);
+            color: var(--black);
+            border: none;
+            border-radius: 4px;
+            font-family: var(--font);
+            font-size: 0.65rem;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover { background: var(--gold-light); }
+
+        .action-btn.secondary {
+            background: var(--gray-800);
+            color: var(--gray-300);
+            border: 1px solid var(--gray-700);
+        }
+
+        .action-btn.secondary:hover {
+            background: var(--gray-700);
+            color: var(--white);
+        }
+
+        .action-btn.danger {
+            background: #8b0000;
+            color: var(--white);
+        }
+
+        /* RL-specific: Training chart */
+        .chart-container {
+            background: var(--gray-900);
+            border-radius: 4px;
+            margin: 8px 12px 12px;
+            padding: 16px;
+            position: relative;
+        }
+
+        .chart-container canvas {
+            width: 100%;
+            height: 180px;
+            display: block;
+        }
+
+        .chart-label {
+            font-size: 0.5rem;
+            color: var(--gray-500);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: 16px;
+            margin-top: 8px;
+        }
+
+        .chart-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.55rem;
+            color: var(--gray-400);
+        }
+
+        .chart-legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        /* Flowchart / pipeline diagrams */
+        .pipeline-diagram {
+            background: var(--gray-100);
+            border-radius: 6px;
+            padding: 32px 24px;
+            margin: 28px 0;
+            text-align: center;
+            overflow-x: auto;
+        }
+
+        .pipeline-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 12px 0;
+        }
+
+        .pipeline-box {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 20px;
+            border-radius: 6px;
+            border: 1.5px solid var(--gray-300);
+            background: var(--white);
+            min-width: 110px;
+        }
+
+        .pipeline-box.agent {
+            border-color: var(--gold);
+            background: #fdf9ed;
+        }
+
+        .pipeline-box.env {
+            border-color: var(--gray-700);
+            background: var(--gray-100);
+        }
+
+        .pipeline-box.reward {
+            border-color: #8b0000;
+            background: #fff5f5;
+        }
+
+        .pipeline-box-label {
+            font-size: 0.55rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .pipeline-box.agent .pipeline-box-label { color: var(--gold); }
+        .pipeline-box.env .pipeline-box-label { color: var(--gray-600); }
+        .pipeline-box.reward .pipeline-box-label { color: #8b0000; }
+
+        .pipeline-box-content {
+            font-size: 0.75rem;
+            color: var(--dark);
+            font-weight: 400;
+        }
+
+        .pipeline-arrow {
+            font-size: 1.2rem;
+            color: var(--gray-400);
+            font-weight: 300;
+        }
+
+        .pipeline-caption {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            margin-top: 14px;
+        }
+
+        /* Code blocks */
+        .code-block {
+            background: var(--gray-900);
+            border-radius: 6px;
+            padding: 20px 24px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+            font-size: 0.78rem;
+            line-height: 1.7;
+            color: var(--gray-200);
+        }
+
+        .code-block .comment { color: var(--gray-500); }
+        .code-block .keyword { color: var(--gold); }
+        .code-block .string { color: #8fbc8f; }
+        .code-block .number { color: #cd9b7a; }
+        .code-block .function { color: #d4b44a; }
+
+        /* Lists */
+        ul, ol { margin: 16px 0 16px 20px; }
+        li { margin-bottom: 10px; font-size: 0.9rem; }
+
+        /* Tables */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            font-size: 0.8rem;
+        }
+
+        .comparison-table th {
+            background: var(--black);
+            color: var(--white);
+            padding: 12px 14px;
+            text-align: left;
+            font-weight: 500;
+            font-size: 0.7rem;
+            letter-spacing: 0.5px;
+        }
+
+        .comparison-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .comparison-table tr:hover { background: var(--gray-100); }
+
+        /* Steps */
+        .steps {
+            counter-reset: step-counter;
+            margin: 28px 0;
+        }
+
+        .step {
+            position: relative;
+            padding-left: 52px;
+            margin-bottom: 28px;
+        }
+
+        .step::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 34px;
+            height: 34px;
+            background: var(--black);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+
+        .step-title {
+            font-weight: 500;
+            color: var(--black);
+            margin-bottom: 6px;
+        }
+
+        /* Example Box */
+        .example-box {
+            background: var(--gray-100);
+            border: 1px solid var(--gray-200);
+            border-radius: 6px;
+            padding: 24px;
+            margin: 28px 0;
+        }
+
+        .example-title {
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 2px;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+        }
+
+        /* Warning Box */
+        .warning-box {
+            background: #fafafa;
+            border: 1px solid var(--gray-200);
+            border-left: 3px solid #8b0000;
+            border-radius: 0 6px 6px 0;
+            padding: 24px;
+            margin: 28px 0;
+        }
+
+        .warning-title {
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: #8b0000;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        /* Key Concept */
+        .key-concept {
+            background: var(--gray-100);
+            border-left: 3px solid var(--black);
+            padding: 22px 24px;
+            margin: 28px 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .key-concept-title {
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: var(--black);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .key-concept p { margin-bottom: 0; font-style: italic; color: var(--gray-600); }
+
+        /* Quiz */
+        .quiz-section {
+            background: var(--gray-100);
+            border-radius: 6px;
+            padding: 28px;
+            margin: 40px 0;
+        }
+
+        .quiz-title {
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .quiz-question { margin-bottom: 20px; }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .quiz-option:hover { border-color: var(--black); }
+        .quiz-option.correct { background: #e8f5e9; border-color: #4caf50; }
+        .quiz-option.incorrect { background: #ffebee; border-color: #c62828; }
+
+        /* Nav Footer */
+        .tutorial-nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 28px 0;
+            margin-top: 40px;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .tutorial-nav a {
+            color: var(--gray-500);
+            text-decoration: none;
+            font-size: 0.8rem;
+        }
+
+        .tutorial-nav a:hover { color: var(--gold); }
+
+        .footer {
+            background: var(--dark);
+            padding: 18px 24px;
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 0.65rem;
+            color: var(--gray-500);
+        }
+
+        /* RL status badge */
+        .status-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .status-badge.training { background: #fdf9ed; color: var(--gold); border: 1px solid var(--gold); }
+        .status-badge.converged { background: #e8f5e9; color: #2e7d32; border: 1px solid #4caf50; }
+        .status-badge.failed { background: #ffebee; color: #c62828; border: 1px solid #c62828; }
+
+        @media (max-width: 768px) {
+            .tutorial-title { font-size: 1.6rem; }
+            h2 { font-size: 1.15rem; }
+            .dual-panel-canvases { flex-direction: column; }
+            .panel-canvas { height: 320px; }
+            .viz-controls { gap: 8px; }
+            .control-group input[type="range"] { width: 70px; }
+            .pipeline-row { gap: 4px; }
+            .pipeline-box { min-width: 80px; padding: 10px 12px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="../index.html" class="nav-brand">Grover Aruquipa</a>
+            <a href="../index.html#tutorials" class="nav-back">&larr; Back to Tutorials</a>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="tutorial-header">
+        <span class="tutorial-tag">AI &times; Robotics</span>
+        <h1 class="tutorial-title">Reinforcement Learning for Robot Control</h1>
+        <p class="tutorial-meta">
+            <span>Parallel Robots</span>
+            <span>&middot;</span>
+            <span>45 min read</span>
+            <span>&middot;</span>
+            <span>By Grover Aruquipa</span>
+        </p>
+    </header>
+
+    <!-- Content -->
+    <main class="tutorial-content">
+
+        <p>
+            Classical control of parallel robots relies on precise kinematic and dynamic models.
+            But what if the robot could <strong>learn</strong> to control itself? <strong>Reinforcement
+            Learning (RL)</strong> offers a fundamentally different paradigm: instead of deriving
+            equations, an agent learns optimal actions through trial and error, guided by rewards.
+            This tutorial is your starting point into RL-based control, with a focus on
+            <strong>parallel manipulators</strong>.
+        </p>
+
+        <div class="highlight-box">
+            <p class="box-title">What You Will Learn</p>
+            <p>
+                The core concepts of Reinforcement Learning (states, actions, rewards, policies),
+                how to formulate a parallel robot control problem as an <strong>MDP</strong>,
+                the key RL algorithms (PPO, SAC, TD3) used in robotics, and a
+                <strong>complete worked example</strong> of training an RL agent to control a
+                Stewart platform for trajectory tracking. You will also interact with a
+                <strong>live simulation</strong> of the trained agent.
+            </p>
+        </div>
+
+        <!-- Table of Contents -->
+        <nav class="toc">
+            <p class="toc-title">Contents</p>
+            <ol>
+                <li><a href="#why-rl">Why RL for Parallel Robots?</a></li>
+                <li><a href="#fundamentals">RL Fundamentals</a></li>
+                <li><a href="#mdp">Formulating the Control Problem as an MDP</a></li>
+                <li><a href="#algorithms">Key Algorithms for Robot Control</a></li>
+                <li><a href="#example">Worked Example: Stewart Platform Tracking</a></li>
+                <li><a href="#interactive">Interactive: Watch the Agent Learn</a></li>
+                <li><a href="#challenges">Challenges &amp; Practical Tips</a></li>
+                <li><a href="#beyond">Beyond: Sim-to-Real Transfer</a></li>
+            </ol>
+        </nav>
+
+        <!-- ===================== SECTION 1 ===================== -->
+        <h2 id="why-rl">1. Why RL for Parallel Robots?</h2>
+
+        <p>
+            Parallel robots are <strong>notoriously difficult</strong> to control with classical methods.
+            Their closed-loop kinematics create coupled, highly nonlinear dynamics. The inverse dynamics
+            require solving complex equations in real time. And near singularities, model-based controllers
+            can become unstable. RL offers an alternative.
+        </p>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Aspect</th>
+                    <th>Classical Control</th>
+                    <th>RL-Based Control</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Model requirement</strong></td>
+                    <td>Full dynamic model needed</td>
+                    <td>Model-free (learns from interaction)</td>
+                </tr>
+                <tr>
+                    <td><strong>Singularity handling</strong></td>
+                    <td>Requires explicit avoidance logic</td>
+                    <td>Learns to avoid through negative reward</td>
+                </tr>
+                <tr>
+                    <td><strong>Adaptability</strong></td>
+                    <td>Re-derive for each platform</td>
+                    <td>Re-train (same algorithm, different env)</td>
+                </tr>
+                <tr>
+                    <td><strong>Friction &amp; backlash</strong></td>
+                    <td>Hard to model accurately</td>
+                    <td>Learns to compensate implicitly</td>
+                </tr>
+                <tr>
+                    <td><strong>Optimality</strong></td>
+                    <td>Depends on tuning (PID gains)</td>
+                    <td>Optimizes for defined reward function</td>
+                </tr>
+                <tr>
+                    <td><strong>Computation at runtime</strong></td>
+                    <td>Dynamics solved each step</td>
+                    <td>Simple neural network forward pass</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="key-concept">
+            <p class="key-concept-title">The Core Idea</p>
+            <p>
+                An RL agent observes the robot&rsquo;s state (joint positions, velocities, tracking error),
+                takes an action (actuator forces/velocities), receives a reward (how well it tracked the
+                target), and gradually learns a policy that maximizes cumulative reward.
+            </p>
+        </div>
+
+        <!-- ===================== SECTION 2 ===================== -->
+        <h2 id="fundamentals">2. RL Fundamentals</h2>
+
+        <p>
+            Before applying RL to robots, you need to understand the basic framework.
+            RL is grounded in the theory of <strong>Markov Decision Processes (MDPs)</strong>.
+        </p>
+
+        <h3>2.1 The Agent-Environment Loop</h3>
+
+        <p>
+            At each time step $t$, the <strong>agent</strong> observes the current <strong>state</strong>
+            $s_t$, selects an <strong>action</strong> $a_t$ according to its <strong>policy</strong>
+            $\pi(a|s)$, and the <strong>environment</strong> transitions to a new state $s_{t+1}$ and
+            returns a <strong>reward</strong> $r_t$.
+        </p>
+
+        <!-- Agent-Environment Loop Diagram -->
+        <div class="diagram-container">
+            <svg viewBox="0 0 620 260" width="620" height="260">
+                <!-- Agent box -->
+                <rect x="40" y="30" width="180" height="80" rx="8" fill="#fdf9ed" stroke="#c9a227" stroke-width="1.5"/>
+                <text x="130" y="56" font-family="Inter" font-size="9" fill="#c9a227" text-anchor="middle" font-weight="600" letter-spacing="1.5">AGENT</text>
+                <text x="130" y="76" font-family="Inter" font-size="11" fill="#141414" text-anchor="middle" font-weight="400">Policy &pi;(a|s)</text>
+                <text x="130" y="94" font-family="Inter" font-size="9" fill="#6b6b6b" text-anchor="middle">Neural Network</text>
+
+                <!-- Environment box -->
+                <rect x="400" y="30" width="180" height="80" rx="8" fill="#f0f0f0" stroke="#3a3a3a" stroke-width="1.5"/>
+                <text x="490" y="56" font-family="Inter" font-size="9" fill="#525252" text-anchor="middle" font-weight="600" letter-spacing="1.5">ENVIRONMENT</text>
+                <text x="490" y="76" font-family="Inter" font-size="11" fill="#141414" text-anchor="middle" font-weight="400">Stewart Platform</text>
+                <text x="490" y="94" font-family="Inter" font-size="9" fill="#6b6b6b" text-anchor="middle">Physics Simulation</text>
+
+                <!-- Action arrow (agent -> env) -->
+                <path d="M 220 55 L 395 55" fill="none" stroke="#c9a227" stroke-width="1.5" marker-end="url(#arrowGold)"/>
+                <text x="308" y="48" font-family="Inter" font-size="9" fill="#c9a227" text-anchor="middle" font-weight="500">action a&#x2080;</text>
+
+                <!-- State arrow (env -> agent, bottom) -->
+                <path d="M 400 95 L 220 160 L 220 160" fill="none" stroke="#3a3a3a" stroke-width="1.5"/>
+                <path d="M 220 160 L 130 160 L 130 115" fill="none" stroke="#3a3a3a" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+                <rect x="225" y="140" width="160" height="24" rx="4" fill="#fff" stroke="#3a3a3a" stroke-width="0.8"/>
+                <text x="305" y="156" font-family="Inter" font-size="9" fill="#141414" text-anchor="middle" font-weight="400">state s&#x2081; , reward r&#x2080;</text>
+
+                <!-- Reward explanation -->
+                <rect x="160" y="195" width="300" height="50" rx="6" fill="#fff5f5" stroke="#8b0000" stroke-width="1"/>
+                <text x="310" y="215" font-family="Inter" font-size="9" fill="#8b0000" text-anchor="middle" font-weight="600" letter-spacing="1">REWARD SIGNAL</text>
+                <text x="310" y="233" font-family="Inter" font-size="9" fill="#525252" text-anchor="middle">r = -||error||&sup2; - &lambda;||a||&sup2;</text>
+
+                <defs>
+                    <marker id="arrowGold" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                        <path d="M 0 0 L 8 4 L 0 8 Z" fill="#c9a227"/>
+                    </marker>
+                    <marker id="arrowGray" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                        <path d="M 0 0 L 8 4 L 0 8 Z" fill="#3a3a3a"/>
+                    </marker>
+                </defs>
+            </svg>
+            <p class="diagram-caption">Figure 1. The RL agent-environment interaction loop applied to Stewart platform control. At each timestep, the agent selects actuator commands, and the environment returns the new platform state and a reward signal.</p>
+        </div>
+
+        <h3>2.2 Key Definitions</h3>
+
+        <div class="highlight-box definition">
+            <p class="box-title">Markov Decision Process (MDP)</p>
+            <p>
+                An MDP is defined by the tuple $(\mathcal{S}, \mathcal{A}, P, R, \gamma)$:
+            </p>
+            <ul style="margin-bottom: 0;">
+                <li>$\mathcal{S}$: <strong>State space</strong> &mdash; what the agent observes (positions, velocities, errors)</li>
+                <li>$\mathcal{A}$: <strong>Action space</strong> &mdash; what the agent can do (actuator forces or velocities)</li>
+                <li>$P(s'|s,a)$: <strong>Transition dynamics</strong> &mdash; how the environment evolves (physics)</li>
+                <li>$R(s,a,s')$: <strong>Reward function</strong> &mdash; scalar feedback signal</li>
+                <li>$\gamma \in [0,1)$: <strong>Discount factor</strong> &mdash; how much the agent values future vs. immediate reward</li>
+            </ul>
+        </div>
+
+        <h3>2.3 The Objective</h3>
+
+        <p>
+            The agent&rsquo;s goal is to find a policy $\pi^*$ that maximizes the
+            <strong>expected discounted return</strong>:
+        </p>
+
+        <div class="math-block">
+            $$\pi^* = \arg\max_\pi \; \mathbb{E}_\pi \left[ \sum_{t=0}^{\infty} \gamma^t \, r_t \right]$$
+        </div>
+
+        <p>
+            In plain language: the agent learns to act in a way that accumulates as much reward
+            as possible over time, with a slight preference for sooner rewards (controlled by $\gamma$).
+        </p>
+
+        <h3>2.4 Policy, Value Function, and Q-Function</h3>
+
+        <p>
+            Three central concepts in RL:
+        </p>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Concept</th>
+                    <th>Symbol</th>
+                    <th>Meaning</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Policy</strong></td>
+                    <td>$\pi(a|s)$</td>
+                    <td>Probability of taking action $a$ in state $s$</td>
+                </tr>
+                <tr>
+                    <td><strong>Value function</strong></td>
+                    <td>$V^\pi(s)$</td>
+                    <td>Expected return starting from state $s$, following $\pi$</td>
+                </tr>
+                <tr>
+                    <td><strong>Q-function</strong></td>
+                    <td>$Q^\pi(s,a)$</td>
+                    <td>Expected return after taking action $a$ in state $s$, then following $\pi$</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="math-block">
+            $$V^\pi(s) = \mathbb{E}_\pi\left[\sum_{t=0}^\infty \gamma^t r_t \,\middle|\, s_0 = s\right], \qquad Q^\pi(s,a) = \mathbb{E}_\pi\left[\sum_{t=0}^\infty \gamma^t r_t \,\middle|\, s_0 = s, a_0 = a\right]$$
+        </div>
+
+        <div class="highlight-box example">
+            <p class="box-title">Intuition</p>
+            <p>
+                Think of $V(s)$ as the agent asking: <em>&ldquo;How good is my current situation?&rdquo;</em>
+                And $Q(s,a)$ as: <em>&ldquo;How good is it to do this specific action right now?&rdquo;</em>
+                The policy then picks the action with the highest Q-value (or samples from a distribution
+                for exploration).
+            </p>
+        </div>
+
+        <!-- ===================== SECTION 3 ===================== -->
+        <h2 id="mdp">3. Formulating the Control Problem as an MDP</h2>
+
+        <p>
+            The most critical step in applying RL to robotics is <strong>designing the MDP</strong>.
+            A poor formulation will prevent the agent from learning, regardless of the algorithm.
+            Here we formulate trajectory tracking for a 6-DOF Stewart platform.
+        </p>
+
+        <h3>3.1 State Space $\mathcal{S}$</h3>
+
+        <p>
+            The state must contain all information the agent needs to make good decisions.
+            For a Stewart platform tracking a trajectory:
+        </p>
+
+        <div class="math-block">
+            $$s_t = \begin{bmatrix} \mathbf{p}_t \\ \dot{\mathbf{p}}_t \\ \boldsymbol{\Phi}_t \\ \dot{\boldsymbol{\Phi}}_t \\ \mathbf{e}_t \\ \mathbf{p}_{\text{target},t} \end{bmatrix} \in \mathbb{R}^{24}$$
+        </div>
+
+        <p>where:</p>
+        <ul>
+            <li>$\mathbf{p}_t \in \mathbb{R}^3$: current platform position $(x, y, z)$</li>
+            <li>$\dot{\mathbf{p}}_t \in \mathbb{R}^3$: linear velocity</li>
+            <li>$\boldsymbol{\Phi}_t \in \mathbb{R}^3$: current orientation (roll, pitch, yaw)</li>
+            <li>$\dot{\boldsymbol{\Phi}}_t \in \mathbb{R}^3$: angular velocity</li>
+            <li>$\mathbf{e}_t = \mathbf{p}_{\text{target}} - \mathbf{p}_t \in \mathbb{R}^6$: tracking error (position + orientation)</li>
+            <li>$\mathbf{p}_{\text{target},t} \in \mathbb{R}^6$: target pose</li>
+        </ul>
+
+        <div class="highlight-box">
+            <p class="box-title">Design Tip</p>
+            <p>
+                Always include the <strong>tracking error</strong> explicitly in the state.
+                Although the agent could compute it from $\mathbf{p}_t$ and $\mathbf{p}_{\text{target}}$,
+                providing it directly accelerates learning significantly.
+            </p>
+        </div>
+
+        <h3>3.2 Action Space $\mathcal{A}$</h3>
+
+        <p>
+            The action is the control command sent to the actuators. For the Stewart platform
+            with 6 prismatic actuators, we typically use:
+        </p>
+
+        <div class="math-block">
+            $$a_t = [\Delta\rho_1, \Delta\rho_2, \dots, \Delta\rho_6]^T \in [-1, 1]^6$$
+        </div>
+
+        <p>
+            Actions are <strong>normalized</strong> to $[-1, 1]$ and then scaled to the
+            actual actuator velocity or force range. This normalization is essential for
+            stable neural network training.
+        </p>
+
+        <h3>3.3 Reward Function $R(s, a)$</h3>
+
+        <p>
+            The reward function is the <strong>most important design choice</strong>.
+            It defines what &ldquo;good&rdquo; means. A well-designed reward for trajectory tracking:
+        </p>
+
+        <div class="math-block">
+            $$r_t = -\alpha \|\mathbf{e}_{\text{pos},t}\|^2 - \beta \|\mathbf{e}_{\text{ori},t}\|^2 - \lambda \|a_t\|^2 + r_{\text{bonus}}$$
+        </div>
+
+        <p>where:</p>
+        <ul>
+            <li>$\alpha \|\mathbf{e}_{\text{pos}}\|^2$: penalizes position tracking error</li>
+            <li>$\beta \|\mathbf{e}_{\text{ori}}\|^2$: penalizes orientation error</li>
+            <li>$\lambda \|a\|^2$: penalizes large actuator commands (energy efficiency)</li>
+            <li>$r_{\text{bonus}}$: bonus for reaching the target within tolerance</li>
+        </ul>
+
+        <div class="warning-box">
+            <p class="warning-title">Reward Shaping Pitfall</p>
+            <p>
+                If the reward is too sparse (e.g., +1 only at the exact target), the agent
+                will almost never receive positive feedback and learning stalls. Use <strong>dense
+                rewards</strong> (continuous penalties proportional to error) for robot control.
+                Also: always add a small action penalty $\lambda\|a\|^2$ to prevent actuator
+                chatter (rapid oscillations).
+            </p>
+        </div>
+
+        <h3>3.4 Episode Structure</h3>
+
+        <div class="steps">
+            <div class="step">
+                <p class="step-title">Reset</p>
+                <p>
+                    Platform starts at a random pose near the home position.
+                    A random target trajectory is generated (e.g., circular, sinusoidal, or point-to-point).
+                </p>
+            </div>
+            <div class="step">
+                <p class="step-title">Step loop (500&ndash;2000 steps at 100 Hz)</p>
+                <p>
+                    At each step: observe $s_t$, compute $a_t = \pi(s_t)$, apply to actuators,
+                    simulate physics, compute $r_t$, observe $s_{t+1}$.
+                </p>
+            </div>
+            <div class="step">
+                <p class="step-title">Termination</p>
+                <p>
+                    Episode ends if: max steps reached, platform leaves workspace,
+                    or actuator limits are violated. Early termination with a large
+                    negative reward teaches the agent to stay safe.
+                </p>
+            </div>
+        </div>
+
+        <!-- ===================== SECTION 4 ===================== -->
+        <h2 id="algorithms">4. Key Algorithms for Robot Control</h2>
+
+        <p>
+            Not all RL algorithms work well for continuous-action robot control.
+            Here are the three most successful families for this task.
+        </p>
+
+        <h3>4.1 Proximal Policy Optimization (PPO)</h3>
+
+        <p>
+            PPO is an <strong>on-policy</strong> algorithm that updates the policy using
+            a clipped surrogate objective. It is the most widely used algorithm in sim-to-real robotics.
+        </p>
+
+        <div class="math-block">
+            $$L^{\text{CLIP}}(\theta) = \mathbb{E}_t\left[\min\left(r_t(\theta)\hat{A}_t, \; \text{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon)\hat{A}_t\right)\right]$$
+        </div>
+
+        <p>
+            where $r_t(\theta) = \frac{\pi_\theta(a_t|s_t)}{\pi_{\theta_{\text{old}}}(a_t|s_t)}$ is the probability
+            ratio and $\hat{A}_t$ is the advantage estimate. The clipping prevents destructively large
+            policy updates.
+        </p>
+
+        <h3>4.2 Soft Actor-Critic (SAC)</h3>
+
+        <p>
+            SAC is an <strong>off-policy</strong> algorithm that maximizes both reward and
+            <strong>entropy</strong> (exploration). Excellent for continuous control:
+        </p>
+
+        <div class="math-block">
+            $$\pi^* = \arg\max_\pi \; \mathbb{E}_\pi\left[\sum_{t=0}^\infty \gamma^t \left(r_t + \alpha \mathcal{H}(\pi(\cdot|s_t))\right)\right]$$
+        </div>
+
+        <p>
+            The entropy term $\mathcal{H}$ encourages the agent to explore diverse actions,
+            which prevents premature convergence to suboptimal policies.
+        </p>
+
+        <h3>4.3 Twin Delayed DDPG (TD3)</h3>
+
+        <p>
+            TD3 is a refined version of DDPG that addresses overestimation bias using twin
+            Q-networks and delayed policy updates.
+        </p>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Algorithm</th>
+                    <th>Type</th>
+                    <th>Pros</th>
+                    <th>Best For</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>PPO</strong></td>
+                    <td>On-policy</td>
+                    <td>Stable, easy to tune, parallelizable</td>
+                    <td>Sim-to-real, safety-critical</td>
+                </tr>
+                <tr>
+                    <td><strong>SAC</strong></td>
+                    <td>Off-policy</td>
+                    <td>Sample efficient, robust exploration</td>
+                    <td>Complex continuous control</td>
+                </tr>
+                <tr>
+                    <td><strong>TD3</strong></td>
+                    <td>Off-policy</td>
+                    <td>Deterministic policy, low variance</td>
+                    <td>Precise tracking tasks</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="highlight-box">
+            <p class="box-title">Recommendation for Parallel Robots</p>
+            <p>
+                Start with <strong>SAC</strong> for development (fast iteration due to sample efficiency),
+                then switch to <strong>PPO</strong> for sim-to-real transfer (more stable, easier to
+                constrain outputs). Use domain randomization in either case.
+            </p>
+        </div>
+
+        <!-- ===================== SECTION 5 ===================== -->
+        <h2 id="example">5. Worked Example: Stewart Platform Tracking</h2>
+
+        <p>
+            Let&rsquo;s walk through a complete example. We train an RL agent (SAC) to make
+            a Stewart platform track a circular trajectory in the $xz$-plane while
+            maintaining constant height and orientation.
+        </p>
+
+        <h3>5.1 Environment Setup</h3>
+
+        <!-- Pipeline diagram -->
+        <div class="pipeline-diagram">
+            <div class="pipeline-row">
+                <div class="pipeline-box agent">
+                    <span class="pipeline-box-label">Agent</span>
+                    <span class="pipeline-box-content">SAC Policy<br>MLP [256, 256]</span>
+                </div>
+                <span class="pipeline-arrow">&rarr;</span>
+                <div class="pipeline-box">
+                    <span class="pipeline-box-label" style="color: var(--gray-600);">Action Scaling</span>
+                    <span class="pipeline-box-content">[-1,1]&sup6; &rarr; force<br>&Delta;&rho; &times; F<sub>max</sub></span>
+                </div>
+                <span class="pipeline-arrow">&rarr;</span>
+                <div class="pipeline-box env">
+                    <span class="pipeline-box-label">Simulator</span>
+                    <span class="pipeline-box-content">Stewart 6-UPS<br>dt = 0.01s</span>
+                </div>
+            </div>
+            <div class="pipeline-row">
+                <div class="pipeline-box env">
+                    <span class="pipeline-box-label">State</span>
+                    <span class="pipeline-box-content">p, v, &Phi;, &omega;, e<br>dim = 24</span>
+                </div>
+                <span class="pipeline-arrow">&larr;</span>
+                <div class="pipeline-box reward">
+                    <span class="pipeline-box-label">Reward</span>
+                    <span class="pipeline-box-content">-||e<sub>pos</sub>||&sup2; - 0.1||a||&sup2;<br>+5 if ||e|| &lt; 0.01</span>
+                </div>
+                <span class="pipeline-arrow">&larr;</span>
+                <div class="pipeline-box env">
+                    <span class="pipeline-box-label">Physics</span>
+                    <span class="pipeline-box-content">Forward dynamics<br>Collision check</span>
+                </div>
+            </div>
+            <p class="pipeline-caption">Figure 2. The complete RL training pipeline for Stewart platform trajectory tracking.</p>
+        </div>
+
+        <h3>5.2 Hyperparameters</h3>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Value</th>
+                    <th>Rationale</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Algorithm</td>
+                    <td>SAC</td>
+                    <td>Off-policy, good for continuous 6D action</td>
+                </tr>
+                <tr>
+                    <td>Policy network</td>
+                    <td>MLP [256, 256]</td>
+                    <td>Sufficient for smooth control policies</td>
+                </tr>
+                <tr>
+                    <td>Learning rate</td>
+                    <td>$3 \times 10^{-4}$</td>
+                    <td>Standard for SAC</td>
+                </tr>
+                <tr>
+                    <td>Discount $\gamma$</td>
+                    <td>0.99</td>
+                    <td>Long horizon (10s episodes)</td>
+                </tr>
+                <tr>
+                    <td>Batch size</td>
+                    <td>256</td>
+                    <td>Stable gradient estimates</td>
+                </tr>
+                <tr>
+                    <td>Replay buffer</td>
+                    <td>$10^6$</td>
+                    <td>Store many transitions for off-policy</td>
+                </tr>
+                <tr>
+                    <td>$\alpha$ (position penalty)</td>
+                    <td>10.0</td>
+                    <td>Primary objective</td>
+                </tr>
+                <tr>
+                    <td>$\lambda$ (action penalty)</td>
+                    <td>0.1</td>
+                    <td>Smooth actuator commands</td>
+                </tr>
+                <tr>
+                    <td>Episode length</td>
+                    <td>1000 steps (10s)</td>
+                    <td>One full circle trajectory</td>
+                </tr>
+                <tr>
+                    <td>Total training steps</td>
+                    <td>$5 \times 10^5$</td>
+                    <td>~500 episodes</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>5.3 Pseudocode</h3>
+
+        <div class="code-block">
+<span class="comment"># SAC Training Loop for Stewart Platform Control</span>
+<span class="keyword">import</span> gymnasium <span class="keyword">as</span> gym
+<span class="keyword">from</span> stable_baselines3 <span class="keyword">import</span> SAC
+
+<span class="comment"># 1. Create the Stewart Platform environment</span>
+env = gym.make(<span class="string">"StewartPlatform-v1"</span>,
+    base_radius=<span class="number">0.70</span>,
+    platform_radius=<span class="number">0.35</span>,
+    trajectory=<span class="string">"circular"</span>,
+    max_steps=<span class="number">1000</span>,
+)
+
+<span class="comment"># 2. Initialize SAC agent</span>
+model = SAC(
+    <span class="string">"MlpPolicy"</span>,
+    env,
+    learning_rate=<span class="number">3e-4</span>,
+    gamma=<span class="number">0.99</span>,
+    batch_size=<span class="number">256</span>,
+    buffer_size=<span class="number">1_000_000</span>,
+    policy_kwargs=<span class="keyword">dict</span>(net_arch=[<span class="number">256</span>, <span class="number">256</span>]),
+    verbose=<span class="number">1</span>,
+)
+
+<span class="comment"># 3. Train</span>
+model.learn(total_timesteps=<span class="number">500_000</span>)
+
+<span class="comment"># 4. Evaluate</span>
+obs, _ = env.reset()
+<span class="keyword">for</span> step <span class="keyword">in</span> <span class="function">range</span>(<span class="number">1000</span>):
+    action, _ = model.predict(obs, deterministic=<span class="keyword">True</span>)
+    obs, reward, done, truncated, info = env.step(action)
+    <span class="keyword">if</span> done: <span class="keyword">break</span>
+<span class="function">print</span>(<span class="string">f"Mean tracking error: </span>{info[<span class="string">'mean_error'</span>]:.4f}<span class="string"> m"</span>)
+        </div>
+
+        <h3>5.4 Training Progress</h3>
+
+        <p>
+            The chart below shows a <strong>simulated training curve</strong> for this problem.
+            The three phases are typical of RL for robot control:
+        </p>
+
+        <ol>
+            <li><strong>Exploration (0&ndash;50k steps)</strong>: Agent takes random actions, reward is very negative</li>
+            <li><strong>Rapid learning (50k&ndash;250k)</strong>: Agent discovers the tracking strategy, reward climbs quickly</li>
+            <li><strong>Fine-tuning (250k&ndash;500k)</strong>: Agent refines precision, small gains in tracking accuracy</li>
+        </ol>
+
+        <!-- ===================== SECTION 6 ===================== -->
+        <h2 id="interactive">6. Interactive: Watch the Agent Learn</h2>
+
+        <p>
+            Below is a <strong>live simulation</strong> of an RL agent controlling a Stewart platform.
+            On the <strong>left</strong>, the 3D Stewart platform tracks a circular trajectory (gold ring).
+            On the <strong>right</strong>, the training reward curve shows the agent&rsquo;s progress.
+        </p>
+
+        <p>
+            Click <strong>Train</strong> to start training from scratch, <strong>Step</strong> to advance
+            one episode, or use the <strong>Speed</strong> slider to control the simulation.
+            Watch how the platform&rsquo;s motion improves as training progresses!
+        </p>
+
+        <!-- Interactive RL Visualization -->
+        <div class="dual-panel-3d" id="rlVizContainer">
+            <div class="dual-panel-header">
+                <div>
+                    <div class="panel-title">RL Agent: Stewart Platform Tracking</div>
+                    <div class="panel-subtitle">Watch the agent learn to follow a circular trajectory</div>
+                </div>
+                <div>
+                    <span class="status-badge training" id="statusBadge">Untrained</span>
+                </div>
+            </div>
+            <div class="dual-panel-canvases">
+                <div class="panel-canvas" id="panelRobot">
+                    <div class="panel-label">Stewart Platform (Agent View)</div>
+                    <div class="panel-info" id="robotInfo">
+                        <p>Episode: <span class="value" id="infoEpisode">0</span></p>
+                        <p>Error: <span class="value" id="infoError">--</span></p>
+                        <p>Reward: <span class="value" id="infoReward">--</span></p>
+                    </div>
+                </div>
+                <div class="panel-canvas" id="panelChart">
+                    <div class="panel-label">Training Progress</div>
+                    <div class="panel-info" id="chartInfo">
+                        <p>Steps: <span class="value" id="infoSteps">0</span></p>
+                        <p>Best: <span class="value" id="infoBest">--</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="viz-controls">
+                <button class="action-btn" id="btnTrain" onclick="rlStartTrain()">Train</button>
+                <button class="action-btn secondary" id="btnStep" onclick="rlStepEpisode()">Step</button>
+                <button class="action-btn secondary" id="btnReset" onclick="rlReset()">Reset</button>
+                <div class="control-sep"></div>
+                <div class="control-group">
+                    <label>Speed</label>
+                    <input type="range" id="sliderSpeed" min="1" max="10" step="1" value="5">
+                    <span class="control-value" id="valSpeed">5x</span>
+                </div>
+                <div class="control-sep"></div>
+                <div class="control-group">
+                    <label>Trajectory</label>
+                    <select id="selTrajectory" style="background: var(--gray-800); color: var(--gray-300); border: 1px solid var(--gray-700); border-radius: 4px; padding: 4px 8px; font-family: var(--font); font-size: 0.6rem;">
+                        <option value="circle">Circle</option>
+                        <option value="figure8">Figure-8</option>
+                        <option value="square">Square</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <p class="box-title">What to Observe</p>
+            <ul style="margin-bottom: 0;">
+                <li><strong>Early episodes</strong>: The platform moves erratically, overshooting and oscillating</li>
+                <li><strong>Mid training</strong>: The platform begins following the trajectory but with visible lag</li>
+                <li><strong>Late training</strong>: Smooth, accurate tracking with minimal overshoot</li>
+                <li>The <strong>gold ring</strong> is the target trajectory; the <strong>red dot</strong> is the platform center</li>
+                <li>Watch the <strong>reward curve</strong> on the right climb as the agent improves</li>
+            </ul>
+        </div>
+
+        <!-- ===================== SECTION 7 ===================== -->
+        <h2 id="challenges">7. Challenges &amp; Practical Tips</h2>
+
+        <h3>7.1 Reward Engineering</h3>
+
+        <p>
+            The reward function can make or break your RL controller.
+        </p>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Problem</th>
+                    <th>Symptom</th>
+                    <th>Solution</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Sparse reward</td>
+                    <td>No learning progress</td>
+                    <td>Dense error-based penalty</td>
+                </tr>
+                <tr>
+                    <td>No action penalty</td>
+                    <td>Chattering / oscillation</td>
+                    <td>Add $\lambda\|a\|^2$ or $\lambda\|\Delta a\|^2$</td>
+                </tr>
+                <tr>
+                    <td>Reward hacking</td>
+                    <td>Agent finds loophole</td>
+                    <td>Add constraints, clip rewards</td>
+                </tr>
+                <tr>
+                    <td>Scale mismatch</td>
+                    <td>Orientation ignored</td>
+                    <td>Normalize and balance $\alpha, \beta$</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>7.2 Observation Normalization</h3>
+
+        <div class="highlight-box">
+            <p class="box-title">Critical for Convergence</p>
+            <p>
+                Always normalize observations to roughly $[-1, 1]$ or zero mean with unit variance.
+                Neural networks are sensitive to input scales. Use a running mean/std normalizer
+                (available in most RL libraries). For the Stewart platform: positions in meters
+                and velocities in m/s have very different scales&mdash;normalization is essential.
+            </p>
+        </div>
+
+        <h3>7.3 Action Smoothing</h3>
+
+        <p>
+            Raw RL policies can produce jerky commands. Two techniques to smooth actions:
+        </p>
+
+        <ul>
+            <li><strong>Action rate penalty</strong>: Add $\lambda_{\Delta a}\|a_t - a_{t-1}\|^2$ to the reward</li>
+            <li><strong>Low-pass filter</strong>: Apply exponential smoothing: $a_{\text{applied}} = \alpha \cdot a_{\text{policy}} + (1-\alpha) \cdot a_{\text{prev}}$</li>
+        </ul>
+
+        <h3>7.4 Curriculum Learning</h3>
+
+        <p>
+            Start with easy tasks and gradually increase difficulty:
+        </p>
+
+        <div class="steps">
+            <div class="step">
+                <p class="step-title">Phase 1: Point stabilization</p>
+                <p>Agent learns to hold the platform at a fixed position.</p>
+            </div>
+            <div class="step">
+                <p class="step-title">Phase 2: Slow trajectory</p>
+                <p>Simple circular path at low speed (0.01 m/s).</p>
+            </div>
+            <div class="step">
+                <p class="step-title">Phase 3: Full speed + noise</p>
+                <p>Complex trajectories with disturbances and observation noise.</p>
+            </div>
+        </div>
+
+        <h3>7.5 Domain Randomization</h3>
+
+        <p>
+            To make the policy robust for sim-to-real transfer, randomize during training:
+        </p>
+
+        <ul>
+            <li><strong>Mass &amp; inertia</strong>: &plusmn;20% variation</li>
+            <li><strong>Friction</strong>: Random joint friction coefficients</li>
+            <li><strong>Sensor noise</strong>: Gaussian noise on position/velocity readings</li>
+            <li><strong>Actuator delay</strong>: Random 1&ndash;3 step delay in action execution</li>
+            <li><strong>External forces</strong>: Random perturbations during trajectory</li>
+        </ul>
+
+        <!-- ===================== SECTION 8 ===================== -->
+        <h2 id="beyond">8. Beyond: Sim-to-Real Transfer</h2>
+
+        <p>
+            The ultimate goal is to deploy the learned policy on a <strong>real robot</strong>.
+            The gap between simulation and reality (the <strong>sim-to-real gap</strong>) is the
+            biggest challenge in RL-based robot control.
+        </p>
+
+        <!-- Sim-to-Real Pipeline Diagram -->
+        <div class="diagram-container">
+            <svg viewBox="0 0 620 200" width="620" height="200">
+                <!-- Sim box -->
+                <rect x="20" y="40" width="160" height="90" rx="8" fill="#fdf9ed" stroke="#c9a227" stroke-width="1.5"/>
+                <text x="100" y="62" font-family="Inter" font-size="9" fill="#c9a227" text-anchor="middle" font-weight="600" letter-spacing="1.5">SIMULATION</text>
+                <text x="100" y="82" font-family="Inter" font-size="10" fill="#141414" text-anchor="middle">Train policy</text>
+                <text x="100" y="98" font-family="Inter" font-size="9" fill="#6b6b6b" text-anchor="middle">Domain randomization</text>
+                <text x="100" y="114" font-family="Inter" font-size="9" fill="#6b6b6b" text-anchor="middle">500k+ steps</text>
+
+                <!-- Arrow 1 -->
+                <path d="M 185 85 L 225 85" fill="none" stroke="#c9a227" stroke-width="1.5" marker-end="url(#arrowG2)"/>
+
+                <!-- Transfer box -->
+                <rect x="230" y="50" width="160" height="70" rx="8" fill="#f0f0f0" stroke="#3a3a3a" stroke-width="1.5"/>
+                <text x="310" y="72" font-family="Inter" font-size="9" fill="#525252" text-anchor="middle" font-weight="600" letter-spacing="1.5">TRANSFER</text>
+                <text x="310" y="92" font-family="Inter" font-size="10" fill="#141414" text-anchor="middle">Policy deployment</text>
+                <text x="310" y="108" font-family="Inter" font-size="9" fill="#6b6b6b" text-anchor="middle">System identification</text>
+
+                <!-- Arrow 2 -->
+                <path d="M 395 85 L 435 85" fill="none" stroke="#3a3a3a" stroke-width="1.5" marker-end="url(#arrowGr2)"/>
+
+                <!-- Real box -->
+                <rect x="440" y="40" width="160" height="90" rx="8" fill="#f0fff0" stroke="#2e7d32" stroke-width="1.5"/>
+                <text x="520" y="62" font-family="Inter" font-size="9" fill="#2e7d32" text-anchor="middle" font-weight="600" letter-spacing="1.5">REAL ROBOT</text>
+                <text x="520" y="82" font-family="Inter" font-size="10" fill="#141414" text-anchor="middle">Execute policy</text>
+                <text x="520" y="98" font-family="Inter" font-size="9" fill="#6b6b6b" text-anchor="middle">Fine-tune online</text>
+                <text x="520" y="114" font-family="Inter" font-size="9" fill="#6b6b6b" text-anchor="middle">Safety constraints</text>
+
+                <!-- Feedback arrow -->
+                <path d="M 520 135 L 520 165 L 100 165 L 100 135" fill="none" stroke="#8a8a8a" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrowLG)"/>
+                <text x="310" y="180" font-family="Inter" font-size="8" fill="#8a8a8a" text-anchor="middle">Optional: real-world fine-tuning data</text>
+
+                <defs>
+                    <marker id="arrowG2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                        <path d="M 0 0 L 8 4 L 0 8 Z" fill="#c9a227"/>
+                    </marker>
+                    <marker id="arrowGr2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                        <path d="M 0 0 L 8 4 L 0 8 Z" fill="#3a3a3a"/>
+                    </marker>
+                    <marker id="arrowLG" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                        <path d="M 0 0 L 8 4 L 0 8 Z" fill="#8a8a8a"/>
+                    </marker>
+                </defs>
+            </svg>
+            <p class="diagram-caption">Figure 3. The sim-to-real pipeline. A policy trained in simulation with domain randomization is deployed on the real Stewart platform, with optional online fine-tuning.</p>
+        </div>
+
+        <h3>Key Strategies for Sim-to-Real</h3>
+
+        <ul>
+            <li><strong>Domain randomization</strong>: Vary physics parameters during training so the policy is robust to real-world uncertainty</li>
+            <li><strong>System identification</strong>: Measure real robot parameters and calibrate the simulator</li>
+            <li><strong>Action filtering</strong>: Apply low-pass filters to prevent high-frequency commands that could damage hardware</li>
+            <li><strong>Safety layers</strong>: Add workspace limits and force constraints that override the RL policy when necessary</li>
+        </ul>
+
+        <div class="key-concept">
+            <p class="key-concept-title">The Future</p>
+            <p>
+                RL for parallel robot control is an active research area. Current trends include
+                model-based RL (learning a dynamics model for faster training), multi-task learning
+                (one policy for many trajectories), and safe RL (guaranteeing constraint satisfaction
+                during exploration).
+            </p>
+        </div>
+
+        <!-- Summary -->
+        <h2>Summary</h2>
+
+        <div class="key-concept">
+            <p class="key-concept-title">Key Takeaways</p>
+            <ul style="margin-bottom: 0; font-style: normal; color: var(--dark);">
+                <li><strong>RL</strong> learns control policies from interaction, without requiring explicit dynamic models</li>
+                <li>The <strong>MDP formulation</strong> (state, action, reward) is the most critical design step</li>
+                <li>Use <strong>dense rewards</strong> with error penalty + action penalty for robot control</li>
+                <li><strong>SAC</strong> and <strong>PPO</strong> are the go-to algorithms for continuous robot control</li>
+                <li>Include <strong>tracking error</strong> in the state and <strong>normalize</strong> all observations</li>
+                <li><strong>Domain randomization</strong> is essential for sim-to-real transfer</li>
+                <li><strong>Curriculum learning</strong> accelerates training: start easy, increase difficulty</li>
+                <li>Always add <strong>safety constraints</strong> as a layer on top of the RL policy</li>
+            </ul>
+        </div>
+
+        <!-- Quiz -->
+        <div class="quiz-section">
+            <p class="quiz-title">Quick Check</p>
+
+            <div class="quiz-question">
+                <p><strong>Q1.</strong> In the MDP formulation for a Stewart platform, the action space typically consists of:</p>
+                <div class="quiz-options" id="quiz1">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">The target position of the platform</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">Normalized actuator force/velocity commands for 6 legs</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Joint angles of the base</div>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>Q2.</strong> Why is a dense reward function preferred over a sparse one for robot control?</p>
+                <div class="quiz-options" id="quiz2">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Dense rewards are computationally cheaper</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">Dense rewards provide continuous feedback, enabling faster learning</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Sparse rewards cause the robot to move too fast</div>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>Q3.</strong> The action penalty term $\lambda\|a\|^2$ in the reward function serves to:</p>
+                <div class="quiz-options" id="quiz3">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Increase the exploration rate</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Make the robot move faster</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">Prevent actuator chattering and encourage smooth, energy-efficient commands</div>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>Q4.</strong> Domain randomization helps with:</p>
+                <div class="quiz-options" id="quiz4">
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">Bridging the sim-to-real gap by making the policy robust to parameter variations</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Reducing the training time</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Eliminating the need for a simulator</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="tutorial-nav">
+            <a href="singularity-workspace.html">&larr; Previous: Singularity-Free Workspace</a>
+            <span style="color: var(--gray-400); font-size: 0.8rem;">More tutorials coming soon</span>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Grover Aruquipa &middot; Universit&eacute; Laval</p>
+    </footer>
+
+    <script>
+    // Quiz
+    function checkAnswer(el, isCorrect) {
+        const opts = el.parentElement.querySelectorAll('.quiz-option');
+        opts.forEach(o => { o.classList.remove('correct','incorrect'); o.style.pointerEvents = 'none'; });
+        if (isCorrect) { el.classList.add('correct'); }
+        else {
+            el.classList.add('incorrect');
+            opts.forEach(o => { if (o.getAttribute('onclick').includes('true')) o.classList.add('correct'); });
+        }
+    }
+
+    // KaTeX
+    document.addEventListener("DOMContentLoaded", function() {
+        if (typeof renderMathInElement !== 'undefined') {
+            renderMathInElement(document.body, {
+                delimiters: [{left: "$$", right: "$$", display: true},{left: "$", right: "$", display: false}],
+                throwOnError: false
+            });
+        }
+    });
+
+    // ===========================================
+    // INTERACTIVE RL SIMULATION
+    // ===========================================
+    (function() {
+        // ---- STEWART PLATFORM GEOMETRY ----
+        const Rp = 0.35, Rb = 0.70;
+        const baseAngles = [0, 60, 120, 180, 240, 300].map(a => a * Math.PI / 180);
+        const platAngles = [30, 90, 150, 210, 270, 330].map(a => a * Math.PI / 180);
+
+        // ---- PANEL 1: 3D Robot View ----
+        const c1 = document.getElementById('panelRobot');
+        if (!c1) return;
+        const W1 = c1.clientWidth, H1 = c1.clientHeight;
+
+        const scene1 = new THREE.Scene();
+        scene1.background = new THREE.Color(0x111111);
+
+        const cam1 = new THREE.PerspectiveCamera(40, W1/H1, 0.1, 100);
+        cam1.position.set(2.2, 1.8, 2.2);
+
+        const ren1 = new THREE.WebGLRenderer({ antialias: true });
+        ren1.setSize(W1, H1);
+        ren1.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        c1.appendChild(ren1.domElement);
+
+        const ctrl1 = new THREE.OrbitControls(cam1, ren1.domElement);
+        ctrl1.enableDamping = true;
+        ctrl1.dampingFactor = 0.08;
+        ctrl1.target.set(0, 0.35, 0);
+
+        scene1.add(new THREE.AmbientLight(0xffffff, 0.4));
+        const dl1 = new THREE.DirectionalLight(0xffffff, 0.7);
+        dl1.position.set(3, 5, 3);
+        scene1.add(dl1);
+        const dl1b = new THREE.DirectionalLight(0xffffff, 0.3);
+        dl1b.position.set(-2, 3, -2);
+        scene1.add(dl1b);
+
+        // Grid
+        const gridG = new THREE.BufferGeometry();
+        const gp = [];
+        for (let i = -10; i <= 10; i++) {
+            const t = i * 0.15;
+            gp.push(-1.5, 0, t, 1.5, 0, t);
+            gp.push(t, 0, -1.5, t, 0, 1.5);
+        }
+        gridG.setAttribute('position', new THREE.Float32BufferAttribute(gp, 3));
+        scene1.add(new THREE.LineSegments(gridG, new THREE.LineBasicMaterial({ color: 0x1a1a1a })));
+
+        // Materials
+        const matBase = new THREE.MeshStandardMaterial({ color: 0x262626, metalness: 0.5, roughness: 0.6 });
+        const matPlat = new THREE.MeshStandardMaterial({ color: 0xc9a227, metalness: 0.6, roughness: 0.3 });
+        const matLeg = new THREE.MeshStandardMaterial({ color: 0x8a8a8a, metalness: 0.4, roughness: 0.5 });
+        const matJB = new THREE.MeshStandardMaterial({ color: 0x3a3a3a, metalness: 0.5, roughness: 0.4 });
+        const matJP = new THREE.MeshStandardMaterial({ color: 0xd4b44a, metalness: 0.5, roughness: 0.3 });
+
+        // Build Stewart platform
+        const baseMesh = new THREE.Mesh(new THREE.CylinderGeometry(Rb, Rb + 0.05, 0.04, 6), matBase);
+        baseMesh.position.y = 0.02;
+        scene1.add(baseMesh);
+
+        const baseJoints = [];
+        for (let i = 0; i < 6; i++) {
+            const m = new THREE.Mesh(new THREE.SphereGeometry(0.03, 12, 12), matJB);
+            m.position.set(Rb * Math.cos(baseAngles[i]), 0.04, Rb * Math.sin(baseAngles[i]));
+            scene1.add(m);
+            baseJoints.push(m);
+        }
+
+        const platGroup = new THREE.Group();
+        const platMesh = new THREE.Mesh(new THREE.CylinderGeometry(Rp, Rp + 0.02, 0.03, 6), matPlat);
+        platGroup.add(platMesh);
+        const platJoints = [];
+        for (let i = 0; i < 6; i++) {
+            const jm = new THREE.Mesh(new THREE.SphereGeometry(0.025, 12, 12), matJP);
+            jm.position.set(Rp * Math.cos(platAngles[i]), -0.015, Rp * Math.sin(platAngles[i]));
+            platGroup.add(jm);
+            platJoints.push(jm);
+        }
+        // Center tracking dot
+        const centerDot = new THREE.Mesh(
+            new THREE.SphereGeometry(0.025, 12, 12),
+            new THREE.MeshStandardMaterial({ color: 0xff3333, emissive: 0xff3333, emissiveIntensity: 0.6 })
+        );
+        platGroup.add(centerDot);
+        platGroup.position.set(0, 0.65, 0);
+        scene1.add(platGroup);
+
+        const legs = [];
+        for (let i = 0; i < 6; i++) {
+            const lm = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.015, 1, 8), matLeg);
+            scene1.add(lm);
+            legs.push(lm);
+        }
+
+        // Target trajectory ring (gold)
+        const trajRadius = 0.25;
+        const trajHeight = 0.65;
+        const trajPoints = [];
+        for (let i = 0; i <= 64; i++) {
+            const a = (i / 64) * Math.PI * 2;
+            trajPoints.push(new THREE.Vector3(trajRadius * Math.cos(a), trajHeight, trajRadius * Math.sin(a)));
+        }
+        const trajGeo = new THREE.BufferGeometry().setFromPoints(trajPoints);
+        const trajLine = new THREE.Line(trajGeo, new THREE.LineBasicMaterial({ color: 0xc9a227, linewidth: 2 }));
+        scene1.add(trajLine);
+
+        // Target dot (gold sphere on trajectory)
+        const targetDot = new THREE.Mesh(
+            new THREE.SphereGeometry(0.03, 12, 12),
+            new THREE.MeshStandardMaterial({ color: 0xc9a227, emissive: 0xc9a227, emissiveIntensity: 0.6 })
+        );
+        targetDot.position.set(trajRadius, trajHeight, 0);
+        scene1.add(targetDot);
+
+        // Trail (path the platform has followed)
+        const trailMax = 200;
+        const trailPositions = new Float32Array(trailMax * 3);
+        const trailGeo = new THREE.BufferGeometry();
+        trailGeo.setAttribute('position', new THREE.Float32BufferAttribute(trailPositions, 3));
+        trailGeo.setDrawRange(0, 0);
+        const trailLine = new THREE.Line(trailGeo, new THREE.LineBasicMaterial({ color: 0xff3333, transparent: true, opacity: 0.5 }));
+        scene1.add(trailLine);
+        let trailCount = 0;
+
+        function updateLegs() {
+            for (let i = 0; i < 6; i++) {
+                const bx = Rb * Math.cos(baseAngles[i]);
+                const bz = Rb * Math.sin(baseAngles[i]);
+                const bPos = new THREE.Vector3(bx, 0.04, bz);
+                const pWorld = new THREE.Vector3();
+                platJoints[i].getWorldPosition(pWorld);
+                const mid = new THREE.Vector3().addVectors(bPos, pWorld).multiplyScalar(0.5);
+                const len = bPos.distanceTo(pWorld);
+                legs[i].scale.set(1, len, 1);
+                legs[i].position.copy(mid);
+                legs[i].lookAt(pWorld);
+                legs[i].rotateX(Math.PI / 2);
+            }
+        }
+
+        // ---- PANEL 2: Training Chart (Canvas 2D) ----
+        const c2 = document.getElementById('panelChart');
+        const W2 = c2.clientWidth, H2 = c2.clientHeight;
+        const chartCanvas = document.createElement('canvas');
+        chartCanvas.width = W2;
+        chartCanvas.height = H2;
+        chartCanvas.style.width = '100%';
+        chartCanvas.style.height = '100%';
+        c2.appendChild(chartCanvas);
+        const ctx = chartCanvas.getContext('2d');
+
+        // ---- RL SIMULATION STATE ----
+        let rlState = {
+            episode: 0,
+            step: 0,
+            totalSteps: 0,
+            training: false,
+            rewards: [],          // per-episode rewards
+            currentReward: 0,
+            bestReward: -Infinity,
+            platformPos: { x: 0, y: 0.65, z: 0 },
+            platformVel: { x: 0, y: 0, z: 0 },
+            targetAngle: 0,
+            policyNoise: 1.0,     // exploration noise (decreases with training)
+            policyWeights: null,  // simulated "learned" weights
+            speed: 5,
+            trajectoryType: 'circle'
+        };
+
+        // Simple simulated "policy" - starts random, converges to good tracking
+        function getTarget(angle, type) {
+            if (type === 'circle') {
+                return { x: trajRadius * Math.cos(angle), y: trajHeight, z: trajRadius * Math.sin(angle) };
+            } else if (type === 'figure8') {
+                return { x: trajRadius * Math.sin(angle), y: trajHeight, z: trajRadius * Math.sin(2 * angle) * 0.5 };
+            } else { // square
+                const t = ((angle % (Math.PI * 2)) / (Math.PI * 2));
+                const s = trajRadius * 0.8;
+                if (t < 0.25) return { x: s, y: trajHeight, z: -s + 8*s*t };
+                else if (t < 0.5) return { x: s - 8*s*(t-0.25), y: trajHeight, z: s };
+                else if (t < 0.75) return { x: -s, y: trajHeight, z: s - 8*s*(t-0.5) };
+                else return { x: -s + 8*s*(t-0.75), y: trajHeight, z: -s };
+            }
+        }
+
+        function simulateAction() {
+            const target = getTarget(rlState.targetAngle, rlState.trajectoryType);
+
+            // Error
+            const ex = target.x - rlState.platformPos.x;
+            const ey = target.y - rlState.platformPos.y;
+            const ez = target.z - rlState.platformPos.z;
+            const error = Math.sqrt(ex*ex + ey*ey + ez*ez);
+
+            // Simulated policy: P-controller + noise (noise decreases with training)
+            const gain = 0.15 + 0.85 * Math.min(1, rlState.totalSteps / 300000);
+            const noise = rlState.policyNoise;
+
+            const ax = gain * ex + noise * (Math.random() - 0.5) * 0.05;
+            const ay = gain * ey + noise * (Math.random() - 0.5) * 0.02;
+            const az = gain * ez + noise * (Math.random() - 0.5) * 0.05;
+
+            // Apply with damping
+            rlState.platformVel.x = 0.7 * rlState.platformVel.x + 0.3 * ax;
+            rlState.platformVel.y = 0.7 * rlState.platformVel.y + 0.3 * ay;
+            rlState.platformVel.z = 0.7 * rlState.platformVel.z + 0.3 * az;
+
+            rlState.platformPos.x += rlState.platformVel.x;
+            rlState.platformPos.y += rlState.platformVel.y;
+            rlState.platformPos.z += rlState.platformVel.z;
+
+            // Reward
+            const actionMag = ax*ax + ay*ay + az*az;
+            const reward = -10 * error * error - 0.1 * actionMag + (error < 0.01 ? 5 : 0);
+
+            return { error, reward };
+        }
+
+        // Update trajectory visualization
+        function updateTrajectoryViz() {
+            scene1.remove(trajLine);
+            const pts = [];
+            for (let i = 0; i <= 64; i++) {
+                const a = (i / 64) * Math.PI * 2;
+                const t = getTarget(a, rlState.trajectoryType);
+                pts.push(new THREE.Vector3(t.x, t.y, t.z));
+            }
+            trajLine.geometry.dispose();
+            trajLine.geometry = new THREE.BufferGeometry().setFromPoints(pts);
+            scene1.add(trajLine);
+        }
+
+        function runEpisode() {
+            rlState.episode++;
+            rlState.step = 0;
+            rlState.currentReward = 0;
+            rlState.platformPos = { x: (Math.random()-0.5)*0.1, y: 0.65, z: (Math.random()-0.5)*0.1 };
+            rlState.platformVel = { x: 0, y: 0, z: 0 };
+            rlState.targetAngle = 0;
+            trailCount = 0;
+            trailGeo.setDrawRange(0, 0);
+
+            // Decrease exploration noise
+            rlState.policyNoise = Math.max(0.02, 1.0 - rlState.totalSteps / 250000);
+        }
+
+        function stepSimulation() {
+            if (rlState.step >= 1000) {
+                // Episode finished
+                rlState.rewards.push(rlState.currentReward);
+                if (rlState.currentReward > rlState.bestReward) {
+                    rlState.bestReward = rlState.currentReward;
+                }
+                runEpisode();
+                return;
+            }
+
+            const speed = rlState.speed;
+            for (let s = 0; s < speed; s++) {
+                rlState.targetAngle += 0.006283; // 2*PI / 1000 steps
+                const result = simulateAction();
+                rlState.currentReward += result.reward;
+                rlState.step++;
+                rlState.totalSteps++;
+
+                // Update trail
+                if (trailCount < trailMax) {
+                    const idx = trailCount * 3;
+                    trailPositions[idx] = rlState.platformPos.x;
+                    trailPositions[idx+1] = rlState.platformPos.y;
+                    trailPositions[idx+2] = rlState.platformPos.z;
+                    trailCount++;
+                    trailGeo.attributes.position.needsUpdate = true;
+                    trailGeo.setDrawRange(0, trailCount);
+                }
+
+                if (rlState.step >= 1000) break;
+            }
+
+            // Update 3D
+            platGroup.position.set(rlState.platformPos.x, rlState.platformPos.y, rlState.platformPos.z);
+            const tgt = getTarget(rlState.targetAngle, rlState.trajectoryType);
+            targetDot.position.set(tgt.x, tgt.y, tgt.z);
+        }
+
+        function drawChart() {
+            const w = chartCanvas.width, h = chartCanvas.height;
+            ctx.fillStyle = '#111111';
+            ctx.fillRect(0, 0, w, h);
+
+            const rewards = rlState.rewards;
+            if (rewards.length < 2) {
+                ctx.fillStyle = '#3a3a3a';
+                ctx.font = '12px Inter';
+                ctx.textAlign = 'center';
+                ctx.fillText('Training reward will appear here', w/2, h/2);
+                return;
+            }
+
+            // Draw axes
+            const margin = { left: 50, right: 20, top: 30, bottom: 35 };
+            const plotW = w - margin.left - margin.right;
+            const plotH = h - margin.top - margin.bottom;
+
+            // Axis lines
+            ctx.strokeStyle = '#3a3a3a';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(margin.left, margin.top);
+            ctx.lineTo(margin.left, margin.top + plotH);
+            ctx.lineTo(margin.left + plotW, margin.top + plotH);
+            ctx.stroke();
+
+            // Scale
+            const minR = Math.min(...rewards);
+            const maxR = Math.max(...rewards);
+            const range = maxR - minR || 1;
+
+            // Grid lines
+            ctx.strokeStyle = '#1a1a1a';
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i <= 4; i++) {
+                const y = margin.top + plotH * (1 - i/4);
+                ctx.beginPath();
+                ctx.moveTo(margin.left, y);
+                ctx.lineTo(margin.left + plotW, y);
+                ctx.stroke();
+
+                const val = minR + range * i/4;
+                ctx.fillStyle = '#6b6b6b';
+                ctx.font = '9px Inter';
+                ctx.textAlign = 'right';
+                ctx.fillText(val.toFixed(0), margin.left - 5, y + 3);
+            }
+
+            // Episode labels
+            ctx.fillStyle = '#6b6b6b';
+            ctx.font = '9px Inter';
+            ctx.textAlign = 'center';
+            ctx.fillText('0', margin.left, margin.top + plotH + 15);
+            ctx.fillText(rewards.length.toString(), margin.left + plotW, margin.top + plotH + 15);
+
+            // Axis labels
+            ctx.fillStyle = '#8a8a8a';
+            ctx.font = '10px Inter';
+            ctx.textAlign = 'center';
+            ctx.fillText('Episode', margin.left + plotW/2, margin.top + plotH + 30);
+
+            ctx.save();
+            ctx.translate(12, margin.top + plotH/2);
+            ctx.rotate(-Math.PI/2);
+            ctx.fillText('Reward', 0, 0);
+            ctx.restore();
+
+            // Raw reward line (gray)
+            ctx.strokeStyle = 'rgba(138,138,138,0.4)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            for (let i = 0; i < rewards.length; i++) {
+                const x = margin.left + (i / (rewards.length - 1)) * plotW;
+                const y = margin.top + plotH * (1 - (rewards[i] - minR) / range);
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+
+            // Smoothed reward (gold)
+            const smoothed = [];
+            const window = Math.max(5, Math.floor(rewards.length * 0.05));
+            for (let i = 0; i < rewards.length; i++) {
+                let sum = 0, cnt = 0;
+                for (let j = Math.max(0, i - window); j <= Math.min(rewards.length-1, i + window); j++) {
+                    sum += rewards[j]; cnt++;
+                }
+                smoothed.push(sum / cnt);
+            }
+
+            ctx.strokeStyle = '#c9a227';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            for (let i = 0; i < smoothed.length; i++) {
+                const x = margin.left + (i / (smoothed.length - 1)) * plotW;
+                const y = margin.top + plotH * (1 - (smoothed[i] - minR) / range);
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+
+            // Legend
+            ctx.fillStyle = '#c9a227';
+            ctx.fillRect(margin.left + 10, margin.top + 5, 12, 3);
+            ctx.fillStyle = '#8a8a8a';
+            ctx.font = '9px Inter';
+            ctx.textAlign = 'left';
+            ctx.fillText('Smoothed reward', margin.left + 26, margin.top + 10);
+
+            ctx.fillStyle = 'rgba(138,138,138,0.6)';
+            ctx.fillRect(margin.left + 10, margin.top + 18, 12, 3);
+            ctx.fillStyle = '#6b6b6b';
+            ctx.fillText('Raw reward', margin.left + 26, margin.top + 23);
+        }
+
+        // Update info displays
+        function updateInfoDisplays() {
+            const elEp = document.getElementById('infoEpisode');
+            const elErr = document.getElementById('infoError');
+            const elRew = document.getElementById('infoReward');
+            const elSteps = document.getElementById('infoSteps');
+            const elBest = document.getElementById('infoBest');
+            const badge = document.getElementById('statusBadge');
+
+            if (elEp) elEp.textContent = rlState.episode;
+            if (elSteps) elSteps.textContent = (rlState.totalSteps / 1000).toFixed(0) + 'k';
+
+            if (rlState.step > 0) {
+                const tgt = getTarget(rlState.targetAngle, rlState.trajectoryType);
+                const ex = tgt.x - rlState.platformPos.x;
+                const ez = tgt.z - rlState.platformPos.z;
+                const err = Math.sqrt(ex*ex + ez*ez);
+                if (elErr) elErr.textContent = err.toFixed(4) + ' m';
+                if (elRew) elRew.textContent = rlState.currentReward.toFixed(1);
+            }
+
+            if (elBest && rlState.bestReward > -Infinity) {
+                elBest.textContent = rlState.bestReward.toFixed(1);
+            }
+
+            if (badge) {
+                if (!rlState.training && rlState.totalSteps === 0) {
+                    badge.textContent = 'Untrained';
+                    badge.className = 'status-badge training';
+                } else if (rlState.training) {
+                    badge.textContent = 'Training...';
+                    badge.className = 'status-badge training';
+                } else if (rlState.totalSteps > 200000) {
+                    badge.textContent = 'Converged';
+                    badge.className = 'status-badge converged';
+                } else {
+                    badge.textContent = 'Paused';
+                    badge.className = 'status-badge training';
+                }
+            }
+        }
+
+        // ---- Control functions (global) ----
+        window.rlStartTrain = function() {
+            if (!rlState.training) {
+                rlState.training = true;
+                if (rlState.step === 0) runEpisode();
+            } else {
+                rlState.training = false;
+            }
+            document.getElementById('btnTrain').textContent = rlState.training ? 'Pause' : 'Train';
+        };
+
+        window.rlStepEpisode = function() {
+            rlState.training = false;
+            document.getElementById('btnTrain').textContent = 'Train';
+            runEpisode();
+            // Run one full episode
+            for (let i = 0; i < 1000; i++) {
+                rlState.targetAngle += 0.006283;
+                const result = simulateAction();
+                rlState.currentReward += result.reward;
+                rlState.step++;
+                rlState.totalSteps++;
+            }
+            rlState.rewards.push(rlState.currentReward);
+            if (rlState.currentReward > rlState.bestReward) rlState.bestReward = rlState.currentReward;
+            platGroup.position.set(rlState.platformPos.x, rlState.platformPos.y, rlState.platformPos.z);
+            drawChart();
+            updateInfoDisplays();
+        };
+
+        window.rlReset = function() {
+            rlState.training = false;
+            rlState.episode = 0;
+            rlState.step = 0;
+            rlState.totalSteps = 0;
+            rlState.rewards = [];
+            rlState.currentReward = 0;
+            rlState.bestReward = -Infinity;
+            rlState.policyNoise = 1.0;
+            rlState.platformPos = { x: 0, y: 0.65, z: 0 };
+            rlState.platformVel = { x: 0, y: 0, z: 0 };
+            rlState.targetAngle = 0;
+            trailCount = 0;
+            trailGeo.setDrawRange(0, 0);
+            platGroup.position.set(0, 0.65, 0);
+            document.getElementById('btnTrain').textContent = 'Train';
+            drawChart();
+            updateInfoDisplays();
+        };
+
+        // Speed slider
+        document.getElementById('sliderSpeed').addEventListener('input', function() {
+            rlState.speed = parseInt(this.value);
+            document.getElementById('valSpeed').textContent = rlState.speed + 'x';
+        });
+
+        // Trajectory selector
+        document.getElementById('selTrajectory').addEventListener('change', function() {
+            rlState.trajectoryType = this.value;
+            updateTrajectoryViz();
+        });
+
+        // ---- ANIMATION LOOP ----
+        function animate() {
+            requestAnimationFrame(animate);
+
+            if (rlState.training) {
+                stepSimulation();
+                drawChart();
+            }
+
+            updateLegs();
+            updateInfoDisplays();
+            ctrl1.update();
+            ren1.render(scene1, cam1);
+        }
+
+        animate();
+        drawChart();
+
+        // Resize
+        window.addEventListener('resize', () => {
+            const w1 = c1.clientWidth, h1 = c1.clientHeight;
+            cam1.aspect = w1/h1;
+            cam1.updateProjectionMatrix();
+            ren1.setSize(w1, h1);
+
+            chartCanvas.width = c2.clientWidth;
+            chartCanvas.height = c2.clientHeight;
+            drawChart();
+        });
+    })();
+    </script>
+</body>
+</html>

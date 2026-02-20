@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jacobian Analysis in Parallel Robots | Grover Aruquipa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --dark: #141414;
+            --gray-900: #1a1a1a;
+            --gray-800: #262626;
+            --gray-700: #3a3a3a;
+            --gray-600: #525252;
+            --gray-500: #6b6b6b;
+            --gray-400: #8a8a8a;
+            --gray-300: #a3a3a3;
+            --gray-200: #d4d4d4;
+            --gray-100: #f0f0f0;
+            --white: #ffffff;
+            --gold: #c9a227;
+            --gold-light: #d4b44a;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font);
+            font-weight: 300;
+            color: var(--dark);
+            background: var(--white);
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--black);
+            padding: 16px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 760px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 400;
+        }
+
+        .nav-back {
+            color: var(--gray-400);
+            text-decoration: none;
+            font-size: 0.75rem;
+        }
+
+        .nav-back:hover { color: var(--gold); }
+
+        /* Header */
+        .tutorial-header {
+            background: var(--black);
+            color: var(--white);
+            padding: 72px 24px 56px;
+            text-align: center;
+        }
+
+        .tutorial-tag {
+            display: inline-block;
+            padding: 5px 14px;
+            border: 1px solid var(--gray-700);
+            border-radius: 20px;
+            font-size: 0.6rem;
+            color: var(--gold);
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .tutorial-title {
+            font-size: 2.2rem;
+            font-weight: 400;
+            margin-bottom: 16px;
+            line-height: 1.2;
+            letter-spacing: 0.3px;
+        }
+
+        .tutorial-meta {
+            font-size: 0.75rem;
+            color: var(--gray-400);
+            font-weight: 300;
+        }
+
+        .tutorial-meta span { margin: 0 6px; }
+
+        /* Content */
+        .tutorial-content {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 56px 24px;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--black);
+            margin: 48px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--gray-200);
+            letter-spacing: 0.3px;
+        }
+
+        h3 {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--dark);
+            margin: 32px 0 14px;
+        }
+
+        p { margin-bottom: 18px; }
+        strong { color: var(--black); font-weight: 500; }
+
+        /* TOC */
+        .toc {
+            background: var(--gray-100);
+            border-radius: 6px;
+            padding: 24px 28px;
+            margin: 28px 0;
+        }
+
+        .toc-title {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--gold);
+            margin-bottom: 14px;
+            text-transform: uppercase;
+        }
+
+        .toc ol { margin: 0; list-style: none; counter-reset: toc-counter; }
+        .toc li { counter-increment: toc-counter; margin-bottom: 6px; }
+        .toc li::before { content: counter(toc-counter) ". "; color: var(--gray-400); font-weight: 500; font-size: 0.85rem; }
+        .toc a {
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 400;
+        }
+        .toc a:hover { color: var(--gold); }
+
+        /* Highlight Boxes */
+        .highlight-box {
+            background: var(--gray-100);
+            border-left: 3px solid var(--gold);
+            padding: 22px 24px;
+            margin: 28px 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .highlight-box p:last-child { margin-bottom: 0; }
+
+        .highlight-box.definition { border-left-color: var(--black); }
+        .highlight-box.warning {
+            border-left-color: #8b0000;
+            background: #fafafa;
+        }
+        .highlight-box.example {
+            border-left-color: var(--gray-500);
+            background: #fafafa;
+        }
+
+        .box-title {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--gold);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .highlight-box.definition .box-title { color: var(--black); }
+        .highlight-box.warning .box-title { color: #8b0000; }
+        .highlight-box.example .box-title { color: var(--gray-600); }
+
+        /* Math Blocks */
+        .math-block {
+            background: var(--gray-100);
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow-x: auto;
+            text-align: center;
+        }
+
+        /* Diagrams */
+        .diagram-container {
+            background: var(--gray-100);
+            border-radius: 6px;
+            padding: 28px;
+            margin: 28px 0;
+            text-align: center;
+        }
+
+        .diagram-container svg { max-width: 100%; height: auto; }
+
+        .diagram-caption {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            margin-top: 14px;
+        }
+
+        .interactive-diagram {
+            background: var(--black);
+            border-radius: 6px;
+            padding: 32px;
+            margin: 28px 0;
+        }
+
+        .interactive-diagram svg { display: block; margin: 0 auto; }
+
+        .interactive-caption {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            text-align: center;
+            margin-top: 16px;
+        }
+
+        /* 3D Container */
+        .threejs-container {
+            background: var(--black);
+            border-radius: 6px;
+            margin: 28px 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .threejs-canvas-wrapper {
+            width: 100%;
+            height: 480px;
+            cursor: grab;
+        }
+
+        .threejs-canvas-wrapper:active { cursor: grabbing; }
+
+        .threejs-controls {
+            position: absolute;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .threejs-controls button {
+            padding: 6px 14px;
+            background: var(--gray-800);
+            color: var(--gray-300);
+            border: 1px solid var(--gray-700);
+            border-radius: 4px;
+            font-family: var(--font);
+            font-size: 0.65rem;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+
+        .threejs-controls button:hover {
+            background: var(--gold);
+            color: var(--black);
+            border-color: var(--gold);
+        }
+
+        .threejs-controls button.active {
+            background: var(--gold);
+            color: var(--black);
+            border-color: var(--gold);
+        }
+
+        .threejs-label {
+            position: absolute;
+            top: 16px;
+            left: 20px;
+            z-index: 10;
+        }
+
+        .threejs-label span {
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            color: var(--gold);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .threejs-label p {
+            font-size: 0.7rem;
+            color: var(--gray-500);
+            margin-top: 4px;
+            margin-bottom: 0;
+        }
+
+        .threejs-info {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            z-index: 10;
+            text-align: right;
+        }
+
+        .threejs-info p {
+            font-size: 0.65rem;
+            color: var(--gray-500);
+            margin-bottom: 2px;
+        }
+
+        .threejs-info .value {
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        /* Lists */
+        ul, ol { margin: 16px 0 16px 20px; }
+        li { margin-bottom: 10px; font-size: 0.9rem; }
+
+        /* Tables */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            font-size: 0.8rem;
+        }
+
+        .comparison-table th {
+            background: var(--black);
+            color: var(--white);
+            padding: 12px 14px;
+            text-align: left;
+            font-weight: 500;
+            font-size: 0.7rem;
+            letter-spacing: 0.5px;
+        }
+
+        .comparison-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .comparison-table tr:hover { background: var(--gray-100); }
+
+        /* Steps */
+        .steps {
+            counter-reset: step-counter;
+            margin: 28px 0;
+        }
+
+        .step {
+            position: relative;
+            padding-left: 52px;
+            margin-bottom: 28px;
+        }
+
+        .step::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 34px;
+            height: 34px;
+            background: var(--black);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+
+        .step-title {
+            font-weight: 500;
+            color: var(--black);
+            margin-bottom: 6px;
+        }
+
+        /* Example Box */
+        .example-box {
+            background: var(--gray-100);
+            border: 1px solid var(--gray-200);
+            border-radius: 6px;
+            padding: 24px;
+            margin: 28px 0;
+        }
+
+        .example-title {
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 2px;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+        }
+
+        /* Warning Box */
+        .warning-box {
+            background: #fafafa;
+            border: 1px solid var(--gray-200);
+            border-left: 3px solid #8b0000;
+            border-radius: 0 6px 6px 0;
+            padding: 24px;
+            margin: 28px 0;
+        }
+
+        .warning-title {
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: #8b0000;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        /* Key Concept */
+        .key-concept {
+            background: var(--gray-100);
+            border-left: 3px solid var(--black);
+            padding: 22px 24px;
+            margin: 28px 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .key-concept-title {
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: var(--black);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .key-concept p { margin-bottom: 0; font-style: italic; color: var(--gray-600); }
+
+        /* Quiz */
+        .quiz-section {
+            background: var(--gray-100);
+            border-radius: 6px;
+            padding: 28px;
+            margin: 40px 0;
+        }
+
+        .quiz-title {
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .quiz-question { margin-bottom: 20px; }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .quiz-option:hover { border-color: var(--black); }
+        .quiz-option.correct { background: #e8f5e9; border-color: #4caf50; }
+        .quiz-option.incorrect { background: #ffebee; border-color: #c62828; }
+
+        /* Navigation Footer */
+        .tutorial-nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 28px 0;
+            margin-top: 40px;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .tutorial-nav a {
+            color: var(--gray-500);
+            text-decoration: none;
+            font-size: 0.8rem;
+        }
+
+        .tutorial-nav a:hover { color: var(--gold); }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            padding: 18px 24px;
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 0.65rem;
+            color: var(--gray-500);
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .tutorial-title { font-size: 1.6rem; }
+            h2 { font-size: 1.15rem; }
+            .threejs-canvas-wrapper { height: 350px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="../index.html" class="nav-brand">Grover Aruquipa</a>
+            <a href="../index.html#tutorials" class="nav-back">&larr; Back to Tutorials</a>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="tutorial-header">
+        <span class="tutorial-tag">Parallel Robotics</span>
+        <h1 class="tutorial-title">Jacobian Analysis in Parallel Robots</h1>
+        <p class="tutorial-meta">
+            <span>Kinematics</span>
+            <span>&middot;</span>
+            <span>25 min read</span>
+            <span>&middot;</span>
+            <span>By Grover Aruquipa</span>
+        </p>
+    </header>
+
+    <!-- Content -->
+    <main class="tutorial-content">
+
+        <p>
+            The <strong>Jacobian matrix</strong> is the central tool for velocity analysis, force
+            analysis, and singularity detection in robotic manipulators. For parallel robots, where
+            multiple kinematic chains work together, the Jacobian reveals critical information
+            about how the robot transmits motion and where it can fail.
+        </p>
+
+        <div class="highlight-box">
+            <p class="box-title">Why the Jacobian Matters</p>
+            <p>
+                The Jacobian tells us three things: (1) how fast the end-effector moves for
+                given joint velocities, (2) how forces at the end-effector translate to joint
+                torques, and (3) <strong>where singularities occur</strong>&mdash;configurations
+                where the robot loses or gains degrees of freedom.
+            </p>
+        </div>
+
+        <!-- Table of Contents -->
+        <nav class="toc">
+            <p class="toc-title">Contents</p>
+            <ol>
+                <li><a href="#what-is-jacobian">What is the Jacobian?</a></li>
+                <li><a href="#serial-vs-parallel">Serial vs. Parallel Jacobians</a></li>
+                <li><a href="#deriving-parallel">Deriving the Parallel Robot Jacobian</a></li>
+                <li><a href="#stewart-platform">Complete Example: Stewart Platform</a></li>
+                <li><a href="#singularities">Singularities</a></li>
+                <li><a href="#physical">Physical Interpretation</a></li>
+            </ol>
+        </nav>
+
+        <!-- SECTION 1 -->
+        <h2 id="what-is-jacobian">1. What is the Jacobian?</h2>
+
+        <p>
+            In calculus, the Jacobian is the matrix of all first-order partial derivatives of a
+            vector-valued function. In robotics, it serves as the <strong>linear map</strong>
+            between joint-space velocities and task-space velocities:
+        </p>
+
+        <div class="math-block">
+            $$\dot{\mathbf{x}} = \mathbf{J}(\mathbf{q}) \, \dot{\mathbf{q}}$$
+        </div>
+
+        <p>Where:</p>
+        <ul>
+            <li>$\dot{\mathbf{x}} \in \mathbb{R}^m$ is the end-effector velocity (twist)</li>
+            <li>$\dot{\mathbf{q}} \in \mathbb{R}^n$ is the vector of joint velocities</li>
+            <li>$\mathbf{J}(\mathbf{q}) \in \mathbb{R}^{m \times n}$ is the Jacobian matrix</li>
+        </ul>
+
+        <div class="diagram-container">
+            <svg viewBox="0 0 520 160" width="520" height="160">
+                <rect x="20" y="35" width="140" height="90" fill="#0a0a0a" rx="5"/>
+                <text x="90" y="70" font-family="Inter" font-size="12" fill="#fff" text-anchor="middle" font-weight="500">Joint Space</text>
+                <text x="90" y="90" font-family="Inter" font-size="11" fill="#8a8a8a" text-anchor="middle">q&#775; &#8712; &#8477;&#8319;</text>
+                <text x="90" y="108" font-family="Inter" font-size="9" fill="#525252" text-anchor="middle">joint velocities</text>
+
+                <line x1="170" y1="80" x2="320" y2="80" stroke="#c9a227" stroke-width="2"/>
+                <polygon points="315,75 325,80 315,85" fill="#c9a227"/>
+                <rect x="215" y="62" width="50" height="22" fill="#fff" rx="3"/>
+                <text x="240" y="77" font-family="Inter" font-size="11" fill="#c9a227" text-anchor="middle" font-weight="600">J(q)</text>
+
+                <rect x="340" y="35" width="140" height="90" fill="#3a3a3a" rx="5"/>
+                <text x="410" y="70" font-family="Inter" font-size="12" fill="#fff" text-anchor="middle" font-weight="500">Task Space</text>
+                <text x="410" y="90" font-family="Inter" font-size="11" fill="#a3a3a3" text-anchor="middle">x&#775; &#8712; &#8477;&#7504;</text>
+                <text x="410" y="108" font-family="Inter" font-size="9" fill="#6b6b6b" text-anchor="middle">EE twist (&#969;, v)</text>
+
+                <text x="260" y="145" font-family="Inter" font-size="10" fill="#8a8a8a" text-anchor="middle">J is an m &times; n matrix</text>
+            </svg>
+            <p class="diagram-caption">Figure 1. The Jacobian maps joint velocities to end-effector velocities.</p>
+        </div>
+
+        <h3>The Dual Relationship: Forces</h3>
+        <p>
+            The Jacobian also connects end-effector wrenches to joint torques through
+            the <strong>principle of virtual work</strong>:
+        </p>
+
+        <div class="math-block">
+            $$\boldsymbol{\tau} = \mathbf{J}^T(\mathbf{q}) \, \mathcal{F}$$
+        </div>
+
+        <p>
+            Where $\boldsymbol{\tau}$ is the vector of joint torques and $\mathcal{F}$ is the
+            wrench at the end-effector.
+        </p>
+
+        <!-- SECTION 2 -->
+        <h2 id="serial-vs-parallel">2. Serial vs. Parallel Jacobians</h2>
+
+        <p>
+            The structure of the Jacobian is fundamentally different for serial and parallel robots.
+        </p>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Aspect</th>
+                    <th>Serial Robot</th>
+                    <th>Parallel Robot</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Velocity equation</td>
+                    <td>$\dot{\mathbf{x}} = J\,\dot{\mathbf{q}}$</td>
+                    <td>$\mathbf{A}\,\dot{\mathbf{x}} = \mathbf{B}\,\dot{\mathbf{q}}$</td>
+                </tr>
+                <tr>
+                    <td>Jacobian form</td>
+                    <td>$J$ directly</td>
+                    <td>$J = \mathbf{A}^{-1}\mathbf{B}$</td>
+                </tr>
+                <tr>
+                    <td>Singularity types</td>
+                    <td>$\det(J) = 0$</td>
+                    <td>$\det(\mathbf{A})=0$ or $\det(\mathbf{B})=0$</td>
+                </tr>
+                <tr>
+                    <td>Inverse kinematics</td>
+                    <td>Difficult (non-linear)</td>
+                    <td>Easy (closed-form)</td>
+                </tr>
+                <tr>
+                    <td>Forward kinematics</td>
+                    <td>Easy (product of matrices)</td>
+                    <td>Difficult (multiple solutions)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- SECTION 3 -->
+        <h2 id="deriving-parallel">3. Deriving the Parallel Robot Jacobian</h2>
+
+        <p>
+            The general method follows three fundamental steps that work for
+            <strong>any</strong> parallel mechanism.
+        </p>
+
+        <div class="steps">
+            <div class="step">
+                <p class="step-title">Write the geometric constraint (loop closure)</p>
+                <p>
+                    For each kinematic chain, write the vector equation relating
+                    base, actuator variables, and platform pose:
+                    $\mathbf{f}(\mathbf{q}, \mathbf{x}) = \mathbf{0}$
+                </p>
+            </div>
+            <div class="step">
+                <p class="step-title">Differentiate with respect to time</p>
+                <div class="math-block">
+                    $$\frac{\partial \mathbf{f}}{\partial \mathbf{x}}\,\dot{\mathbf{x}} + \frac{\partial \mathbf{f}}{\partial \mathbf{q}}\,\dot{\mathbf{q}} = \mathbf{0}$$
+                </div>
+            </div>
+            <div class="step">
+                <p class="step-title">Rearrange into standard form</p>
+                <p>
+                    Defining $\mathbf{A} = \frac{\partial \mathbf{f}}{\partial \mathbf{x}}$
+                    and $\mathbf{B} = -\frac{\partial \mathbf{f}}{\partial \mathbf{q}}$:
+                </p>
+                <div class="math-block">
+                    $$\mathbf{A}\,\dot{\mathbf{x}} = \mathbf{B}\,\dot{\mathbf{q}} \qquad \Rightarrow \qquad \mathbf{J} = \mathbf{A}^{-1}\mathbf{B}$$
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 4: STEWART PLATFORM -->
+        <h2 id="stewart-platform">4. Complete Example: The Stewart Platform (6-UPS)</h2>
+
+        <p>
+            The <strong>Stewart&ndash;Gough platform</strong> is the most iconic parallel robot.
+            Invented in 1965 for flight simulation, it is now used in manufacturing, surgery,
+            astronomy, and motion simulators. It has <strong>6 degrees of freedom</strong>
+            (3 translations + 3 rotations), actuated by 6 linear actuators.
+        </p>
+
+        <div class="highlight-box">
+            <p class="box-title">What does 6-UPS mean?</p>
+            <p>
+                Each leg has: <strong>U</strong> (universal joint at the base) &mdash;
+                <strong>P</strong> (prismatic actuator, <em>actuated</em>) &mdash;
+                <strong>S</strong> (spherical joint at the platform). Six identical legs.
+            </p>
+        </div>
+
+        <!-- 3D Interactive Stewart Platform -->
+        <div class="threejs-container">
+            <div class="threejs-label">
+                <span>Interactive 3D Model</span>
+                <p>Drag to rotate &middot; Scroll to zoom</p>
+            </div>
+            <div class="threejs-info" id="platformInfo">
+                <p>Height: <span class="value" id="infoHeight">0.40 m</span></p>
+                <p>Roll: <span class="value" id="infoRoll">0.0&deg;</span></p>
+                <p>Pitch: <span class="value" id="infoPitch">0.0&deg;</span></p>
+            </div>
+            <div class="threejs-canvas-wrapper" id="stewartCanvas"></div>
+            <div class="threejs-controls">
+                <button id="btnHome" class="active">Home</button>
+                <button id="btnTilt">Tilt</button>
+                <button id="btnTranslate">Translate</button>
+                <button id="btnRotate">Rotate</button>
+                <button id="btnAnimate">Animate</button>
+            </div>
+        </div>
+
+        <h3>4.1 Geometric Constraint</h3>
+
+        <p>
+            The position of each platform joint $B_i$ in the fixed frame is:
+        </p>
+
+        <div class="math-block">
+            $$B_i = \mathbf{p} + \mathbf{R}\, b_i$$
+        </div>
+
+        <p>
+            Where $\mathbf{p} = [x, y, z]^T$ is the platform center and
+            $\mathbf{R}$ is the rotation matrix. The leg vector and length constraint:
+        </p>
+
+        <div class="math-block">
+            $$\mathbf{d}_i = B_i - A_i \qquad \rho_i^2 = \mathbf{d}_i^T \mathbf{d}_i$$
+        </div>
+
+        <h3>4.2 Deriving the Velocity Equation</h3>
+
+        <p>
+            Differentiating and using the platform twist
+            $\mathcal{V} = [\mathbf{v}^T, \boldsymbol{\omega}^T]^T$:
+        </p>
+
+        <div class="math-block">
+            $$\dot{\rho}_i = \hat{u}_i^T \mathbf{v} + (\mathbf{R}\, b_i \times \hat{u}_i)^T \boldsymbol{\omega}$$
+        </div>
+
+        <p>
+            Where $\hat{u}_i = \mathbf{d}_i / \rho_i$ is the unit vector along leg $i$.
+        </p>
+
+        <h3>4.3 The Jacobian Matrix</h3>
+
+        <p>Writing all 6 equations in matrix form:</p>
+
+        <div class="math-block">
+            $$\dot{\boldsymbol{\rho}}
+            =
+            \underbrace{\begin{bmatrix}
+            \hat{u}_1^T & (\mathbf{R}\,b_1 \times \hat{u}_1)^T \\
+            \hat{u}_2^T & (\mathbf{R}\,b_2 \times \hat{u}_2)^T \\
+            \vdots & \vdots \\
+            \hat{u}_6^T & (\mathbf{R}\,b_6 \times \hat{u}_6)^T
+            \end{bmatrix}}_{\mathbf{J}}
+            \mathcal{V}$$
+        </div>
+
+        <div class="highlight-box definition">
+            <p class="box-title">Stewart Platform Jacobian</p>
+            <p>
+                Each row of the $6 \times 6$ Jacobian is the <strong>Pl&uuml;cker coordinates</strong>
+                (reciprocal screw) of leg $i$. The relation $\dot{\boldsymbol{\rho}} = \mathbf{J}\,\mathcal{V}$
+                maps the platform twist to actuator velocities.
+            </p>
+        </div>
+
+        <h3>4.4 Numerical Example</h3>
+
+        <div class="example-box">
+            <p class="example-title">Home Position</p>
+            <p>
+                Platform at height $h = 0.4\,\text{m}$, no rotation ($\mathbf{R} = \mathbf{I}$).
+                Base radius $R_b = 0.5\,\text{m}$, platform radius $R_p = 0.25\,\text{m}$.
+            </p>
+            <p>For Leg 1:</p>
+            <ul>
+                <li>$A_1 = [0.5, 0, 0]^T$, $b_1 = [0.217, 0.125, 0]^T$</li>
+                <li>$\mathbf{d}_1 = [-0.283, 0.125, 0.4]^T$, $\rho_1 = 0.509\,\text{m}$</li>
+                <li>$\hat{u}_1 = [-0.556, 0.246, 0.786]^T$</li>
+            </ul>
+            <p style="margin-bottom:0;">
+                The first row of $\mathbf{J}$:
+                $J_1 = [-0.556 \;\; 0.246 \;\; 0.786 \;\; 0.098 \;\; {-0.170} \;\; 0.035]$
+            </p>
+        </div>
+
+        <h3>4.5 Force Analysis</h3>
+
+        <p>Using the Jacobian transpose for static force balance:</p>
+
+        <div class="math-block">
+            $$\mathbf{f} = \mathbf{J}^{-T} \mathcal{F}$$
+        </div>
+
+        <div class="example-box">
+            <p class="example-title">Force Distribution Example</p>
+            <p>
+                A downward load of $100\,\text{N}$ at the home position distributes to approximately
+                $f_i \approx -21.2\,\text{N}$ per leg (compression). The symmetric geometry ensures
+                <strong>all actuators share the load</strong>&mdash;a key advantage of parallel robots.
+            </p>
+        </div>
+
+        <div class="key-concept">
+            <p class="key-concept-title">Screw Theory Interpretation</p>
+            <p>
+                Each row of the Jacobian is the normalized wrench (zero-pitch screw) along leg $i$.
+                This is the inverse Jacobian relationship, which is why inverse kinematics is
+                straightforward for the Stewart platform.
+            </p>
+        </div>
+
+        <!-- SECTION 5: SINGULARITIES -->
+        <h2 id="singularities">5. Singularities</h2>
+
+        <p>
+            A <strong>singularity</strong> occurs when the Jacobian loses rank. For parallel
+            robots, singularities are classified into three types.
+        </p>
+
+        <div class="warning-box">
+            <p class="warning-title">Singularities Are Dangerous</p>
+            <p>At a singularity, the robot may:</p>
+            <ul style="margin-bottom: 0;">
+                <li>Lose controllable degrees of freedom</li>
+                <li>Gain uncontrolled motions</li>
+                <li>Experience theoretically infinite actuator forces</li>
+                <li>Become structurally unstable</li>
+            </ul>
+        </div>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Condition</th>
+                    <th>Physical Meaning</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Type I</strong> (Inverse)</td>
+                    <td>$\det(\mathbf{B}) = 0$</td>
+                    <td>Workspace boundary&mdash;actuator at its limit</td>
+                </tr>
+                <tr>
+                    <td><strong>Type II</strong> (Direct)</td>
+                    <td>$\det(\mathbf{A}) = 0$</td>
+                    <td>Platform moves with locked actuators</td>
+                </tr>
+                <tr>
+                    <td><strong>Type III</strong> (Combined)</td>
+                    <td>Both $= 0$</td>
+                    <td>Architecturally special geometry</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>
+            For the Stewart platform, Type II singularities occur when the six leg lines belong
+            to a <strong>linear complex</strong>&mdash;e.g., all intersecting a common line
+            (Hunt singularity). The rows of the Jacobian are Pl&uuml;cker coordinates; their
+            linear dependence is studied through <strong>Grassmann line geometry</strong>.
+        </p>
+
+        <!-- SECTION 6: PHYSICAL INTERPRETATION -->
+        <h2 id="physical">6. Physical Interpretation</h2>
+
+        <h3>Manipulability Index</h3>
+
+        <div class="math-block">
+            $$w = \sqrt{\det(\mathbf{J}\,\mathbf{J}^T)} = \prod_{i=1}^{m} \sigma_i$$
+        </div>
+
+        <p>
+            When $w = 0$, the robot is at a singularity. The <strong>condition number</strong>
+            $\kappa = \sigma_{\max}/\sigma_{\min}$ indicates proximity to singularity.
+        </p>
+
+        <h3>Stiffness</h3>
+
+        <div class="math-block">
+            $$\mathbf{K} = \mathbf{J}^T \mathbf{K}_a \mathbf{J}$$
+        </div>
+
+        <p>
+            Platform stiffness depends on both actuator stiffnesses ($\mathbf{K}_a$) and
+            the robot configuration through $\mathbf{J}$.
+        </p>
+
+        <!-- Summary -->
+        <h2>Summary</h2>
+
+        <div class="key-concept">
+            <p class="key-concept-title">Key Takeaways</p>
+            <ul style="margin-bottom: 0; font-style: normal; color: var(--dark);">
+                <li>The <strong>Jacobian</strong> maps joint velocities to end-effector velocities</li>
+                <li>Parallel robots: $\mathbf{A}\dot{\mathbf{x}} = \mathbf{B}\dot{\mathbf{q}}$</li>
+                <li>Stewart platform Jacobian rows are Pl&uuml;cker coordinates of leg lines</li>
+                <li><strong>Type I</strong>: workspace boundary &middot; <strong>Type II</strong>: uncontrolled motion</li>
+                <li>Jacobian transpose relates forces: $\boldsymbol{\tau} = \mathbf{J}^T \mathcal{F}$</li>
+                <li>Manipulability $w = \sqrt{\det(\mathbf{J}\mathbf{J}^T)}$ &mdash; zero at singularities</li>
+            </ul>
+        </div>
+
+        <!-- Quiz -->
+        <div class="quiz-section">
+            <p class="quiz-title">Quick Check</p>
+
+            <div class="quiz-question">
+                <p><strong>Q1.</strong> Each row of the Stewart platform Jacobian represents:</p>
+                <div class="quiz-options" id="quiz1">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">A joint twist of an actuator</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">The Pl&uuml;cker coordinates of a leg line</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">The position vector of a base joint</div>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>Q2.</strong> A Type II singularity means:</p>
+                <div class="quiz-options" id="quiz2">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">The robot is at the workspace boundary</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">The platform can move with all actuators locked</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">The manipulability is maximized</div>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>Q3.</strong> The Stewart platform has how many DOF?</p>
+                <div class="quiz-options" id="quiz3">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">3 (position only)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">4 (position + 1 rotation)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">6 (full position + orientation)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="tutorial-nav">
+            <a href="tutorial-screw-theory.html">&larr; Previous: Screw Theory</a>
+            <a href="singularity-workspace.html">Next: Singularity-Free Workspace &rarr;</a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Grover Aruquipa &middot; Universit&eacute; Laval</p>
+    </footer>
+
+    <script>
+    // Quiz
+    function checkAnswer(el, isCorrect) {
+        const opts = el.parentElement.querySelectorAll('.quiz-option');
+        opts.forEach(o => { o.classList.remove('correct','incorrect'); o.style.pointerEvents = 'none'; });
+        if (isCorrect) { el.classList.add('correct'); }
+        else {
+            el.classList.add('incorrect');
+            opts.forEach(o => { if (o.getAttribute('onclick').includes('true')) o.classList.add('correct'); });
+        }
+    }
+
+    // KaTeX
+    document.addEventListener("DOMContentLoaded", function() {
+        if (typeof renderMathInElement !== 'undefined') {
+            renderMathInElement(document.body, {
+                delimiters: [{left: "$$", right: "$$", display: true},{left: "$", right: "$", display: false}],
+                throwOnError: false
+            });
+        }
+    });
+
+    // ============================
+    // THREE.JS STEWART PLATFORM
+    // ============================
+    (function() {
+        const container = document.getElementById('stewartCanvas');
+        if (!container) return;
+
+        const W = container.clientWidth;
+        const H = container.clientHeight;
+
+        // Scene setup
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x0a0a0a);
+
+        const camera = new THREE.PerspectiveCamera(40, W / H, 0.1, 100);
+        camera.position.set(2.2, 1.8, 2.2);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(W, H);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        container.appendChild(renderer.domElement);
+
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.08;
+        controls.minDistance = 1.5;
+        controls.maxDistance = 6;
+        controls.target.set(0, 0.3, 0);
+
+        // Materials
+        const matBase = new THREE.MeshStandardMaterial({ color: 0x262626, metalness: 0.5, roughness: 0.6 });
+        const matPlatform = new THREE.MeshStandardMaterial({ color: 0xc9a227, metalness: 0.6, roughness: 0.3 });
+        const matLeg = new THREE.MeshStandardMaterial({ color: 0x8a8a8a, metalness: 0.4, roughness: 0.5 });
+        const matJointBase = new THREE.MeshStandardMaterial({ color: 0x3a3a3a, metalness: 0.5, roughness: 0.4 });
+        const matJointPlatform = new THREE.MeshStandardMaterial({ color: 0xd4b44a, metalness: 0.5, roughness: 0.3 });
+        const matActuator = new THREE.MeshStandardMaterial({ color: 0x525252, metalness: 0.6, roughness: 0.3 });
+        const matGrid = new THREE.LineBasicMaterial({ color: 0x1a1a1a });
+
+        // Lights
+        const ambient = new THREE.AmbientLight(0xffffff, 0.4);
+        scene.add(ambient);
+        const dirLight = new THREE.DirectionalLight(0xffffff, 0.7);
+        dirLight.position.set(3, 5, 3);
+        scene.add(dirLight);
+        const dirLight2 = new THREE.DirectionalLight(0xffffff, 0.3);
+        dirLight2.position.set(-2, 3, -2);
+        scene.add(dirLight2);
+
+        // Ground grid
+        const gridSize = 3;
+        const gridDiv = 20;
+        const gridGeo = new THREE.BufferGeometry();
+        const gridPts = [];
+        for (let i = -gridDiv/2; i <= gridDiv/2; i++) {
+            const t = (i / gridDiv) * gridSize;
+            gridPts.push(-gridSize/2, 0, t, gridSize/2, 0, t);
+            gridPts.push(t, 0, -gridSize/2, t, 0, gridSize/2);
+        }
+        gridGeo.setAttribute('position', new THREE.Float32BufferAttribute(gridPts, 3));
+        scene.add(new THREE.LineSegments(gridGeo, matGrid));
+
+        // Geometry parameters
+        const Rb = 0.7;   // base radius
+        const Rp = 0.35;  // platform radius
+        const baseH = 0.04;
+        const platH = 0.03;
+        const defaultHeight = 0.65;
+        const legRadius = 0.018;
+        const jointRadius = 0.035;
+        const actuatorRadius = 0.028;
+
+        // Base & platform joint angles (paired)
+        const baseAngles =     [  0,  60, 120, 180, 240, 300].map(a => a * Math.PI / 180);
+        const platformAngles = [ 30,  90, 150, 210, 270, 330].map(a => a * Math.PI / 180);
+
+        // Base platform
+        const baseGeo = new THREE.CylinderGeometry(Rb, Rb + 0.05, baseH, 6);
+        const baseMesh = new THREE.Mesh(baseGeo, matBase);
+        baseMesh.position.y = baseH / 2;
+        scene.add(baseMesh);
+
+        // Base joints
+        const baseJoints = [];
+        const basePositions = [];
+        for (let i = 0; i < 6; i++) {
+            const a = baseAngles[i];
+            const x = Rb * Math.cos(a);
+            const z = Rb * Math.sin(a);
+            const jGeo = new THREE.SphereGeometry(jointRadius, 16, 16);
+            const j = new THREE.Mesh(jGeo, matJointBase);
+            j.position.set(x, baseH, z);
+            scene.add(j);
+            baseJoints.push(j);
+            basePositions.push(new THREE.Vector3(x, baseH, z));
+        }
+
+        // Platform group
+        const platformGroup = new THREE.Group();
+        const platGeo = new THREE.CylinderGeometry(Rp, Rp + 0.02, platH, 6);
+        const platMesh = new THREE.Mesh(platGeo, matPlatform);
+        platformGroup.add(platMesh);
+
+        // Platform joints (local coordinates)
+        const platformLocalPositions = [];
+        const platformJoints = [];
+        for (let i = 0; i < 6; i++) {
+            const a = platformAngles[i];
+            const x = Rp * Math.cos(a);
+            const z = Rp * Math.sin(a);
+            const jGeo = new THREE.SphereGeometry(jointRadius * 0.8, 16, 16);
+            const j = new THREE.Mesh(jGeo, matJointPlatform);
+            j.position.set(x, -platH/2, z);
+            platformGroup.add(j);
+            platformJoints.push(j);
+            platformLocalPositions.push(new THREE.Vector3(x, -platH/2, z));
+        }
+
+        // Center indicator on platform
+        const centerGeo = new THREE.SphereGeometry(0.025, 12, 12);
+        const centerMat = new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0xc9a227, emissiveIntensity: 0.5 });
+        const centerMesh = new THREE.Mesh(centerGeo, centerMat);
+        platformGroup.add(centerMesh);
+
+        platformGroup.position.y = defaultHeight;
+        scene.add(platformGroup);
+
+        // Legs (cylinders + actuator sections)
+        const legs = [];
+        const actuators = [];
+        for (let i = 0; i < 6; i++) {
+            const legGeo = new THREE.CylinderGeometry(legRadius, legRadius, 1, 8);
+            const legMesh = new THREE.Mesh(legGeo, matLeg);
+            scene.add(legMesh);
+            legs.push(legMesh);
+
+            const actGeo = new THREE.CylinderGeometry(actuatorRadius, actuatorRadius, 0.15, 8);
+            const actMesh = new THREE.Mesh(actGeo, matActuator);
+            scene.add(actMesh);
+            actuators.push(actMesh);
+        }
+
+        // Axes helper (subtle)
+        const axLen = 0.4;
+        const axMat = [
+            new THREE.LineBasicMaterial({ color: 0x8b0000 }),
+            new THREE.LineBasicMaterial({ color: 0x006400 }),
+            new THREE.LineBasicMaterial({ color: 0x00008b })
+        ];
+        [[axLen,0,0],[0,axLen,0],[0,0,axLen]].forEach((d, i) => {
+            const g = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0), new THREE.Vector3(...d)]);
+            scene.add(new THREE.Line(g, axMat[i]));
+        });
+
+        // Labels (A_i, B_i) using sprites
+        function makeLabel(text, color) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 64; canvas.height = 32;
+            const ctx = canvas.getContext('2d');
+            ctx.font = 'bold 20px Inter, sans-serif';
+            ctx.fillStyle = color;
+            ctx.textAlign = 'center';
+            ctx.fillText(text, 32, 22);
+            const tex = new THREE.CanvasTexture(canvas);
+            const mat = new THREE.SpriteMaterial({ map: tex, depthTest: false });
+            const sprite = new THREE.Sprite(mat);
+            sprite.scale.set(0.2, 0.1, 1);
+            return sprite;
+        }
+
+        for (let i = 0; i < 6; i++) {
+            const lbl = makeLabel('A' + (i+1), '#525252');
+            lbl.position.copy(basePositions[i]);
+            lbl.position.y += 0.1;
+            scene.add(lbl);
+        }
+
+        const platLabels = [];
+        for (let i = 0; i < 6; i++) {
+            const lbl = makeLabel('B' + (i+1), '#d4b44a');
+            platformGroup.add(lbl);
+            lbl.position.copy(platformLocalPositions[i]);
+            lbl.position.y -= 0.1;
+            platLabels.push(lbl);
+        }
+
+        // Update legs to connect base to platform joints
+        function updateLegs() {
+            for (let i = 0; i < 6; i++) {
+                const bPos = basePositions[i];
+                const pJoint = platformJoints[i];
+                const pWorld = new THREE.Vector3();
+                pJoint.getWorldPosition(pWorld);
+
+                const mid = new THREE.Vector3().addVectors(bPos, pWorld).multiplyScalar(0.5);
+                const dir = new THREE.Vector3().subVectors(pWorld, bPos);
+                const len = dir.length();
+
+                legs[i].scale.set(1, len, 1);
+                legs[i].position.copy(mid);
+                legs[i].lookAt(pWorld);
+                legs[i].rotateX(Math.PI / 2);
+
+                // Actuator at center of leg
+                actuators[i].position.copy(mid);
+                actuators[i].lookAt(pWorld);
+                actuators[i].rotateX(Math.PI / 2);
+            }
+        }
+
+        updateLegs();
+
+        // Platform state
+        let targetPos = new THREE.Vector3(0, defaultHeight, 0);
+        let targetRot = new THREE.Euler(0, 0, 0);
+        let animating = false;
+        let animTime = 0;
+        let currentMode = 'home';
+
+        // Info display
+        const infoH = document.getElementById('infoHeight');
+        const infoR = document.getElementById('infoRoll');
+        const infoP = document.getElementById('infoPitch');
+
+        function updateInfo() {
+            if (infoH) infoH.textContent = platformGroup.position.y.toFixed(2) + ' m';
+            if (infoR) infoR.textContent = (platformGroup.rotation.z * 180 / Math.PI).toFixed(1) + '\u00B0';
+            if (infoP) infoP.textContent = (platformGroup.rotation.x * 180 / Math.PI).toFixed(1) + '\u00B0';
+        }
+
+        // Button handlers
+        function setMode(mode) {
+            currentMode = mode;
+            animating = (mode === 'animate');
+            document.querySelectorAll('.threejs-controls button').forEach(b => b.classList.remove('active'));
+            document.getElementById('btn' + mode.charAt(0).toUpperCase() + mode.slice(1)).classList.add('active');
+
+            if (mode === 'home') {
+                targetPos.set(0, defaultHeight, 0);
+                targetRot.set(0, 0, 0);
+            } else if (mode === 'tilt') {
+                targetPos.set(0, defaultHeight, 0);
+                targetRot.set(0.25, 0, 0.15);
+            } else if (mode === 'translate') {
+                targetPos.set(0.15, defaultHeight + 0.12, -0.1);
+                targetRot.set(0, 0, 0);
+            } else if (mode === 'rotate') {
+                targetPos.set(0, defaultHeight, 0);
+                targetRot.set(0, 0.5, 0);
+            }
+        }
+
+        document.getElementById('btnHome').addEventListener('click', () => setMode('home'));
+        document.getElementById('btnTilt').addEventListener('click', () => setMode('tilt'));
+        document.getElementById('btnTranslate').addEventListener('click', () => setMode('translate'));
+        document.getElementById('btnRotate').addEventListener('click', () => setMode('rotate'));
+        document.getElementById('btnAnimate').addEventListener('click', () => setMode('animate'));
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+
+            if (animating) {
+                animTime += 0.012;
+                platformGroup.position.x = 0.12 * Math.sin(animTime * 1.3);
+                platformGroup.position.y = defaultHeight + 0.08 * Math.sin(animTime * 0.9);
+                platformGroup.position.z = 0.08 * Math.cos(animTime * 1.1);
+                platformGroup.rotation.x = 0.15 * Math.sin(animTime * 0.7);
+                platformGroup.rotation.y = 0.2 * Math.sin(animTime * 0.5);
+                platformGroup.rotation.z = 0.12 * Math.cos(animTime * 0.8);
+            } else {
+                // Smooth interpolation
+                platformGroup.position.lerp(targetPos, 0.06);
+                platformGroup.rotation.x += (targetRot.x - platformGroup.rotation.x) * 0.06;
+                platformGroup.rotation.y += (targetRot.y - platformGroup.rotation.y) * 0.06;
+                platformGroup.rotation.z += (targetRot.z - platformGroup.rotation.z) * 0.06;
+            }
+
+            updateLegs();
+            updateInfo();
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Resize
+        window.addEventListener('resize', () => {
+            const w = container.clientWidth;
+            const h = container.clientHeight;
+            camera.aspect = w / h;
+            camera.updateProjectionMatrix();
+            renderer.setSize(w, h);
+        });
+    })();
+    </script>
+</body>
+</html>

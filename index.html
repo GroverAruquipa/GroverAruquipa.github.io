@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Grover Aruquipa - Robotics Researcher specializing in parallel manipulators. Ph.D. Candidate at Université Laval.">
+    <meta name="author" content="Grover Aruquipa">
+    
+    <title>Grover Aruquipa | Robotics Researcher</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Elegant B&W Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='8' fill='%23111'/><text x='50' y='70' font-family='Georgia,serif' font-size='60' font-weight='400' fill='white' text-anchor='middle'>G</text></svg>">
+</head>
+<body>
+    <!-- ========== HEADER ========== -->
+    <header class="header">
+        <div class="header-content">
+            <div class="profile-photo"><img src="images/profile.png" alt="Grover Aruquipa"></div>
+            <h1 class="header-name">Grover Aruquipa</h1>
+            <p class="header-title">Ph.D. Candidate in Mechanical Engineering</p>
+            <p class="header-institution">Université Laval · Québec, Canada</p>
+            <p class="header-expected">Expected graduation: 2026</p>
+
+            <div class="languages">
+                <span>Spanish <span class="lang-level">(Native)</span></span>
+                <span class="lang-divider">·</span>
+                <span>English <span class="lang-level">(Fluent)</span></span>
+                <span class="lang-divider">·</span>
+                <span>French <span class="lang-level">(Intermediate)</span></span>
+            </div>
+
+            <div class="header-links">
+                <a href="https://scholar.google.com" target="_blank">Google Scholar</a>
+                <a href="https://github.com/GroverAruquipa" target="_blank">GitHub</a>
+                <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+                <a href="https://orcid.org" target="_blank">ORCID</a>
+                <a href="assets/CV_Grover_Aruquipa.pdf" download class="cv-link">Download CV</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== STATS ========== -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number">4</span>
+                    <span class="stat-label">Prototypes</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">3+</span>
+                    <span class="stat-label">Publications</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">4</span>
+                    <span class="stat-label">Countries</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">6+</span>
+                    <span class="stat-label">Years R&D</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== RESEARCH STATEMENT ========== -->
+    <section class="statement-section">
+        <div class="container-narrow">
+            <p class="statement-main">
+                I design parallel robots that achieve what was previously considered impossible: 
+                <em>unlimited rotation</em> with <em>integrated grasping</em>.
+            </p>
+            <p class="statement-sub">
+                Working at the intersection of mechanism theory, screw-based kinematics, 
+                and geometric analysis to create manipulators for manufacturing, surgery, 
+                and human-robot interaction.
+            </p>
+        </div>
+    </section>
+
+    <!-- ========== EXPERTISE (HEXAGON) ========== -->
+    <section class="skills-section">
+        <div class="container-narrow">
+            <h2 class="section-title">Expertise</h2>
+            <div class="skills-wrapper">
+                <div class="hexagon-container">
+                    <svg viewBox="0 0 300 300" class="hexagon-svg" id="skillsHexagon">
+                        <polygon class="hex-grid" points="150,50 236.6,100 236.6,200 150,250 63.4,200 63.4,100" />
+                        <polygon class="hex-grid" points="150,70 219.3,110 219.3,190 150,230 80.7,190 80.7,110" />
+                        <polygon class="hex-grid" points="150,90 201.9,120 201.9,180 150,210 98.1,180 98.1,120" />
+                        <polygon class="hex-grid" points="150,110 184.6,130 184.6,170 150,190 115.4,170 115.4,130" />
+                        <polygon class="hex-grid" points="150,130 167.3,140 167.3,160 150,170 132.7,160 132.7,140" />
+                        
+                        <line class="hex-axis" x1="150" y1="150" x2="150" y2="50" />
+                        <line class="hex-axis" x1="150" y1="150" x2="236.6" y2="100" />
+                        <line class="hex-axis" x1="150" y1="150" x2="236.6" y2="200" />
+                        <line class="hex-axis" x1="150" y1="150" x2="150" y2="250" />
+                        <line class="hex-axis" x1="150" y1="150" x2="63.4" y2="200" />
+                        <line class="hex-axis" x1="150" y1="150" x2="63.4" y2="100" />
+                        
+                        <polygon class="skill-polygon" points="150,55 231,103 228,195 142,245 68,195 68,103" />
+                        
+                        <circle class="skill-point" cx="150" cy="55" r="6" data-skill="theory" />
+                        <circle class="skill-point" cx="231" cy="103" r="6" data-skill="analysis" />
+                        <circle class="skill-point" cx="228" cy="195" r="6" data-skill="design" />
+                        <circle class="skill-point" cx="142" cy="245" r="6" data-skill="hardware" />
+                        <circle class="skill-point" cx="68" cy="195" r="6" data-skill="software" />
+                        <circle class="skill-point" cx="68" cy="103" r="6" data-skill="aicontrol" />
+                        
+                        <text class="hex-label" x="150" y="30" text-anchor="middle">Theory</text>
+                        <text class="hex-label" x="260" y="100" text-anchor="start">Analysis</text>
+                        <text class="hex-label" x="260" y="205" text-anchor="start">Design</text>
+                        <text class="hex-label" x="150" y="280" text-anchor="middle">Hardware</text>
+                        <text class="hex-label" x="40" y="205" text-anchor="end">Software</text>
+                        <text class="hex-label" x="40" y="100" text-anchor="end">AI & Control</text>
+                    </svg>
+                </div>
+                <div class="skill-details" id="skillDetails">
+                    <div class="skill-placeholder">
+                        <p class="arrow">↑</p>
+                        <p>Hover over the hexagon</p>
+                        <p>to explore skills</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== JOURNEY ========== -->
+    <section class="journey-section">
+        <div class="container-narrow">
+            <h2 class="section-title">Research Journey</h2>
+            <div class="journey-timeline">
+                <div class="journey-item current">
+                    <div class="journey-flag">
+                        <img src="https://flagcdn.com/w40/ca.png" alt="Canada" width="28">
+                    </div>
+                    <div class="journey-content">
+                        <span class="journey-year">2023 — Present</span>
+                        <h3>Ph.D. Mechanical Engineering</h3>
+                        <p class="journey-place">Université Laval, Québec</p>
+                        <p class="journey-desc">Parallel manipulators with unlimited rotation. Supervised by Prof. C. Gosselin & Prof. P. Lambert.</p>
+                    </div>
+                </div>
+
+                <div class="journey-item">
+                    <div class="journey-flag">
+                        <img src="https://flagcdn.com/w40/fr.png" alt="France" width="28">
+                    </div>
+                    <div class="journey-content">
+                        <span class="journey-year">2021 — 2022</span>
+                        <h3>M.Sc. Electrical Engineering</h3>
+                        <p class="journey-place">FEMTO-ST Institute, Besançon</p>
+                        <p class="journey-desc">Microrobotics and parallel robot design. Supervised by Prof. R. Dahmouche.</p>
+                    </div>
+                </div>
+
+                <div class="journey-item">
+                    <div class="journey-flag">
+                        <img src="https://flagcdn.com/w40/ch.png" alt="Switzerland" width="28">
+                    </div>
+                    <div class="journey-content">
+                        <span class="journey-year">2020</span>
+                        <h3>Research Internship</h3>
+                        <p class="journey-place">ABB Corporate Research, Zürich</p>
+                        <p class="journey-desc">Industrial robotics research. Supervised by Dr. F. Macedo.</p>
+                    </div>
+                </div>
+
+                <div class="journey-item">
+                    <div class="journey-flag">
+                        <img src="https://flagcdn.com/w40/bo.png" alt="Bolivia" width="28">
+                    </div>
+                    <div class="journey-content">
+                        <span class="journey-year">2014 — 2019</span>
+                        <h3>B.Eng. Mechatronics</h3>
+                        <p class="journey-place">Universidad Católica Boliviana, La Paz</p>
+                        <p class="journey-desc">Foundation in robotics, control systems, and mechanical design.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PROTOTYPES ========== -->
+    <section class="prototypes-section">
+        <div class="container-narrow">
+            <h2 class="section-title light">Prototypes</h2>
+            <div class="prototypes-grid">
+                <div class="prototype-card main">
+                    <div class="prototype-image">PHOTO</div>
+                    <span class="prototype-status main">Main Project</span>
+                    <h3>6+1 DOF Parallel Manipulator</h3>
+                    <p>Unlimited rotation with integrated gripper</p>
+                </div>
+
+                <div class="prototype-card">
+                    <div class="prototype-image">PHOTO</div>
+                    <span class="prototype-status">Completed</span>
+                    <h3>4-DOF Spherical Wrist</h3>
+                    <p>Singularity-free orientation workspace</p>
+                </div>
+
+                <div class="prototype-card">
+                    <div class="prototype-image">PHOTO</div>
+                    <span class="prototype-status">In Progress</span>
+                    <h3>9-DOF Redundant System</h3>
+                    <p>Enhanced dexterity through redundancy</p>
+                </div>
+
+                <div class="prototype-card">
+                    <div class="prototype-image">PHOTO</div>
+                    <span class="prototype-status">Completed</span>
+                    <h3>Coaxial Gripper Mechanism</h3>
+                    <p>Synchronized grasping control</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PUBLICATIONS ========== -->
+    <section class="publications-section">
+        <div class="container-narrow">
+            <h2 class="section-title">Publications</h2>
+            <div class="publications-list">
+                <article class="publication-item">
+                    <span class="pub-year">2025</span>
+                    <div class="pub-content">
+                        <h4>Confidential</h4>
+                        <p>Journal of Mechanisms and Robotics · G. Aruquipa, P. Lambert, C. Gosselin</p>
+                    </div>
+                    <span class="pub-status review">Under Review</span>
+                </article>
+
+                <article class="publication-item">
+                    <span class="pub-year">2025</span>
+                    <div class="pub-content">
+                        <h4>Confidential</h4>
+                        <p>ASME IDETC · G. Aruquipa, P. Lambert, C. Gosselin</p>
+                    </div>
+                    <span class="pub-status submitted">Submitted</span>
+                </article>
+
+                <article class="publication-item">
+                    <span class="pub-year">2025</span>
+                    <div class="pub-content">
+                        <h4>Confidential</h4>
+                        <p>IJRR · G. Aruquipa, P. Lambert, C. Gosselin</p>
+                    </div>
+                    <span class="pub-status prep">In Preparation</span>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TUTORIALS ========== -->
+    <section class="tutorials-section">
+        <div class="container-narrow">
+            <h2 class="section-title">Resources & Tutorials</h2>
+            <p class="section-subtitle">Educational content on robotics and mathematics</p>
+            
+            <div class="tutorial-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="screw">Screw Theory</button>
+                <button class="filter-btn" data-filter="parallel">Parallel Robots</button>
+                <button class="filter-btn" data-filter="ai">AI</button>
+            </div>
+
+            <div class="tutorials-grid">
+                <a href="tutorials/screw-theory-intro.html" class="tutorial-card" data-category="screw">
+                    <span class="tutorial-icon">📐</span>
+                    <h4>Introduction to Screw Theory</h4>
+                    <span class="tutorial-time">15 min</span>
+                </a>
+
+                <a href="tutorials/jacobian-analysis.html" class="tutorial-card" data-category="screw">
+                    <span class="tutorial-icon">📊</span>
+                    <h4>Jacobian Analysis in Parallel Robots</h4>
+                    <span class="tutorial-time">20 min</span>
+                </a>
+
+                <a href="tutorials/singularity-workspace.html" class="tutorial-card" data-category="parallel">
+                    <span class="tutorial-icon">🔷</span>
+                    <h4>Singularity-Free Workspace Design</h4>
+                    <span class="tutorial-time">30 min</span>
+                </a>
+
+                <a href="tutorials/rl-robot-control.html" class="tutorial-card" data-category="ai">
+                    <span class="tutorial-icon">🤖</span>
+                    <h4>RL for Robot Control</h4>
+                    <span class="tutorial-time">45 min</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== NEWS ========== -->
+    <section class="news-section">
+        <div class="container-narrow">
+            <h2 class="section-title">News</h2>
+            <div class="news-list">
+                <div class="news-item">
+                    <span class="news-date">Feb 2026</span>
+                    <p>Classified as Finalist at the RSS Robotic Functional Challenge 2026</p>
+                </div>
+                <div class="news-item">
+                    <span class="news-date">Feb 2025</span>
+                    <p>Qualified for the MassRobotics Functional Challenge</p>
+                </div>
+                <div class="news-item">
+                    <span class="news-date">Jan 2025</span>
+                    <p>Won Student Design Competition at ASME California</p>
+                </div>
+                <div class="news-item">
+                    <span class="news-date">Jan 2025</span>
+                    <p>Paper submitted to ASME IDETC 2025</p>
+                </div>
+                <div class="news-item">
+                    <span class="news-date">Dec 2024</span>
+                    <p>Awarded Mitacs Globalink for research visit to Austria</p>
+                </div>
+                <div class="news-item">
+                    <span class="news-date">Nov 2024</span>
+                    <p>Invited talk at Université Laval Robotics Seminar</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== AWARDS ========== -->
+    <section class="awards-section">
+        <div class="container-narrow">
+            <h2 class="section-title">Awards & Fellowships</h2>
+            <div class="awards-grid">
+                <div class="award-item">
+                    <span class="award-year">2025</span>
+                    <div>
+                        <p class="award-title">Student Design Competition</p>
+                        <p class="award-org">ASME California</p>
+                    </div>
+                </div>
+                <div class="award-item">
+                    <span class="award-year">2024</span>
+                    <div>
+                        <p class="award-title">Mitacs Globalink Research Award</p>
+                        <p class="award-org">Mobility to Austria</p>
+                    </div>
+                </div>
+                <div class="award-item">
+                    <span class="award-year">2023</span>
+                    <div>
+                        <p class="award-title">Ph.D. Fellowship</p>
+                        <p class="award-org">Université Laval</p>
+                    </div>
+                </div>
+                <div class="award-item">
+                    <span class="award-year">2023</span>
+                    <div>
+                        <p class="award-title">Summer School Scholarship</p>
+                        <p class="award-org">SummerScrew</p>
+                    </div>
+                </div>
+                <div class="award-item">
+                    <span class="award-year">2021</span>
+                    <div>
+                        <p class="award-title">M.Sc. Fellowship</p>
+                        <p class="award-org">UBFC France</p>
+                    </div>
+                </div>
+                <div class="award-item">
+                    <span class="award-year">2019</span>
+                    <div>
+                        <p class="award-title">Best Paper Award</p>
+                        <p class="award-org">Jornadas Argentinas de Robótica</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== MENTORS ========== -->
+    <section class="mentors-section">
+        <div class="container-narrow">
+            <h2 class="section-title">Mentors & Collaborators</h2>
+            <div class="mentors-grid">
+                <div class="mentor-card">
+                    <h3>Prof. Clément Gosselin</h3>
+                    <p class="mentor-title">Canada Research Chair</p>
+                    <p class="mentor-inst">Université Laval</p>
+                    <span class="mentor-role">Ph.D. Supervisor</span>
+                </div>
+                <div class="mentor-card">
+                    <h3>Prof. Patrice Lambert</h3>
+                    <p class="mentor-title">Associate Professor</p>
+                    <p class="mentor-inst">Université Laval</p>
+                    <span class="mentor-role">Ph.D. Co-supervisor</span>
+                </div>
+                <div class="mentor-card">
+                    <h3>Prof. Redwan Dahmouche</h3>
+                    <p class="mentor-title">Associate Professor</p>
+                    <p class="mentor-inst">FEMTO-ST</p>
+                    <span class="mentor-role">M.Sc. Supervisor</span>
+                </div>
+                <div class="mentor-card">
+                    <h3>Dr. Felipe Macedo</h3>
+                    <p class="mentor-title">Research Scientist</p>
+                    <p class="mentor-inst">ABB Corporate Research</p>
+                    <span class="mentor-role">Internship Supervisor</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== VOLUNTEER ========== -->
+    <section class="volunteer-section">
+        <div class="container-narrow">
+            <p class="volunteer-title">Community Involvement</p>
+            <div class="volunteer-list">
+                <div class="volunteer-item">
+                    <img src="https://www.tubeca.org/wp-content/uploads/2020/06/logo-tubeca.png" alt="TuBeca Bolivia" class="volunteer-logo">
+                    <div>
+                        <span class="volunteer-name">TuBeca Bolivia</span>
+                        <span class="volunteer-status">Active</span>
+                    </div>
+                </div>
+                <div class="volunteer-item">
+                    <img src="https://www.hopeww.org/images/logo.png" alt="Hope Worldwide" class="volunteer-logo">
+                    <div>
+                        <span class="volunteer-name">Hope Worldwide</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CONTACT ========== -->
+    <section class="contact-section">
+        <div class="container-narrow">
+            <h2 class="section-title light">Contact</h2>
+            <p class="contact-text">
+                I am seeking postdoctoral positions in parallel robotics, mechanism design, and robotic manipulation.
+            </p>
+            <a href="mailto:grover.aruquipa@ulaval.ca" class="contact-email">grover.aruquipa@ulaval.ca</a>
+            <div class="contact-links">
+                <a href="https://scholar.google.com" target="_blank">Google Scholar</a>
+                <a href="https://github.com/GroverAruquipa" target="_blank">GitHub</a>
+                <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+                <a href="https://orcid.org" target="_blank">ORCID</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <p>© 2025 Grover Aruquipa · Université Laval · Québec, Canada</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
