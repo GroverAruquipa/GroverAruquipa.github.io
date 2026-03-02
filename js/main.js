@@ -3,7 +3,7 @@
    ======================================== */
 
 document.addEventListener('DOMContentLoaded', function() {
-    
+
     // ========== SKILLS DATA ==========
     const skillsData = {
         theory: {
@@ -47,9 +47,8 @@ document.addEventListener('DOMContentLoaded', function() {
         point.addEventListener('mouseenter', function() {
             const skillId = this.getAttribute('data-skill');
             const skill = skillsData[skillId];
-            
+
             if (skill) {
-                // Update details panel
                 skillDetails.innerHTML = `
                     <div class="skill-info">
                         <h3>${skill.name}</h3>
@@ -57,11 +56,21 @@ document.addEventListener('DOMContentLoaded', function() {
                             ${skill.details.map(d => `<span class="skill-tag">${d}</span>`).join('')}
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-bar-fill" style="width: ${skill.level}%"></div>
+                            <div class="skill-bar-fill" style="width: 0%"></div>
                         </div>
                         <p class="skill-level">Proficiency: ${skill.level}%</p>
                     </div>
                 `;
+
+                // Animate skill bar fill
+                requestAnimationFrame(() => {
+                    const bar = skillDetails.querySelector('.skill-bar-fill');
+                    if (bar) {
+                        requestAnimationFrame(() => {
+                            bar.style.width = skill.level + '%';
+                        });
+                    }
+                });
 
                 // Highlight point
                 skillPoints.forEach(p => p.classList.remove('active'));
@@ -78,12 +87,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         point.addEventListener('mouseleave', function() {
-            // Delay reset to allow for smooth transition
             setTimeout(() => {
                 if (!document.querySelector('.skill-point:hover')) {
                     skillDetails.innerHTML = `
                         <div class="skill-placeholder">
-                            <p>↑</p>
+                            <p class="arrow">\u2191</p>
                             <p>Hover over the hexagon</p>
                             <p>to explore skills</p>
                         </div>
@@ -101,14 +109,14 @@ document.addEventListener('DOMContentLoaded', function() {
         label.addEventListener('click', function() {
             const labelText = this.textContent.toLowerCase();
             let skillId = null;
-            
+
             if (labelText.includes('theory')) skillId = 'theory';
             else if (labelText.includes('analysis')) skillId = 'analysis';
             else if (labelText.includes('design')) skillId = 'design';
             else if (labelText.includes('hardware')) skillId = 'hardware';
             else if (labelText.includes('software')) skillId = 'software';
             else if (labelText.includes('ai') || labelText.includes('control')) skillId = 'aicontrol';
-            
+
             if (skillId) {
                 const point = document.querySelector(`.skill-point[data-skill="${skillId}"]`);
                 if (point) {
@@ -125,12 +133,10 @@ document.addEventListener('DOMContentLoaded', function() {
     filterBtns.forEach(btn => {
         btn.addEventListener('click', function() {
             const filter = this.getAttribute('data-filter');
-            
-            // Update active button
+
             filterBtns.forEach(b => b.classList.remove('active'));
             this.classList.add('active');
 
-            // Filter cards
             tutorialCards.forEach(card => {
                 const category = card.getAttribute('data-category');
                 if (filter === 'all' || category === filter) {
@@ -161,35 +167,65 @@ document.addEventListener('DOMContentLoaded', function() {
     // ========== INTERSECTION OBSERVER FOR ANIMATIONS ==========
     const observerOptions = {
         threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        rootMargin: '0px 0px -60px 0px'
     };
 
     const fadeInObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                entry.target.classList.add('visible');
             }
         });
     }, observerOptions);
 
-    // Apply fade-in animation to sections
     const animatedElements = document.querySelectorAll(
-        '.stat-item, .prototype-card, .publication-item, .tutorial-card, .news-item, .award-item, .mentor-card'
+        '.stat-item, .prototype-card, .publication-item, .tutorial-card, .news-item, .award-item, .mentor-card, .journey-item, .volunteer-item'
     );
 
     animatedElements.forEach((el, index) => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = `opacity 0.5s ease ${index * 0.05}s, transform 0.5s ease ${index * 0.05}s`;
+        el.classList.add('fade-in-element');
+        el.style.transitionDelay = `${(index % 6) * 0.08}s`;
         fadeInObserver.observe(el);
     });
+
+    // ========== ANIMATED STAT COUNTERS ==========
+    const statNumbers = document.querySelectorAll('.stat-number');
+
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                const target = el.getAttribute('data-target') || el.textContent.trim();
+                const hasPlus = target.includes('+');
+                const numericValue = parseInt(target.replace('+', ''));
+
+                if (!isNaN(numericValue)) {
+                    let current = 0;
+                    const duration = 1500;
+                    const increment = numericValue / (duration / 16);
+
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= numericValue) {
+                            current = numericValue;
+                            clearInterval(timer);
+                        }
+                        el.textContent = Math.floor(current) + (hasPlus ? '+' : '');
+                    }, 16);
+                }
+
+                counterObserver.unobserve(el);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    statNumbers.forEach(el => counterObserver.observe(el));
 
     // ========== PROTOTYPE CARD HOVER ==========
     const prototypeCards = document.querySelectorAll('.prototype-card');
     prototypeCards.forEach(card => {
         card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-8px)';
+            this.style.transform = 'translateY(-6px)';
         });
         card.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0)';
@@ -197,6 +233,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ========== CONSOLE MESSAGE ==========
-    console.log('%c🤖 Grover Aruquipa - Robotics Researcher', 'color: #2c5282; font-size: 16px; font-weight: bold;');
+    console.log('%c\uD83E\uDD16 Grover Aruquipa - Robotics Researcher', 'color: #c9a227; font-size: 16px; font-weight: bold;');
     console.log('%cParallel Manipulators | Unlimited Rotation | Integrated Grasping', 'color: #718096; font-size: 12px;');
 });
