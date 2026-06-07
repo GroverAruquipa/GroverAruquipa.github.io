@@ -41,7 +41,59 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 20px;
+    scroll-padding-top: 56px;
+}
+
+/* ========== NAVBAR ========== */
+.navbar {
+    position: fixed;
+    top: -60px;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: var(--black);
+    padding: 0 32px;
+    height: 48px;
+    transition: top 0.3s ease;
+}
+
+.navbar.visible {
+    top: 0;
+}
+
+.nav-content {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.nav-name {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: 0.3px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 24px;
+}
+
+.nav-links a {
+    font-size: 0.72rem;
+    color: var(--gray-400);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+    transition: color var(--transition-fast);
+}
+
+.nav-links a:hover {
+    color: var(--white);
 }
 
 body {
@@ -476,6 +528,16 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.pub-thumb.no-zoom,
+.prototype-image.no-zoom {
+    cursor: default;
+}
+
+.pub-thumb.no-zoom:hover {
+    transform: none;
+    box-shadow: none;
 }
 
 .pub-thumb-placeholder {
@@ -983,6 +1045,23 @@ body {
 .award-org {
     font-size: 0.7rem;
     color: var(--gray-500);
+}
+
+.award-view {
+    display: inline-block;
+    font-size: 0.65rem;
+    color: var(--white);
+    background: var(--black);
+    padding: 4px 12px;
+    border-radius: 12px;
+    text-decoration: none;
+    margin-top: 6px;
+    font-weight: 500;
+    transition: all var(--transition-fast);
+}
+
+.award-view:hover {
+    background: var(--gray-800);
 }
 
 /* ========== MENTORS ========== */

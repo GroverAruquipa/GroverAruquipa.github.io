@@ -64,13 +64,27 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='8' fill='%23111'/><text x='50' y='70' font-family='Georgia,serif' font-size='60' font-weight='400' fill='white' text-anchor='middle'>G</text></svg>">
 </head>
 <body>
+    <!-- ========== NAVBAR ========== -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-content">
+            <span class="nav-name">G. Aruquipa</span>
+            <div class="nav-links">
+                <a href="#research">Research</a>
+                <a href="#publications">Publications</a>
+                <a href="#prototypes">Prototypes</a>
+                <a href="#awards">Awards</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
     <!-- ========== HEADER ========== -->
     <header class="header">
         <div class="header-content">
             <div class="profile-photo"><img src="images/profile.png" alt="Grover Aruquipa"></div>
             <h1 class="header-name">Grover Aruquipa</h1>
             <p class="header-tagline">Designing parallel robots with unlimited rotation and integrated grasping</p>
-            <p class="header-title">Ph.D. Candidate in Mechanical Engineering</p>
+            <p class="header-title">Ph.D. Candidate in Mechanical Engineering &middot; Finishing December 2026</p>
             <p class="header-institution">Universit&eacute; Laval &middot; Qu&eacute;bec, Canada</p>
             <p class="header-available">Open for Postdoc or R&amp;I positions from December 2026</p>
 
@@ -98,14 +112,15 @@
     </header>
 
     <!-- ========== RESEARCH INTERESTS ========== -->
-    <section class="research-section">
+    <section class="research-section" id="research">
         <div class="container-narrow">
             <h2 class="section-title">Research Interests</h2>
             <p class="research-intro">
                 I design advanced robotic and mechatronic systems grounded in deep mathematical analysis.
                 My work combines screw theory, Lie group methods, and singularity analysis to create parallel
                 robots with unprecedented capabilities. I am currently exploring Physical AI from a mechanical
-                design perspective, and I am also interested in medical robotics and micro-manipulation.
+                design perspective, and I am also interested in medical robotics, micro-manipulation, and
+                mobile vehicles as a way to extrapolate my expertise to new domains.
             </p>
             <div class="pillars-grid">
                 <div class="pillar-card">
@@ -154,7 +169,7 @@
     </section>
 
     <!-- ========== PUBLICATIONS ========== -->
-    <section class="publications-section">
+    <section class="publications-section" id="publications">
         <div class="container-narrow">
             <h2 class="section-title">Publications</h2>
 
@@ -232,7 +247,7 @@
                 <div class="pub-content">
                     <h4>A (6+2)-DoF Kinematically Redundant Parallel Robot with Two Unlimited Rotations and Integrated Grasping</h4>
                     <p class="pub-authors"><strong class="me">G. Aruquipa</strong>, J. Valencia, P. Lambert, C. Gosselin</p>
-                    <p class="pub-venue"><img src="images/logos/asme_logo.jpg" alt="ASME" class="pub-logo">Journal of Mechanisms and Robotics (ASME)</p>
+                    <p class="pub-venue">Journal of Mechanisms and Robotics (ASME)</p>
                 </div>
                 <span class="pub-status prep">Submission Imminent</span>
             </article>
@@ -242,7 +257,7 @@
                 <div class="pub-content">
                     <h4>Singularity Analysis of an 8RSS Redundant Parallel Robot with Unlimited Rotation</h4>
                     <p class="pub-authors"><strong class="me">G. Aruquipa</strong>, R. Dahmouche</p>
-                    <p class="pub-venue"><img src="images/logos/mmt_logo.jpg" alt="Elsevier" class="pub-logo">Mechanism and Machine Theory (Elsevier)</p>
+                    <p class="pub-venue">Mechanism and Machine Theory (Elsevier)</p>
                 </div>
                 <span class="pub-status prep">Submission Imminent</span>
             </article>
@@ -252,7 +267,7 @@
                 <div class="pub-content">
                     <h4>Singularity Analysis of Two-Body Parallel Robots with Reconfigurable Platforms</h4>
                     <p class="pub-authors"><strong class="me">G. Aruquipa</strong>, P. Lambert, C. Gosselin, A. M&uuml;ller</p>
-                    <p class="pub-venue"><img src="images/logos/mmt_logo.jpg" alt="Elsevier" class="pub-logo">Mechanism and Machine Theory (Elsevier)</p>
+                    <p class="pub-venue">Mechanism and Machine Theory (Elsevier)</p>
                 </div>
                 <span class="pub-status prep">In Preparation</span>
             </article>
@@ -262,17 +277,17 @@
                 <div class="pub-content">
                     <h4>Graspability Performance Indices for Parallel Robots with Integrated Grasping</h4>
                     <p class="pub-authors"><strong class="me">G. Aruquipa</strong>, A. M&uuml;ller, C. Gosselin</p>
-                    <p class="pub-venue"><img src="images/logos/IEEE-Logo.jpg" alt="IEEE" class="pub-logo">Target: IEEE T-RO or IJRR</p>
+                    <p class="pub-venue">Target: IEEE T-RO or IJRR</p>
                 </div>
                 <span class="pub-status prep">In Preparation</span>
             </article>
 
             <article class="publication-item">
-                <div class="pub-thumb"><img src="images/prototypes/3_unlimited.jpg" alt="9-DoF Experimental"></div>
+                <div class="pub-thumb no-zoom"><img src="images/prototypes/3_unlimited.jpg" alt="9-DoF Experimental"></div>
                 <div class="pub-content">
                     <h4>Experimental Validation of a 9-DoF Parallel Robot Prototype with Unlimited Rotation and Grasping</h4>
                     <p class="pub-authors"><strong class="me">G. Aruquipa</strong>, P. Lambert, C. Gosselin</p>
-                    <p class="pub-venue"><img src="images/logos/IEEE-Logo.jpg" alt="IEEE" class="pub-logo">IEEE Robotics and Automation Letters</p>
+                    <p class="pub-venue">IEEE Robotics and Automation Letters</p>
                 </div>
                 <span class="pub-status prep">In Preparation</span>
             </article>
@@ -282,7 +297,7 @@
                 <div class="pub-content">
                     <h4>Experimental Validation of a Second-Generation Parallel Robot Prototype</h4>
                     <p class="pub-authors"><strong class="me">G. Aruquipa</strong>, P. Lambert, C. Gosselin</p>
-                    <p class="pub-venue"><img src="images/logos/IEEE-Logo.jpg" alt="IEEE" class="pub-logo">IEEE Robotics and Automation Letters</p>
+                    <p class="pub-venue">IEEE Robotics and Automation Letters</p>
                 </div>
                 <span class="pub-status prep">In Preparation</span>
             </article>
@@ -312,7 +327,7 @@
     </section>
 
     <!-- ========== PROTOTYPES ========== -->
-    <section class="prototypes-section">
+    <section class="prototypes-section" id="prototypes">
         <div class="container-narrow">
             <h2 class="section-title">Prototypes</h2>
 
@@ -332,7 +347,7 @@
                 </div>
 
                 <div class="prototype-card">
-                    <div class="prototype-image"><img src="images/prototypes/3_unlimited.jpg" alt="9-DOF Redundant System"></div>
+                    <div class="prototype-image no-zoom"><img src="images/prototypes/3_unlimited.jpg" alt="9-DOF Redundant System"></div>
                     <span class="prototype-status">In Progress</span>
                     <h3>9-DOF Redundant System</h3>
                     <p>Enhanced dexterity through redundancy</p>
@@ -433,14 +448,14 @@
                 </div>
                 <div class="news-item">
                     <span class="news-date">Aug 2025</span>
-                    <p>Won <strong>1st Place</strong> (Graduate Division) at the <a href="assets/Aruquipa_SMRDC.pdf" target="_blank">ASME Mechanisms &amp; Robotics Student Design Competition</a> &mdash; IDETC, Anaheim, CA</p>
+                    <p>Won <strong>1st Place</strong> (Graduate Division) at the <a href="assets/Aruquipa_SMRDC.pdf" target="_blank">ASME Student Mechanisms &amp; Robotics Design Competition (SMRDC)</a>, a worldwide competition at IDETC, Anaheim, CA. Received $1,500 USD travel grant and $600 USD cash prize.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- ========== AWARDS ========== -->
-    <section class="awards-section">
+    <section class="awards-section" id="awards">
         <div class="container-narrow">
             <h2 class="section-title">Awards &amp; Fellowships</h2>
             <div class="awards-grid">
@@ -449,6 +464,7 @@
                     <div>
                         <p class="award-title"><a href="assets/Aruquipa_SMRDC.pdf" target="_blank">1st Place &mdash; SMRDC (Graduate Division)</a></p>
                         <p class="award-org">ASME IDETC, Anaheim, CA &middot; 2025</p>
+                        <a href="assets/Aruquipa_SMRDC.pdf" target="_blank" class="award-view">View certificate &rarr;</a>
                     </div>
                 </div>
                 <div class="award-item">
@@ -557,7 +573,7 @@
     </section>
 
     <!-- ========== CONTACT ========== -->
-    <section class="contact-section">
+    <section class="contact-section" id="contact">
         <div class="container-narrow">
             <h2 class="section-title">Contact</h2>
             <p class="contact-available">Open for Postdoc or R&amp;I positions from December 2026</p>
