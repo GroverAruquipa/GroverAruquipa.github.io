@@ -1279,6 +1279,23 @@ body {
 
 .contact-links a:hover { color: var(--white); }
 
+.contact-tools {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+}
+
+.contact-tools span {
+    font-size: 0.65rem;
+    padding: 4px 12px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 14px;
+    color: var(--gray-400);
+}
+
 /* ========== FOOTER ========== */
 .footer {
     background: var(--dark);
