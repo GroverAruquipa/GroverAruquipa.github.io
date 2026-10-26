@@ -6,7 +6,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[scaled=0.95]{helvet}
 \renewcommand{\familydefault}{\sfdefault}
-\usepackage[top=1.3cm,bottom=1.2cm,left=1.6cm,right=1.6cm]{geometry}
+\usepackage[top=1.1cm,bottom=1.0cm,left=1.5cm,right=1.5cm]{geometry}
 \usepackage{enumitem}
 \usepackage{titlesec}
 \usepackage{xcolor}
@@ -44,7 +44,7 @@
 Robotics engineer finishing a PhD in Mechanical Engineering (Universit\'e Laval, defense January 2027) with a focus on
 manipulator kinematics, dynamics and real-time control. I have designed, built and controlled three multi-DoF
 manipulators with integrated grippers, taking each one from mathematical model and CAD through fabrication to 500\,Hz
-closed-loop control and experimental validation. Earlier industry work in computer vision and machine learning
+closed-loop control and experimental validation, with real-time C++, MoveIt and MuJoCo in my toolset. Earlier industry work in computer vision and machine learning
 (Hitachi ABB Power Grids R\&D, Sencon).
 
 %================ SKILLS ================
@@ -53,9 +53,10 @@ closed-loop control and experimental validation. Earlier industry work in comput
 \item \textbf{Robot modeling:} rigid-body kinematics and dynamics, Lie groups and screw theory (SE(3), twists, wrenches),
 Jacobians, closed-form inverse kinematics, singularity and workspace analysis, redundancy resolution, grasp analysis.
 \item \textbf{Control and real time:} multi-axis joint control at 500\,Hz with incremental encoders, PID tuning,
-trajectory generation and tracking; OPAL-RT RT-LAB, Simulink Real-Time.
-\item \textbf{Software:} Python, MATLAB and Simulink, Pinocchio, ROS and ROS~2, OpenCV, PyTorch, TensorFlow, Git.
-% TODO: add C++ here ONLY if confirmed (e.g. "C++ (Eigen)").
+trajectory generation and tracking, motion planning with MoveIt, simulation in MuJoCo; OPAL-RT RT-LAB,
+Simulink Real-Time.
+\item \textbf{Software:} C++ (real-time control), Python, MATLAB and Simulink, ROS and ROS~2, MoveIt, Pinocchio,
+MuJoCo, OpenCV, PyTorch, TensorFlow, Git.
 \item \textbf{Hardware:} mechanism and transmission design, SolidWorks, Creo, ANSYS, Altium (PCB), fabrication and
 assembly of research prototypes (machining, SLS and FDM printing), electric motors and drives.
 \end{itemize}
@@ -86,6 +87,7 @@ under review; reviewer for ASME J.\ Mechanisms and Robotics.
 \role{Research Intern}{FEMTO-ST (CNRS)}{Besan\c{c}on, France}{2022 -- 2023}
 \begin{itemize}
 \item Modeled a redundant dexterous parallel robot with two unlimited rotations for micro-manipulation.
+\item Wrote real-time control software in C++ for the robot experiments.
 \end{itemize}
 
 \vspace{3pt}
