@@ -1,0 +1,4 @@
+cv/**/*.pdf
+cv/**/*.aux
+cv/**/*.log
+cv/**/*.out
