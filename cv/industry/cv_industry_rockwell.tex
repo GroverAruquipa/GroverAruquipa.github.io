@@ -1,0 +1,162 @@
+% Industry resume, Grover Aruquipa
+% Compile with pdfLaTeX (also works on Overleaf). One column on purpose:
+% applicant tracking systems read single-column text far more reliably than sidebars.
+\documentclass[10pt,letterpaper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[scaled=0.95]{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[top=1.1cm,bottom=1.0cm,left=1.5cm,right=1.5cm]{geometry}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{ink}{HTML}{111111}
+\definecolor{accent}{HTML}{0D2B61}
+\definecolor{muted}{HTML}{555555}
+\color{ink}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+
+\titleformat{\section}{\normalsize\bfseries\color{accent}}{}{0em}{\MakeUppercase}[\vspace{-6pt}{\color{accent}\rule{\linewidth}{0.6pt}}]
+\titlespacing*{\section}{0pt}{7pt}{3pt}
+\setlist[itemize]{leftmargin=1.1em,itemsep=0.5pt,topsep=1pt,parsep=0pt,label=\textbullet}
+
+% \role{Title}{Organization}{Location}{Dates}
+\newcommand{\role}[4]{\textbf{#1}, #2 \hfill {\color{muted}#3 \textbar\ #4}\par}
+
+\begin{document}
+
+%================ HEADER ================
+{\LARGE\bfseries Grover Aruquipa}\par\vspace{2pt}
+{\large Robotics Researcher \textbar\ Robotic Grasping, Manipulation and Machine Learning on Real Hardware}\par\vspace{3pt}
+{\small Qu\'ebec, QC, Canada \ \textbullet\ \
+\href{mailto:grover.aruquipa.9@gmail.com}{grover.aruquipa.9@gmail.com} \ \textbullet\ \
+\href{https://www.linkedin.com/in/grover-aruquipa-996917126}{linkedin.com/in/grover-aruquipa-996917126} \ \textbullet\ \
+\href{https://groveraruquipa.github.io}{groveraruquipa.github.io}}\par
+
+%================ SUMMARY ================
+\section{Summary}
+Builder-researcher finishing a PhD in Mechanical Engineering (Universit\'e Laval, defense January 2027) on robotic
+grasping and manipulation. I derive the models on paper and then build the robot: three multi-DoF manipulators with
+integrated grippers taken from theory and CAD to 500\,Hz real-time C++ control and experiments, with 3 journal papers,
+4 more under review, and a review of robotic grasping in ASME JMR. Earlier industrial R\&D in vision and machine
+learning (Hitachi ABB Power Grids, Sencon) means I know both the data side and the robot that has to execute.
+
+%================ SKILLS ================
+\section{Technical Skills}
+\begin{itemize}
+\item \textbf{Grasping and manipulation:} grasp analysis and grasp-quality indices, robots with integrated grippers,
+unlimited in-hand rotation of grasped objects, contact and force transmission, redundancy resolution.
+\item \textbf{Machine learning and perception:} PyTorch, TensorFlow, OpenCV; computer vision for industrial anomaly
+detection; learning on multi-sensor industrial data (vibration and circuit-breaker sensors).
+\item \textbf{Robot modeling and control:} rigid-body kinematics and dynamics, Lie groups and screw theory, Jacobians,
+singularity and workspace analysis; multi-axis real-time control at 500\,Hz, trajectory generation and tracking.
+\item \textbf{Software and simulation:} C++ (real-time control), Python, MATLAB and Simulink, ROS and ROS~2, MoveIt,
+Pinocchio, MuJoCo, Simscape, Git, Linux; SolidWorks and prototype fabrication.
+\end{itemize}
+
+%================ EXPERIENCE ================
+\section{Experience}
+\role{Doctoral Researcher}{Robotics Laboratory, Universit\'e Laval}{Qu\'ebec, Canada}{2023 -- present}
+\begin{itemize}
+\item Designed, built and controlled three parallel manipulators (4, 7 and 8 actuators) with the gripper driven through
+the mechanism, allowing unlimited rotation of the grasped object.
+\item Wrote the real-time multi-motor control at 500\,Hz; validated a 4-DoF coaxial wrist-gripper over ten continuous
+tool revolutions with sub-degree tracking while it held the object.
+\item Derived closed-form inverse kinematics, Jacobians and singularity conditions, and a redundancy strategy that keeps
+unlimited rotation free of collisions and singularities.
+\item Currently building a Delta robot with an integrated gripper that estimates grasp force from motor currents, aimed
+at handling fragile objects at speed; developing a ROS~2 and MoveIt~2 stack for a 9-DoF parallel robot.
+\item Led two graduate students from concept to working prototype on an 8-actuator (6+2)-DoF robot (ICRA 2027
+submission); reviewer for ASME J.\ Mechanisms and Robotics.
+\end{itemize}
+
+\vspace{3pt}
+\role{Visiting Researcher}{Institute of Robotics, Johannes Kepler University Linz}{Linz, Austria}{Apr. -- May 2026}
+\begin{itemize}
+\item Developed singularity and grasp-quality indices for robots that grasp with an articulated platform, with
+Univ.-Prof.~A.~M\"uller (Mitacs Globalink Research Award).
+\end{itemize}
+
+\vspace{3pt}
+\role{Research Intern}{FEMTO-ST (CNRS)}{Besan\c{c}on, France}{2022 -- 2023}
+\begin{itemize}
+\item Modeled a redundant dexterous parallel robot for micro-manipulation and wrote its real-time C++ control software.
+\end{itemize}
+
+\vspace{3pt}
+\textbf{Industry R\&D in vision and machine learning} \hfill {\color{muted}2020 -- 2021}\par
+\begin{itemize}
+\item \textbf{Graduate Research Intern}, Hitachi ABB Power Grids R\&D (Zurich, 2020): machine learning on sensor data from
+high-voltage circuit breakers; invited after my bachelor's thesis.
+\item \textbf{Computer Vision Engineer}, Sencon Srl (2021): anomaly detection on industrial production lines. Also data
+scientist for KTH Royal Institute of Technology (2021).
+\end{itemize}
+
+%================ EDUCATION ================
+\section{Education}
+\textbf{PhD, Mechanical Engineering}, Universit\'e Laval \hfill {\color{muted}Qu\'ebec, Canada \textbar\ 2023 -- Jan.\ 2027 (expected)}\par
+{\small Kinematically redundant parallel robots with unlimited rotations and integrated grasping. Advisors: C.~Gosselin, P.~Lambert.}\par\vspace{2pt}
+\textbf{MSc, Smart Integrated Systems}, Universit\'e Bourgogne--Franche-Comt\'e \hfill {\color{muted}Besan\c{c}on, France \textbar\ 2021 -- 2023}\par\vspace{2pt}
+\textbf{BEng, Mechatronics Engineering}, Bolivian Catholic University \hfill {\color{muted}La Paz, Bolivia \textbar\ 2014 -- 2019}\par
+{\small Thesis: reconfigurable Delta robot for product picking.}
+
+%================ AWARDS ================
+\section{Awards and Languages}
+\begin{itemize}
+\item 1st Place, Graduate Division, ASME Student Mechanisms and Robotics Design Competition (2025), team lead.
+\item Finalist, MassRobotics competition, Boston, with one of my robot prototypes, team lead.
+\item Mitacs Globalink Research Award (2026); 1st Place, Student Paper Competition, Argentine Robotics Conference (2019).
+\item Languages: Spanish (native), English (full professional), French (intermediate).
+\end{itemize}
+
+\newpage
+%================ PUBLICATIONS ================
+\section{Publications}
+{\small First author on all papers.}\par\vspace{2pt}
+\textbf{Journal articles}
+\begin{itemize}
+\item \textbf{G.~Aruquipa}, P.~Lambert, R.~Dahmouche, C.~Gosselin, ``Parallel robots for grasping tasks: a review,''
+\emph{ASME Journal of Mechanisms and Robotics}, vol.~18, no.~12, art.~120801, 2026. doi:10.1115/1.4072612
+\item \textbf{G.~Aruquipa}, V.~Muralidharan, P.~Lambert, C.~Gosselin, ``Analysis and design of a novel compact
+four-degree-of-freedom parallel robot with unlimited rotation,'' \emph{ASME Journal of Mechanisms and Robotics},
+vol.~18, no.~6, art.~061001, 2026.
+\item \textbf{G.~Aruquipa}, P.~Lambert, C.~Gosselin, ``Analysis and design of a novel (6+1)-DoF parallel robot with
+unlimited rotation and grasping capabilities,'' \emph{Mechanism and Machine Theory}, vol.~224, art.~106438, 2026.
+\end{itemize}
+\textbf{Conference papers}
+\begin{itemize}
+\item \textbf{G.~Aruquipa}, P.~Lambert, C.~Gosselin, ``Kinematic analysis and design of a novel 9-DoF parallel robot
+with grasping capabilities,'' \emph{CCToMM Symposium on Mechanisms, Machines and Mechatronics}, 2025, pp.~117--127.
+\item \textbf{G.~Aruquipa}, F.~Diaz, ``An IoT architecture based on the control of a bio-inspired manufacturing system
+for the detection of anomalies with vibration sensors,'' \emph{Procedia Computer Science}, vol.~200, pp.~438--450, 2022.
+\end{itemize}
+\textbf{Under review}
+\begin{itemize}
+\item \textbf{G.~Aruquipa}, P.~Lambert, C.~Gosselin, ``A kinematically redundant (6+2)-DoF parallel robot with three
+orthogonal unlimited rotations and coaxial actuation,'' submitted to \emph{IEEE ICRA 2027}.
+\item \textbf{G.~Aruquipa}, P.~Lambert, C.~Gosselin, ``A compact coaxial parallel wrist-gripper with unlimited
+tool-axis rotation,'' submitted to \emph{Robotics and Autonomous Systems}.
+\item \textbf{G.~Aruquipa}, P.~Lambert, C.~Gosselin, ``An analytical framework for collision-free and singularity-free
+unlimited rotation in spatial parallel mechanisms,'' submitted to \emph{Mechanism and Machine Theory}.
+\item \textbf{G.~Aruquipa}, A.~Ayoub, R.~Dahmouche, ``Architecture, kinematics, and workspace analysis of a redundant
+8RSS parallel robot with two unlimited rotations,'' in revision, \emph{Mechanism and Machine Theory}.
+\end{itemize}
+
+
+%================ REFERENCES ================
+\section{References}
+\begin{itemize}
+\item \textbf{Prof.~Cl\'ement Gosselin}, Full Professor, Department of Mechanical Engineering, Universit\'e Laval, Qu\'ebec,
+Canada. PhD supervisor. \href{mailto:clement.gosselin@gmc.ulaval.ca}{clement.gosselin@gmc.ulaval.ca}
+\item \textbf{Prof.~Patrice Lambert}, Assistant Professor, Department of Mechanical Engineering, Universit\'e Laval,
+Qu\'ebec, Canada. PhD co-supervisor. \href{mailto:patrice.lambert@gmc.ulaval.ca}{patrice.lambert@gmc.ulaval.ca}
+\item \textbf{Univ.-Prof.~Dr.-Ing.~Andreas M\"uller}, Head of the Institute of Robotics, Johannes Kepler University Linz,
+Austria. Host during my research stay (2026). \href{mailto:a.mueller@jku.at}{a.mueller@jku.at}
+\end{itemize}
+
+\end{document}
