@@ -8,57 +8,26 @@ Personal academic website for postdoctoral applications in robotics research.
 ## 📁 Structure
 
 ```
-├── index.html          # Main HTML file
-├── css/
-│   └── style.css       # All styles (responsive)
-├── js/
-│   └── main.js         # Interactivity (skills, filters)
-├── images/             # Your photos (add these)
-│   ├── profile.jpg
-│   ├── prototype-1.jpg
-│   ├── prototype-2.jpg
-│   ├── prototype-3.jpg
-│   └── prototype-4.jpg
-├── assets/
-│   ├── CV_Grover_Aruquipa.pdf
-│   └── favicon.ico
-└── README.md
+├── index.html            # Main page (all sections)
+├── css/style.css         # Styles (responsive)
+├── js/main.js            # Navbar, fade-in, lightbox, card videos
+├── images/               # Profile, logos, publication thumbnails, older prototype photos
+├── media/img/            # Web-sized robot photos and figures
+├── media/video/          # Short H.264 clips (no audio) + poster frames
+├── demos/                # Self-contained interactive simulators
+├── tutorials/            # Interactive tutorials
+├── assets/               # CV_Grover_Aruquipa.pdf, SMRDC certificate
+└── cv/                   # LaTeX sources of CVs and letters
 ```
 
-## 🚀 Setup
+## 🔄 Updating
 
-1. Replace placeholder photos in `images/` folder
-2. Update `assets/CV_Grover_Aruquipa.pdf` with your CV
-3. Update links (Google Scholar, LinkedIn, ORCID)
-4. Push to GitHub
-
-## ✏️ Customization
-
-### Add Your Photo
-In `index.html`, replace:
-```html
-<div class="profile-photo">YOUR PHOTO</div>
-```
-With:
-```html
-<div class="profile-photo">
-    <img src="images/profile.jpg" alt="Grover Aruquipa">
-</div>
-```
-
-### Add Prototype Photos
-Replace `PHOTO` placeholders with:
-```html
-<div class="prototype-image">
-    <img src="images/prototype-1.jpg" alt="6+1 DOF Parallel Manipulator">
-</div>
-```
-
-### Update Links
-Search for placeholder URLs and replace:
-- `https://scholar.google.com` → Your Google Scholar
-- `https://linkedin.com` → Your LinkedIn
-- `https://orcid.org` → Your ORCID
+- **CV:** edit `cv/academic/cv_oxford.tex`, regenerate `cv/academic/cv_web.tex` (same file without the
+  nationality line), compile with `pdflatex cv_web.tex` and copy the PDF to `assets/CV_Grover_Aruquipa.pdf`.
+- **Paper status:** update the Publications section, the matching robot card and the "At a glance" numbers in `index.html`.
+- **Videos:** encode with
+  `ffmpeg -i in.mp4 -an -vf "scale='min(960,iw)':-2,fps=30" -c:v libx264 -crf 30 -pix_fmt yuv420p -movflags +faststart out.mp4`
+  and keep each clip under ~1.5 MB.
 
 ## 📊 Analytics (Optional)
 
