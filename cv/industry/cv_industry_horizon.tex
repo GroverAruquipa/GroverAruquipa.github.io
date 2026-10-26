@@ -1,0 +1,118 @@
+% Industry resume, Grover Aruquipa
+% Compile with pdfLaTeX (also works on Overleaf). One column on purpose:
+% applicant tracking systems read single-column text far more reliably than sidebars.
+\documentclass[10pt,letterpaper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[scaled=0.95]{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[top=1.1cm,bottom=1.0cm,left=1.5cm,right=1.5cm]{geometry}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{ink}{HTML}{111111}
+\definecolor{accent}{HTML}{0D2B61}
+\definecolor{muted}{HTML}{555555}
+\color{ink}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+
+\titleformat{\section}{\normalsize\bfseries\color{accent}}{}{0em}{\MakeUppercase}[\vspace{-6pt}{\color{accent}\rule{\linewidth}{0.6pt}}]
+\titlespacing*{\section}{0pt}{7pt}{3pt}
+\setlist[itemize]{leftmargin=1.1em,itemsep=0.5pt,topsep=1pt,parsep=0pt,label=\textbullet}
+
+% \role{Title}{Organization}{Location}{Dates}
+\newcommand{\role}[4]{\textbf{#1}, #2 \hfill {\color{muted}#3 \textbar\ #4}\par}
+
+\begin{document}
+
+%================ HEADER ================
+{\LARGE\bfseries Grover Aruquipa}\par\vspace{2pt}
+{\large Robotics Mechanical Engineer \textbar\ Mechanism Design and Multi-DoF Robotic Hardware}\par\vspace{3pt}
+{\small Qu\'ebec, QC, Canada \ \textbullet\ \
+\href{mailto:grover.aruquipa.9@gmail.com}{grover.aruquipa.9@gmail.com} \ \textbullet\ \
+\href{https://www.linkedin.com/in/grover-aruquipa-996917126}{linkedin.com/in/grover-aruquipa-996917126} \ \textbullet\ \
+\href{https://groveraruquipa.github.io}{groveraruquipa.github.io}}\par
+% TODO: add a current phone number on the line above if you want it on the CV.
+
+%================ SUMMARY ================
+\section{Summary}
+Mechanical engineer finishing a PhD (Universit\'e Laval, defense January 2027) on the design of non-traditional
+multi-DoF robotic mechanisms. I have taken three robots with unusual kinematic structures from concept and CAD through
+fabrication, wiring and real-time control to a working, validated prototype, including a compact coaxial wrist-gripper
+that turns its tool without limit while holding it. Master's research in micro-manipulation at FEMTO-ST (CNRS).
+
+%================ SKILLS ================
+\section{Technical Skills}
+\begin{itemize}
+\item \textbf{Mechanism design:} parallel and hybrid mechanisms with unusual kinematic structures, coaxial and concentric
+transmissions (hollow shafts, belts), revolute and prismatic joints, integrated grippers, vendor component selection.
+\item \textbf{CAD, analysis and fabrication:} SolidWorks, Creo, ANSYS; machining, SLS and FDM printing, assembly and
+commissioning of research prototypes.
+\item \textbf{Electronics:} Altium (basic PCB design), motor and encoder wiring, component selection for multi-axis
+drives.
+\item \textbf{Kinematics and dynamics:} rigid-body kinematics and dynamics, screw theory and Lie groups, Jacobians,
+singularity and workspace analysis, simulation in MATLAB and MuJoCo.
+\item \textbf{Control and software:} real-time multi-axis control at 500\,Hz (OPAL-RT, Simulink Real-Time), C++ (real
+time), Python, MATLAB, ROS~2, MoveIt, Pinocchio.
+\end{itemize}
+
+%================ EXPERIENCE ================
+\section{Experience}
+\role{Doctoral Researcher}{Robotics Laboratory, Universit\'e Laval}{Qu\'ebec, Canada}{2023 -- present}
+\begin{itemize}
+\item Designed, built and controlled three parallel manipulators (4, 7 and 8 actuators) with every motor
+mounted on the base and the gripper driven through the mechanism, enabling unlimited rotation of the grasped object.
+\item Implemented real-time multi-motor control at 500\,Hz; validated a 4-DoF coaxial wrist-gripper (0.25\,kg moving mass,
+180\,mm footprint) over ten continuous tool revolutions with sub-degree tracking.
+\item Derived closed-form inverse kinematics, Jacobians and singularity conditions, and developed a redundancy
+strategy that keeps unlimited rotation free of collisions and singularities.
+\item Led two graduate students from concept to working prototype on an 8-actuator (6+2)-DoF robot; joint paper
+submitted to ICRA 2027.
+\item First author of 3 journal papers (ASME J.\ Mechanisms and Robotics, Mechanism and Machine Theory) and 4 more
+under review; reviewer for ASME J.\ Mechanisms and Robotics.
+\end{itemize}
+
+\vspace{3pt}
+\role{Visiting Researcher}{Institute of Robotics, Johannes Kepler University Linz}{Linz, Austria}{Apr. -- May 2026}
+\begin{itemize}
+\item Developed grasp-quality indices for manipulators with integrated grasping (Mitacs Globalink Research Award).
+\end{itemize}
+
+\vspace{3pt}
+\role{Research Intern}{FEMTO-ST (CNRS)}{Besan\c{c}on, France}{2022 -- 2023}
+\begin{itemize}
+\item Designed and modeled a redundant dexterous parallel robot with two unlimited rotations for micro-manipulation.
+\item Wrote real-time control software in C++ for the robot experiments.
+\end{itemize}
+
+\vspace{3pt}
+\textbf{Industry roles in vision and machine learning} \hfill {\color{muted}2020 -- 2021}\par
+\begin{itemize}
+\item \textbf{Computer Vision Engineer}, Sencon Srl (remote, 2021): computer vision for industrial anomaly detection.
+\item \textbf{Graduate Research Intern}, Hitachi ABB Power Grids R\&D (Zurich, 2020): machine learning on sensor data from high-voltage circuit breakers.
+\item \textbf{Data Scientist}, KTH Royal Institute of Technology (remote, 2021): data analysis for environmental impact assessment.
+\end{itemize}
+
+%================ EDUCATION ================
+\section{Education}
+\textbf{PhD, Mechanical Engineering}, Universit\'e Laval \hfill {\color{muted}Qu\'ebec, Canada \textbar\ 2023 -- Jan.\ 2027 (expected)}\par
+{\small Kinematically redundant parallel robots with unlimited rotations and integrated grasping. Advisors: C.~Gosselin, P.~Lambert.}\par\vspace{2pt}
+\textbf{MSc, Smart Integrated Systems}, Universit\'e Bourgogne--Franche-Comt\'e \hfill {\color{muted}Besan\c{c}on, France \textbar\ 2021 -- 2023}\par\vspace{2pt}
+\textbf{BEng, Mechatronics Engineering}, Bolivian Catholic University \hfill {\color{muted}La Paz, Bolivia \textbar\ 2014 -- 2019}\par
+{\small Thesis: reconfigurable Delta robot for product picking.}
+
+%================ AWARDS ================
+\section{Awards and Languages}
+\begin{itemize}
+\item 1st Place, Graduate Division, ASME Student Mechanisms and Robotics Design Competition (2025), team lead.
+\item Finalist, MassRobotics competition, Boston, with one of my robot prototypes, team lead.
+\item Mitacs Globalink Research Award (2026); 1st Place, Student Paper Competition, Argentine Robotics Conference (2019).
+\item Languages: Spanish (native), English (full professional), French (intermediate).
+\end{itemize}
+
+\end{document}
