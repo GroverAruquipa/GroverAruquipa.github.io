@@ -1,0 +1,223 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{times}
+\usepackage[top=0.8cm,bottom=0.9cm,left=1.5cm,right=1.5cm,footskip=12pt]{geometry}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{etoolbox}
+\usepackage[hidelinks]{hyperref}
+
+% ---------- palette ----------
+\definecolor{ink}{RGB}{26,26,26}
+\definecolor{cap}{RGB}{95,95,95}
+\definecolor{rulegrey}{RGB}{175,175,175}
+\definecolor{accent}{RGB}{60,60,60}
+\hypersetup{colorlinks=true,urlcolor=accent,linkcolor=accent}
+
+% ---------- toggle: FRQ/Quebec contribution codes ----------
+\newtoggle{frqcodes}
+\togglefalse{frqcodes}     % <-- set \toggletrue{frqcodes} for FRQ / Quebec applications
+
+% ---------- headings ----------
+\titleformat{\section}{\normalsize\bfseries\scshape\color{ink}}{}{0em}{}[\vspace{1.5pt}{\color{rulegrey}\titlerule[0.7pt]}]
+\titlespacing*{\section}{0pt}{3pt}{1pt}
+\titleformat{\subsection}{\small\bfseries\color{ink}}{}{0em}{}
+\titlespacing*{\subsection}{0pt}{3pt}{0.5pt}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1pt}
+\linespread{1.0}
+\setlength{\footskip}{14pt}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\footrule}{{\color{rulegrey}\vskip-1pt\hrule height 0.4pt}}
+\fancyfoot[L]{\footnotesize\color{cap} Grover Aruquipa, Curriculum Vitae}
+\fancyfoot[C]{\footnotesize\color{cap} \href{https://groveraruquipa.github.io}{groveraruquipa.github.io}}
+\fancyfoot[R]{\footnotesize\color{cap} \thepage\,/\,\pageref{LastPage}}
+\usepackage{lastpage}
+
+% ---------- list environment ----------
+\newenvironment{items}{\begin{list}{}{%
+  \setlength{\leftmargin}{1.4em}\setlength{\itemindent}{-0.4em}
+  \setlength{\itemsep}{0.5pt}\setlength{\parsep}{0pt}\setlength{\topsep}{1pt}}}%
+  {\end{list}}
+
+% ---------- entry helpers ----------
+\newcommand{\me}{\textbf{\underline{G.~Aruquipa}}}
+\newcommand{\code}[1]{\iftoggle{frqcodes}{{\footnotesize\bfseries\color{cap}[#1]}\ }{}}
+\newcommand{\dateline}[1]{\hfill{\footnotesize\color{cap} #1}}
+\newcommand{\venue}[1]{\emph{#1}}
+\newcommand{\qone}{{\footnotesize\bfseries\color{cap}\,Q1}}
+\newcommand{\doilink}[1]{{\footnotesize\color{cap} doi:#1}}
+
+% publication counters
+\newcounter{jpub}\newcounter{cpub}\newcounter{spub}
+\newcommand{\J}{\refstepcounter{jpub}{\footnotesize\bfseries\color{cap}[J\thejpub]}\ }
+\newcommand{\C}{\refstepcounter{cpub}{\footnotesize\bfseries\color{cap}[C\thecpub]}\ }
+\newcommand{\Sub}{\refstepcounter{spub}{\footnotesize\bfseries\color{cap}[S\thespub]}\ }
+
+\begin{document}
+%================= HEADER =================
+\begin{center}
+{\LARGE\bfseries\color{ink} Grover Aruquipa}\\[4pt]
+{\small Ph.D. Candidate in Mechanical Engineering \ \textbullet\ \ Universit\'e Laval, Qu\'ebec, Canada}\\[3pt]
+{\footnotesize
+\href{mailto:grover.aruquipa.9@gmail.com}{grover.aruquipa.9@gmail.com} \ \textbullet\ \
+\href{https://groveraruquipa.github.io}{groveraruquipa.github.io} \ \textbullet\ \
+\href{https://orcid.org/0000-0003-0243-3187}{ORCID 0000-0003-0243-3187} \ \textbullet\ \
+Nationality: Bolivian}\\[4pt]
+{\color{ink}\rule{0.55\linewidth}{1.1pt}}
+\end{center}
+
+%================= RESEARCH PROFILE =================
+\section{Research Profile}
+{\footnotesize I design, build and control robots whose capabilities come from the mechanism itself: parallel robots
+with kinematic redundancy, unlimited rotations and grasping produced by the structure rather than by an added
+end-effector. My work runs from type synthesis, kinematics, statics and singularity analysis, through simulation and
+mechanical design, to fabricated prototypes driven by real-time multi-motor control.\par
+\vspace{3pt}
+\textbf{Output at a glance.} 3 journal articles and 3 refereed conference papers published, first author on all;
+4 papers under review (3 journals, 1 ICRA); 3 prototypes designed, built and experimentally validated, a fourth under
+construction; 2 graduate students supervised day to day. First place, ASME Student Mechanisms and Robotics Design
+Competition (2025).}
+
+%================= ACADEMIC PATH =================
+\section{Education}
+\begin{items}
+\item[] \textbf{Ph.D., Mechanical Engineering} \dateline{2023 -- Jan.~2027 (expected)}\\
+{\footnotesize Universit\'e Laval, Qu\'ebec, Canada. Supervisor: Prof.~Cl\'ement Gosselin; co-director: Prof.~Patrice Lambert.\\
+Dissertation: \emph{Kinematically redundant parallel robots with unlimited rotations and integrated grasping.}}
+\item[] \textbf{M.Sc., Ing\'enierie des syst\`emes complexes, Smart Integrated Systems} \dateline{2021 -- 2023}\\
+{\footnotesize Universit\'e Bourgogne--Franche-Comt\'e (UBFC), Besan\c{c}on, France. Mention Bien; 120 ECTS.
+Supervisor: Prof.~Redwan Dahmouche. Research thesis with FEMTO-ST (CNRS UMR 6174).}
+
+\item[] \textbf{B.Eng., Mechatronics Engineering} \dateline{2014 -- 2019}\\
+{\footnotesize Bolivian Catholic University, La Paz, Bolivia. Thesis on a reconfigurable Delta-type parallel robot for product picking.}
+\end{items}
+
+%================= AWARDS =================
+\section{Awards, Distinctions and Scholarships}
+\begin{items}
+\item[] \textbf{1st Place, Graduate Division, ASME Student Mechanisms and Robotics Design Competition (SMRDC)} \dateline{2025}\\
+{\footnotesize ASME IDETC/CIE, Anaheim, 17--20 Aug.~2025. Team led by me; entered as \emph{The First Parallel Robot with Two Unlimited Rotations}.}
+\item[] \textbf{Mitacs Globalink Research Award (GRA)} \dateline{2026}\\
+{\footnotesize Mitacs, Canada; competitive award funding a research stay at JKU Linz with Prof.~A.~M\"uller.}
+\item[] \textbf{1st Place, Student Paper Competition, X Jornadas Argentinas de Rob\'otica (JAR)} \dateline{2019}\\
+{\footnotesize Universidad Nacional del Comahue, Neuqu\'en, Argentina.}
+\item[] \textbf{Doctoral and master's funding} \dateline{2021--2026}\\
+{\footnotesize Universit\'e Laval Ph.D.\ Scholarship and Citoyens du Monde Grant (2023--2026) \ \textbullet\ \ Screw Theory Summer School, TU Delft (2023) \ \textbullet\ \ UBFC Master's Scholarship (2021--2023).}
+\end{items}
+
+%================= PUBLICATIONS =================
+\section{Publications}
+{\footnotesize Author order reflects contribution; my name is \me. Q1 denotes journal quartile (Scimago).}
+
+\subsection{Peer-reviewed journal articles (published)}
+\begin{items}
+\item[] \J \code{RAC} \me, P.~Lambert, R.~Dahmouche, C.~Gosselin, ``Parallel robots for grasping tasks: a review,''
+\venue{ASME Journal of Mechanisms and Robotics}\qone, vol.~18, no.~12, art.~120801, pp.~1--26, 2026. \doilink{10.1115/1.4072612}
+\item[] \J \code{RAC} \me, V.~Muralidharan, P.~Lambert, C.~Gosselin, ``Analysis and design of a novel compact
+four-degree-of-freedom parallel robot with unlimited rotation,'' \venue{ASME Journal of Mechanisms and Robotics}\qone,
+vol.~18, no.~6, art.~061001, 2026.
+\item[] \J \code{RAC} \me, P.~Lambert, C.~Gosselin, ``Analysis and design of a novel (6+1)-DoF parallel robot with
+unlimited rotation and grasping capabilities,'' \venue{Mechanism and Machine Theory}\qone, vol.~224, art.~106438, 2026.
+\end{items}
+
+\subsection{Refereed conference proceedings}
+\begin{items}
+\item[] \C \code{CAC} \me, P.~Lambert, C.~Gosselin, ``Kinematic analysis and design of a novel 9-DoF parallel robot
+with grasping capabilities,'' \venue{CCToMM Symposium on Mechanisms, Machines and Mechatronics}, 2025, pp.~117--127.
+\doilink{10.1007/978-3-031-95489-4\_10}
+\item[] \C \code{CAC} \me, F.~Diaz, ``An IoT architecture based on the control of a bio-inspired manufacturing
+system for the detection of anomalies with vibration sensors,'' \venue{Procedia Computer Science}, vol.~200,
+pp.~438--450, 2022. \doilink{10.1016/j.procs.2022.01.242}
+\item[] \C \code{CAC} \me, G.~A.~Rojas Silva, ``Analysis of algorithmic trading with Q-learning in the Forex market,''
+\venue{IEEE Int.\ Conf.\ on Emerging Smart Computing and Informatics (ESCI)}, 2021, pp.~73--77. Indexed as
+A.~A.~Grover, R.~S.~Gabriel. \doilink{10.1109/ESCI50559.2021.9396948}
+\end{items}
+
+\subsection{Under review}
+\begin{items}
+\item[] \Sub \code{AUT} \me, P.~Lambert, C.~Gosselin, ``An analytical framework for collision-free and singularity-free
+unlimited rotation in spatial parallel mechanisms,'' submitted to \venue{Mechanism and Machine Theory}\qone{} (15 Oct.~2026).
+\item[] \Sub \code{AUT} \me, P.~Lambert, C.~Gosselin, ``A compact coaxial parallel wrist-gripper with unlimited
+tool-axis rotation,'' submitted to \venue{Robotics and Autonomous Systems} (Elsevier)\qone{} (26 Aug.~2026; with editor).
+\item[] \Sub \code{AUT} \me, A.~Ayoub, R.~Dahmouche, ``Architecture, kinematics, and workspace analysis of a redundant
+8RSS parallel robot with two unlimited rotations,'' \venue{Mechanism and Machine Theory}\qone{}, under major revision (ms.~MECHMT-D-26-01903).
+\item[] \Sub \code{AUT} \me, P.~Lambert, C.~Gosselin, ``A kinematically redundant (6+2)-DoF parallel robot with three
+orthogonal unlimited rotations and coaxial actuation,'' submitted to \venue{IEEE International Conference on Robotics and Automation (ICRA 2027)} (14 Sept.~2026).
+\end{items}
+
+\subsection{Manuscripts in preparation}
+{\footnotesize \me, P.~Lambert, A.~M\"uller, C.~Gosselin, reduced graspability Jacobian for parallel robots with rotationally
+articulated platforms (in co-author review); a four-leg Delta robot with an integrated Sarrus gripper and grasp-force
+estimation from motor currents (prototype under construction).}
+
+%================= PROTOTYPES =================
+\section{Prototypes and Experimental Systems}
+\begin{items}
+\item[] \textbf{Coaxial parallel wrist-gripper, 4 DoF} \dateline{2025--2026}\\
+{\footnotesize Four actuation channels through concentric hollow shafts, 180~mm footprint, 0.25~kg moving mass;
+unlimited tool-axis rotation with a non-backdrivable gripper. Real-time control at 500~Hz, validated over ten
+continuous revolutions with sub-degree tracking.}
+\item[] \textbf{(6+1)-DoF redundant parallel robot with integrated grasping} \dateline{2024--2025}\\
+{\footnotesize Seven base-mounted actuators; gripper driven from the base through a concentric tube.}
+\item[] \textbf{(6+2)-DoF parallel robot with three coaxial unlimited rotations} \dateline{2024--2026}\\
+{\footnotesize Open-loop reconfigurable platform for grasping; built with the two graduate students I supervise.}
+\item[] \textbf{Four-leg Delta robot with integrated Sarrus gripper} \dateline{2026--present}\\
+{\footnotesize SLS-printed links, carbon-tube forearms, belt or direct drive; dynamic model validated in Simscape before
+hardware tests; grasp force estimated from motor currents to handle fragile objects at speed.}
+\end{items}
+
+%================= RESEARCH EXPERIENCE =================
+\section{Research and Professional Experience}
+\begin{items}
+\item[] \textbf{Visiting Researcher}, Institute of Robotics, Johannes Kepler University Linz \dateline{Apr.--May 2026}\\
+{\footnotesize Linz, Austria. Host: Univ.-Prof.~Andreas M\"uller. Singularity analysis and graspability performance
+indices for parallel robots with integrated grasping; funded by the Mitacs Globalink Research Award.}
+\item[] \textbf{Doctoral Researcher}, Robotics Laboratory, Universit\'e Laval \dateline{2023--2027}\\
+{\footnotesize Type synthesis, kinematic and singularity analysis, mechanical design, fabrication and real-time control
+of redundant parallel robots with unlimited rotation and integrated grasping.}
+\item[] \textbf{Research Intern}, FEMTO-ST (CNRS UMR 6174), Besan\c{c}on, France \dateline{2022--2023}\\
+{\footnotesize Master's research on a redundant dexterous parallel robot for micro-manipulation; real-time C++ control software.}
+\item[] \textbf{Industry and data science:} {\footnotesize Hitachi ABB Power Grids R\&D, Zurich; Sencon Srl; KTH (Sweden)} \dateline{2020--2021}
+\end{items}
+
+%================= SUPERVISION & SERVICE =================
+\section{Supervision, Service and Outreach}
+\begin{items}
+\item[] \textbf{Co-supervision of graduate research} \dateline{2025--2026}\\
+{\footnotesize Day-to-day supervision of two graduate students, Brandon Valencia and Alireza Hobubaty, on the (6+2)-DoF redundant architecture, leading to a co-authored manuscript submitted to ICRA 2027.}
+\item[] \textbf{Reviewer}, \venue{ASME Journal of Mechanisms and Robotics} \dateline{2026--present}
+\item[] \textbf{Outreach and mentoring}, Bolivia \dateline{2016--present}\\
+{\footnotesize Lectures on parallel robots at Bolivian universities; scholarship mentor, TuBeca Bolivia; volunteer, HOPE Worldwide.}
+\end{items}
+
+%================= SKILLS =================
+\section{Technical Skills}
+{\footnotesize
+\textbf{Modelling and analysis:} screw theory, Lie group methods, type synthesis, statics, singularity and workspace
+analysis; MATLAB. \quad \textbf{Simulation:} MuJoCo, Simscape (dynamic models validated against hardware).
+\quad \textbf{Motor control and real time:} multi-motor pipelines at 500~Hz with incremental encoders, OPAL-RT RT-LAB,
+Simulink Real-Time, real-time C++. \quad \textbf{Robotics software:} ROS and ROS~2, MoveIt, Pinocchio, OpenCV, Python.
+\quad \textbf{Design and fabrication:} SolidWorks, Altium; machining, SLS and FDM printing, wiring and assembly of prototypes.
+\quad \textbf{Machine learning:} PyTorch.
+\quad \textbf{Languages:} Spanish (native), English (full professional), French (intermediate).}
+
+%================= REFERENCES =================
+\section{References}
+{\footnotesize
+\textbf{Prof.~Cl\'ement Gosselin}, Full Professor, Universit\'e Laval (Ph.D.\ supervisor),
+\href{mailto:clement.gosselin@gmc.ulaval.ca}{clement.gosselin@gmc.ulaval.ca}\\
+\textbf{Univ.-Prof.~Dr.-Ing.~Andreas M\"uller}, Head, Institute of Robotics, JKU Linz (host of my 2026 research stay),
+\href{mailto:a.mueller@jku.at}{a.mueller@jku.at}\\
+\textbf{Prof.~Patrice Lambert}, Assistant Professor, Universit\'e Laval (Ph.D.\ co-supervisor),
+\href{mailto:patrice.lambert@gmc.ulaval.ca}{patrice.lambert@gmc.ulaval.ca}}
+
+\end{document}
