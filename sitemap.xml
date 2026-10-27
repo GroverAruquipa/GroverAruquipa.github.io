@@ -42,10 +42,4 @@
         <changefreq>yearly</changefreq>
         <priority>0.7</priority>
     </url>
-    <url>
-        <loc>https://groveraruquipa.github.io/demos/delta-sarrus.html</loc>
-        <lastmod>2026-10-26</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.7</priority>
-    </url>
 </urlset>

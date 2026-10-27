@@ -2030,3 +2030,9 @@ body {
 /* Glance: six tiles in two rows */
 .glance-grid { grid-template-columns: repeat(3, 1fr); row-gap: 24px; }
 .languages-below { margin: 18px 0 0; }
+
+/* Prototypes: three cards per row */
+.robot-grid.robot-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.robot-grid-3 .robot-body h4 { font-size: 0.84rem; }
+@media (max-width: 768px) { .robot-grid.robot-grid-3 { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) { .robot-grid.robot-grid-3 { grid-template-columns: 1fr; } }
