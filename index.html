@@ -171,7 +171,7 @@
                 <p class="vision-title">Where I want to take this next</p>
                 <ul class="vision-list">
                     <li><strong>Morphology as a design variable for learning.</strong> Use analytical measures (singularity distance, conditioning, grasp indices) to make joint search over robot bodies and control policies in simulation tractable.</li>
-                    <li><strong>Manipulation where actuators cannot go.</strong> Base-actuated mechanisms for underwater, sterile or confined workspaces, where motors near the tool are a liability.</li>
+                    <li><strong>Manipulation where actuators cannot go.</strong> Base-actuated mechanisms for underwater, sterile or confined workspaces, where motors near the tool are a liability; the (6+2)-DoF robot is being developed for AUV-based underwater intervention.</li>
                     <li><strong>Proprioceptive interaction.</strong> Sensing contact and grasp forces through the mechanism and its motors, without force sensors at the tool.</li>
                 </ul>
             </div>
@@ -285,15 +285,15 @@
             <div class="robot-grid">
 
                 <article class="robot-card">
-                    <div class="robot-media contain">
-                        <img src="media/img/sixp2_two_rotations.jpg" alt="(6+2)-DoF robot made of two 4-DoF sub-robots and a gripper" loading="lazy">
-                        <span class="media-tag cad">Design</span>
+                    <div class="robot-media">
+                        <video src="media/video/sixp2_subsea_card.mp4" poster="media/video/sixp2_subsea_card.jpg" muted loop playsinline preload="none" aria-label="AUV deploying the (6+2)-DoF robot underwater"></video>
+                        <span class="media-tag sim">Simulation</span>
                     </div>
                     <div class="robot-body">
-                        <span class="robot-status design">Award-winning design</span>
+                        <span class="robot-status design">Award-winning design &middot; underwater application</span>
                         <h4>(6+2)-DoF robot with two orthogonal unlimited rotations and remote grasping</h4>
-                        <p>Two 4-DoF sub-robots drive a platform with an internal bevel-gear train: moving the redundant inputs together turns the gripper without limit, moving them against each other opens and closes it. Team entry led by me, first place at ASME SMRDC 2025. The design is now being adapted for underwater manipulation.</p>
-                        <p class="robot-links"><a href="https://youtu.be/zvrutTc42e4" class="yt-link" data-youtube="zvrutTc42e4" target="_blank">Watch the video &rarr;</a><a href="assets/Aruquipa_SMRDC.pdf" target="_blank">SMRDC certificate &rarr;</a><span class="robot-pub">In preparation, ASME JMR</span></p>
+                        <p>Two 4-DoF sub-robots drive a platform with an internal bevel-gear train: moving the redundant inputs together turns the gripper without limit, moving them against each other opens and closes it. Team entry led by me, first place at ASME SMRDC 2025. Now being developed for underwater intervention: an AUV carries the robot in its belly bay and deploys it, with every motor kept in the dry base.</p>
+                        <p class="robot-links"><a href="media/video/sixp2_subsea.mp4" class="video-link" data-video="media/video/sixp2_subsea.mp4">Underwater video &rarr;</a><a href="https://youtu.be/zvrutTc42e4" class="yt-link" data-youtube="zvrutTc42e4" target="_blank">Motions &rarr;</a><a href="assets/Aruquipa_SMRDC.pdf" target="_blank">SMRDC certificate &rarr;</a><span class="robot-pub">In preparation, ASME JMR</span></p>
                     </div>
                 </article>
 
@@ -401,18 +401,33 @@
                 </button>
                 <button class="vtile" type="button" data-kind="real" data-youtube="ryZh_uLE7yk">
                     <span class="vtile-media"><img src="media/img/wrist_gripper.jpg" alt="" loading="lazy"><span class="vtile-play" aria-hidden="true"></span><span class="media-tag real">Real prototype</span><span class="vtile-yt">YouTube</span></span>
-                    <span class="vtile-title">Coaxial wrist-gripper</span>
+                    <span class="vtile-title">Coaxial wrist-gripper: hardware test</span>
                     <span class="vtile-cap">Continuous multi-revolution rotation of the tool while the gripper holds the object.</span>
                 </button>
-                <button class="vtile" type="button" data-kind="sim" data-youtube="zvrutTc42e4">
-                    <span class="vtile-media"><img src="media/img/sixp2_two_rotations.jpg" alt="" loading="lazy"><span class="vtile-play" aria-hidden="true"></span><span class="media-tag sim">CAD animation</span><span class="vtile-yt">YouTube</span></span>
-                    <span class="vtile-title">(6+2)-DoF robot, two unlimited rotations</span>
-                    <span class="vtile-cap">Translations, rotations, both unlimited rotations and remote actuation of the gripper (ASME SMRDC winner).</span>
+                <button class="vtile" type="button" data-kind="sim" data-video="media/video/sixp2_subsea.mp4">
+                    <span class="vtile-media"><img src="media/video/sixp2_subsea.jpg" alt="" loading="lazy"><span class="vtile-play" aria-hidden="true"></span><span class="media-tag sim">Simulation</span></span>
+                    <span class="vtile-title">Underwater intervention with the (6+2)-DoF robot</span>
+                    <span class="vtile-cap">An AUV carries the robot in its belly bay, deploys it, turns the tool without limit and stows it again.</span>
                 </button>
-                <button class="vtile" type="button" data-kind="sim" data-video="media/video/three_rotation_turns.mp4">
-                    <span class="vtile-media"><img src="media/video/three_rotation_turns.jpg" alt="" loading="lazy"><span class="vtile-play" aria-hidden="true"></span><span class="media-tag sim">Simulation</span></span>
-                    <span class="vtile-title">Three unlimited rotations: planned turns</span>
-                    <span class="vtile-cap">Full turns about the three platform axes, checked for collisions on the real CAD meshes.</span>
+                <button class="vtile" type="button" data-kind="sim" data-video="media/video/sixp2_motions.mp4">
+                    <span class="vtile-media"><img src="media/video/sixp2_motions.jpg" alt="" loading="lazy"><span class="vtile-play" aria-hidden="true"></span><span class="media-tag sim">Simulation</span></span>
+                    <span class="vtile-title">(6+2)-DoF robot: two unlimited rotations</span>
+                    <span class="vtile-cap">Long translations, unlimited rotation of the platform and of the gripper, and remote grasping.</span>
+                </button>
+                <button class="vtile" type="button" data-kind="sim" data-video="media/video/three_rotation_premium.mp4">
+                    <span class="vtile-media"><img src="media/video/three_rotation_premium.jpg" alt="" loading="lazy"><span class="vtile-play" aria-hidden="true"></span><span class="media-tag sim">Simulation</span></span>
+                    <span class="vtile-title">Three unlimited rotations: model</span>
+                    <span class="vtile-cap">Full turns about the three platform axes with the coaxial actuation of the prototype.</span>
+                </button>
+                <button class="vtile" type="button" data-kind="sim" data-video="media/video/wrist_premium.mp4">
+                    <span class="vtile-media"><img src="media/video/wrist_premium.jpg" alt="" loading="lazy"><span class="vtile-play" aria-hidden="true"></span><span class="media-tag sim">Simulation</span></span>
+                    <span class="vtile-title">Coaxial wrist-gripper: model</span>
+                    <span class="vtile-cap">Unlimited tool rotation, tilt, grasping and reorientation of a held object.</span>
+                </button>
+                <button class="vtile" type="button" data-kind="sim" data-video="media/video/congrip_premium.mp4">
+                    <span class="vtile-media"><img src="media/video/congrip_premium.jpg" alt="" loading="lazy"><span class="vtile-play" aria-hidden="true"></span><span class="media-tag sim">Simulation</span></span>
+                    <span class="vtile-title">ConGrip: motions</span>
+                    <span class="vtile-cap">Translations, tilt and unlimited rotation while the concentric rings drive the gripper.</span>
                 </button>
                 <button class="vtile" type="button" data-kind="sim" data-video="media/video/congrip_regrasp_full.mp4">
                     <span class="vtile-media"><img src="media/video/congrip_regrasp_full.jpg" alt="" loading="lazy"><span class="vtile-play" aria-hidden="true"></span><span class="media-tag sim">Simulation</span></span>
@@ -424,40 +439,25 @@
                     <span class="vtile-title">ConGrip: tilted torsion</span>
                     <span class="vtile-cap">Tilted gripper holding a cube over a full turn of torsion.</span>
                 </button>
-                <button class="vtile" type="button" data-kind="sim" data-video="media/video/congrip_motions.mp4">
-                    <span class="vtile-media"><img src="media/video/congrip_motions.jpg" alt="" loading="lazy"><span class="vtile-play" aria-hidden="true"></span><span class="media-tag sim">Simulation</span></span>
-                    <span class="vtile-title">ConGrip: motions</span>
-                    <span class="vtile-cap">Motions of the physics model of the prototype.</span>
+                <button class="vtile" type="button" data-kind="sim" data-video="media/video/sixp1_premium.mp4">
+                    <span class="vtile-media"><img src="media/video/sixp1_premium.jpg" alt="" loading="lazy"><span class="vtile-play" aria-hidden="true"></span><span class="media-tag sim">Simulation</span></span>
+                    <span class="vtile-title">(6+1)-DoF robot: motions and task</span>
+                    <span class="vtile-cap">Translations, rotations and grasping, then unscrewing and inserting a keyed plug at 45&deg;.</span>
                 </button>
-                <button class="vtile" type="button" data-kind="sim" data-video="media/video/sixp1_task_full.mp4">
-                    <span class="vtile-media"><img src="media/video/sixp1_task_full.jpg" alt="" loading="lazy"><span class="vtile-play" aria-hidden="true"></span><span class="media-tag sim">Simulation</span></span>
-                    <span class="vtile-title">(6+1)-DoF robot: unscrewing task</span>
-                    <span class="vtile-cap">Unscrewing a keyed plug, aligning the key and inserting it at 45&deg;.</span>
+                <button class="vtile" type="button" data-kind="sim" data-video="media/video/four_dof_premium.mp4">
+                    <span class="vtile-media"><img src="media/video/four_dof_premium.jpg" alt="" loading="lazy"><span class="vtile-play" aria-hidden="true"></span><span class="media-tag sim">Simulation</span></span>
+                    <span class="vtile-title">Compact 4-DoF robot: motions and deburring</span>
+                    <span class="vtile-cap">Translations, unlimited rotation and deburring the edge of a bore.</span>
                 </button>
-                <button class="vtile" type="button" data-kind="sim" data-video="media/video/sixp1_motions.mp4">
-                    <span class="vtile-media"><img src="media/video/sixp1_motions.jpg" alt="" loading="lazy"><span class="vtile-play" aria-hidden="true"></span><span class="media-tag sim">Simulation</span></span>
-                    <span class="vtile-title">(6+1)-DoF robot: motions</span>
-                    <span class="vtile-cap">Tilt, torsion, unlimited rotation and grasping.</span>
-                </button>
-                <button class="vtile" type="button" data-kind="sim" data-video="media/video/four_dof_motions_full.mp4">
-                    <span class="vtile-media"><img src="media/video/four_dof_motions_full.jpg" alt="" loading="lazy"><span class="vtile-play" aria-hidden="true"></span><span class="media-tag sim">Simulation</span></span>
-                    <span class="vtile-title">Compact 4-DoF robot: motions</span>
-                    <span class="vtile-cap">Translations and a full turn of the unlimited rotation.</span>
-                </button>
-                <button class="vtile" type="button" data-kind="sim" data-video="media/video/four_dof_deburr.mp4">
-                    <span class="vtile-media"><img src="media/video/four_dof_deburr.jpg" alt="" loading="lazy"><span class="vtile-play" aria-hidden="true"></span><span class="media-tag sim">Simulation</span></span>
-                    <span class="vtile-title">Compact 4-DoF robot: deburring</span>
-                    <span class="vtile-cap">Deburring the edges of a plate with a ball-end burr.</span>
+                <button class="vtile" type="button" data-kind="sim" data-video="media/video/nine_dof_premium.mp4">
+                    <span class="vtile-media"><img src="media/video/nine_dof_premium.jpg" alt="" loading="lazy"><span class="vtile-play" aria-hidden="true"></span><span class="media-tag sim">Simulation</span></span>
+                    <span class="vtile-title">9-DoF robot: degrees of freedom</span>
+                    <span class="vtile-cap">Translations, rigid-body rotations and the relative rotations that close the grasp.</span>
                 </button>
                 <button class="vtile" type="button" data-kind="sim" data-video="media/video/nine_dof_grasp_carry.mp4">
                     <span class="vtile-media"><img src="media/video/nine_dof_grasp_carry.jpg" alt="" loading="lazy"><span class="vtile-play" aria-hidden="true"></span><span class="media-tag sim">Simulation</span></span>
                     <span class="vtile-title">9-DoF robot: grasp, carry, turn</span>
                     <span class="vtile-cap">Grasp, carry, place, roll and turn a steel ball with the split platform.</span>
-                </button>
-                <button class="vtile" type="button" data-kind="sim" data-video="media/video/nine_dof_showcase.mp4">
-                    <span class="vtile-media"><img src="media/video/nine_dof_showcase.jpg" alt="" loading="lazy"><span class="vtile-play" aria-hidden="true"></span><span class="media-tag sim">Simulation</span></span>
-                    <span class="vtile-title">9-DoF robot: degrees of freedom</span>
-                    <span class="vtile-cap">Each of the nine degrees of freedom of the robot.</span>
                 </button>
                 <button class="vtile" type="button" data-kind="sim" data-video="media/video/delta_sarrus_tomato.mp4">
                     <span class="vtile-media"><img src="media/video/delta_sarrus_tomato.jpg" alt="" loading="lazy"><span class="vtile-play" aria-hidden="true"></span><span class="media-tag sim">Simulation</span></span>
