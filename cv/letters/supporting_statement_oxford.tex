@@ -2,45 +2,46 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{times}
-\usepackage[top=2cm,bottom=2cm,left=2.2cm,right=2.2cm]{geometry}
+\usepackage[top=2cm,bottom=1.9cm,left=2.3cm,right=2.3cm]{geometry}
 \usepackage{microtype}
 \usepackage[hidelinks]{hyperref}
 \pagestyle{empty}
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{7pt}
+\setlength{\parskip}{8pt}
 
 \begin{document}
 
 {\large\bfseries Grover Aruquipa}\par\vspace{-5pt}
 {\small Qu\'ebec, QC, Canada \ \textbullet\ \ grover.aruquipa.9@gmail.com \ \textbullet\ \ groveraruquipa.github.io}
 
-\vspace{4pt}
-\textbf{Supporting statement: Postdoctoral Research Assistant in Tensegrity Robot Design and Control (vacancy 189502)}\\
-Protean Robotics Lab, Department of Engineering Science, University of Oxford
+\vspace{2pt}
+Supporting statement, Postdoctoral Research Assistant in Tensegrity Robot Design and Control (vacancy 189502)
 
-Dear Professor Baines,
+Here I go through what the post asks for and what I have done for each point, in my own words.
 
-Thank you again for your advice on the Branco Weiss Fellowship in September; your point about societal impact changed how I think about my own projects. I am now writing to apply for the postdoctoral position in tensegrity robot design and control. My whole PhD has been about one idea: a robot can do more when the mechanism itself does part of the work, so that grasping, rotation and redundancy come from the structure rather than from devices added at the tip. Tensegrities take that idea further than any architecture I have worked with, because the structure and the robot are the same thing. Working on them in your lab is the next step I would most like to take.
+\textbf{A PhD in engineering or robotics.}
+I am finishing my PhD in Mechanical Engineering at Universit\'e Laval with Cl\'ement Gosselin and Patrice Lambert. I submit the thesis in December and defend in January 2027. My thesis is about parallel robots where the mechanism does most of the work: the motors stay on the base, the gripper is driven through the structure, and the robot can turn what it holds without limit. I have 3 journal papers as first author (ASME Journal of Mechanisms and Robotics and Mechanism and Machine Theory, one of them a review of parallel robots for grasping) and 4 more under review, one at ICRA 2027.
 
-\textbf{PhD in engineering.} I am completing a PhD in Mechanical Engineering at Universit\'e Laval with Prof.\ Cl\'ement Gosselin and Prof.\ Patrice Lambert, on kinematically redundant parallel robots with unlimited rotations and integrated grasping. I submit the thesis in December 2026 and defend in January 2027. I am first author of three journal articles (ASME Journal of Mechanisms and Robotics, Mechanism and Machine Theory), including a review of parallel robots for grasping, and of four further papers under review, one of them at ICRA 2027.
+\textbf{Building and programming robots, including motor control.}
+This is what I spend most of my time on. I have built three robots, with 4, 7 and 8 motors. For each one I did everything myself: the kinematic model, the design in SolidWorks, machining and 3D printing (SLS and FDM), the wiring, and the motor control. The control runs at 500\,Hz with encoders on every motor, using OPAL-RT and Simulink Real-Time. During my master's at FEMTO-ST in France I also wrote the real-time control in C++ for a micro-manipulation robot. The smallest of my robots, a coaxial wrist-gripper with 0.25\,kg of moving mass, turned its tool ten full turns with less than a degree of error while holding the object. Right now I am building a Delta robot with a gripper that estimates the grasp force from the motor currents, so it can pick fragile things like eggs quickly.
 
-\textbf{Constructing and programming robots, including motor control.} I have designed, fabricated and controlled three parallel robots with 4, 7 and 8 actuators, all mounted on the base, with the gripper driven through the mechanism. For each one I did the kinematic model, the SolidWorks design, the machining, SLS and FDM printing, the wiring and the commissioning, and I wrote the multi-motor control running at 500\,Hz with incremental encoders (OPAL-RT, Simulink Real-Time, and C++ in real time during my master's research at FEMTO-ST). The most compact of them, a 4-DoF coaxial wrist-gripper with 0.25\,kg of moving mass, turned its tool through ten continuous revolutions with sub-degree tracking while holding the object. I am now building a four-leg Delta robot with an integrated gripper that estimates grasp force from motor currents, and I validated its dynamic model in Simscape before moving to hardware.
+\textbf{Simulators such as IsaacLab or MuJoCo.}
+I use MuJoCo and Simscape to check my robots before building them, and then I compare the simulation with what the real robot does. For the Delta robot I validated the full dynamic model in Simscape first. I have also experimented with Isaac Sim, so I do not expect IsaacLab to slow me down much. In my experience the hard part of simulation is not the software but getting the mechanics right and checking it against hardware, and that is what I already do.
 
-\textbf{Simulation.} I use MuJoCo and Simscape to test my mechanisms before building them, and I compare the simulated dynamics with the measured behaviour of the prototypes. I have also experimented with Isaac Sim, which gives me a starting point for IsaacLab and its learning workflows. The parts that are hard to learn, getting the mechanics of the model right and checking it against hardware, are the parts I already do every day.
+\textbf{Co-optimising tensegrity designs and control.}
+In my robots, design and control are tied together. The geometry decides where the singularities are, and the way I use the extra motors decides whether the robot can stay away from them. One of my papers under review is exactly this problem: how to keep unlimited rotation free of collisions and singularities. The math behind it is close to tensegrities. A singularity in my robots and a soft mode in a tensegrity are the same kind of rank loss in the equilibrium matrix, and the prestress of a tensegrity lives in the null space of that same matrix. I would like to use these simple structural measures inside the simulation, so they help guide the search over designs and control policies instead of leaving everything to trial and error.
 
-\textbf{Co-optimising design and control of nonlinear structures.} In redundant parallel robots, design and control cannot be separated: the geometry decides where the singularities are, and the redundancy law decides whether the robot can avoid them. My work on collision-free and singularity-free unlimited rotation is a joint problem of this kind. The statics I use are also close to those of tensegrities. A Type II singularity of a parallel robot and an infinitesimal mechanism of a tensegrity are both rank losses of the same kind of equilibrium matrix, and a state of self-stress is a vector in the null space of that matrix. I would bring this way of reading the structure to the co-optimisation, so that analytical measures of stiffness, prestress and distance to singular shapes can guide the search over designs and policies in simulation.
+\textbf{Supervising students.}
+I supervise two graduate students day to day on one of my robots, an 8-motor (6+2)-DoF design. We took it from the idea to a working prototype and a joint paper submitted to ICRA 2027. I also led the Universit\'e Laval team that won first place in the graduate division of the 2025 ASME Student Mechanisms and Robotics Design Competition, and I give talks on parallel robots at universities in Bolivia.
 
-\textbf{Supervising students.} I supervise two graduate students day to day on an 8-actuator (6+2)-DoF robot, from concept to a working prototype and a co-authored ICRA 2027 submission. I led the Universit\'e Laval team that won first place in the graduate division of the 2025 ASME Student Mechanisms and Robotics Design Competition, and I regularly lecture on parallel robots at universities in Bolivia.
+\textbf{Experience with tensegrities.}
+I have not built a tensegrity robot yet. The closest I have come is cable-driven parallel robots, where I studied statics and force closure, and platforms that change shape to change how forces are shared. I would come with the mechanics in place and a lot to learn on the building side, which is a big part of why this post attracts me.
 
-\textbf{Experience with tensegrity systems.} I have not built a tensegrity robot. The closest work I have done is on cable-driven parallel mechanisms, where I have studied statics and force closure, and on reconfigurable platforms whose shape changes the way forces are distributed. I would come to tensegrities with the mechanics already in place and a great deal to learn about building them, which I would welcome.
+\textbf{Why this post, and what I would like to do.}
+What I like about your lab's work is that the body of the robot is part of how it solves the task, from the Nature paper on adaptive morphogenesis to Spikebot and the jumping tensegrity. That is the direction I want my research to take. The idea I would most like to try is using the shape change of a tensegrity not only to move but also to grasp and turn objects, which links straight to what I did in my PhD. Longer term I want an academic career, and I would also like to use this project as the base for a Branco Weiss application with your lab as host.
 
-\textbf{Research interests and fit.} Your lab's work on adaptive morphology, from multi-environment robots that change shape to Spikebot and the steerable jumping tensegrity, shows robots whose body is a large part of their intelligence. That is the direction I want my research to take. Two questions I would be glad to pursue within the project are, first, whether the shape change of a tensegrity can be used for manipulation as well as locomotion, grasping and reorienting objects with the structure itself, which would connect directly to my work on integrated grasping and unlimited rotation; and second, how far simple structural measures can reduce the cost of searching jointly over tensegrity designs and control policies. In the longer term I aim for an academic career, and a post in your group, with the Oxford Robotics Institute around it, is the environment where I would most like to build it. If you think it would be a good fit, I would also be glad to prepare a Branco Weiss application with your lab as host in a coming round, building on the project.
+I can start in early 2027 and would need a UK Skilled Worker visa. My referees are listed in my CV and in the application form.
 
-I can start in early 2027, after my defense, and I would need a UK Skilled Worker visa. My referees for this application are Prof.\ Cl\'ement Gosselin (Universit\'e Laval, clement.gosselin@gmc.ulaval.ca) and Univ.-Prof.\ Andreas M\"uller (JKU Linz, a.mueller@jku.at), who hosted my research stay in 2026.
-
-Thank you for considering my application.
-
-Sincerely,\\
 Grover Aruquipa
 
 \end{document}
