@@ -2026,3 +2026,7 @@ body {
 .vtile[data-kind="real"] .vtile-media img,
 .vtile-media img[src*="corpus_t"],
 .vtile-media img[src*="delta_sarrus"] { object-fit: cover; }
+
+/* Glance: six tiles in two rows */
+.glance-grid { grid-template-columns: repeat(3, 1fr); row-gap: 24px; }
+.languages-below { margin: 18px 0 0; }
