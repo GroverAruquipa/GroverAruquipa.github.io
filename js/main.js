@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
         lightboxVideo.load();
     }
 
-    document.querySelectorAll('.pub-thumb:not(.no-zoom), .prototype-image:not(.no-zoom), .robot-media').forEach(function(thumb) {
+    document.querySelectorAll('.pub-thumb:not(.no-zoom), .prototype-image:not(.no-zoom), .robot-media:not(.confidential)').forEach(function(thumb) {
         thumb.addEventListener('click', function() {
             var video = this.querySelector('video');
             var img = this.querySelector('img');
