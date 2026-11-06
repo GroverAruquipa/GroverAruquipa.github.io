@@ -149,7 +149,7 @@
                         <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="24" cy="24" r="18"/><line x1="24" y1="6" x2="24" y2="42"/><line x1="6" y1="24" x2="42" y2="24"/><ellipse cx="24" cy="24" rx="10" ry="18"/></svg>
                     </div>
                     <h3>Geometric Foundations</h3>
-                    <p>Screw theory and line geometry for type synthesis, singularity factorization and design rules that hold across whole families of robots.</p>
+                    <p>Screw theory and line geometry for type synthesis, singularity analysis and design rules.</p>
                 </div>
                 <div class="pillar-card">
                     <div class="pillar-icon">
@@ -190,9 +190,7 @@
                     degrees and they cannot grasp without a gripper and motor mounted on the moving platform. The thesis
                     removes both limits at once. It proposes base-actuated architectures, from a compact 4-DoF leg and a
                     coaxial wrist-gripper to (6+1)- and (6+2)-DoF robots, in which a passive joint inside the platform
-                    turns redundancy into grasping and unlimited rotation. It contributes a classification of grasping
-                    parallel robots, an algebraic framework for collision-free unlimited rotation, a general factorization
-                    of Type&nbsp;II singularities for articulated platforms, a reduced graspability Jacobian, and
+                    turns redundancy into grasping and unlimited rotation. It combines analysis and design with
                     experimental validation on physical prototypes.
                 </p>
             </div>
@@ -275,13 +273,13 @@
 
                 <article class="robot-card">
                     <div class="robot-media contain">
-                        <video src="media/video/nine_dof_grasp.mp4" poster="media/video/nine_dof_grasp.jpg" muted loop playsinline preload="none" aria-label="9-DoF robot grasping a ball over graspability maps"></video>
+                        <video src="media/video/nine_dof_card.mp4" poster="media/video/nine_dof_card.jpg" muted loop playsinline preload="none" aria-label="9-DoF robot grasping a ball"></video>
                         <span class="media-tag sim">Simulation</span>
                     </div>
                     <div class="robot-body">
                         <span class="robot-status pub">Published</span>
-                        <h4>9-DoF robot with a spherical-joint platform and graspability indices</h4>
-                        <p>A 9-DoF robot that grasps with a platform split into two bodies. With Prof. A. M&uuml;ller (JKU Linz) we derived a reduced graspability Jacobian, showing that a well-conditioned mechanism does not guarantee a good grasp.</p>
+                        <h4>9-DoF robot with a spherical-joint platform</h4>
+                        <p>A 9-DoF robot that grasps with a platform split into two bodies joined by a passive spherical joint.</p>
                         <p class="robot-links"><a href="https://doi.org/10.1007/978-3-031-95489-4_10" target="_blank">CCToMM 2025 &rarr;</a><a href="https://youtu.be/BzgWWMVSFvs" class="yt-link" data-youtube="BzgWWMVSFvs" target="_blank">Video &rarr;</a></p>
                     </div>
                 </article>
@@ -332,11 +330,6 @@
                     <span class="vtile-media"><img src="media/video/nine_dof_premium.jpg" alt="" loading="lazy"><span class="vtile-play" aria-hidden="true"></span><span class="media-tag sim">Simulation</span></span>
                     <span class="vtile-title">9-DoF robot: degrees of freedom</span>
                     <span class="vtile-cap">Translations, rigid-body rotations and the relative rotations that close the grasp.</span>
-                </button>
-                <button class="vtile" type="button" data-kind="sim" data-video="media/video/nine_dof_grasp_carry.mp4">
-                    <span class="vtile-media"><img src="media/video/nine_dof_grasp_carry.jpg" alt="" loading="lazy"><span class="vtile-play" aria-hidden="true"></span><span class="media-tag sim">Simulation</span></span>
-                    <span class="vtile-title">9-DoF robot: grasp, carry, turn</span>
-                    <span class="vtile-cap">Grasp, carry, place, roll and turn a steel ball with the split platform.</span>
                 </button>
             </div>
         </div>
@@ -454,11 +447,6 @@
                 <span class="pub-status review">Under review</span>
             </article>
 
-            <h3 class="pub-category">In Preparation</h3>
-            <ul class="prep-list">
-                <li><strong>Singularities of (6+n)-DoF parallel robots with articulated platforms: a general factorization and its line geometry.</strong> G. Aruquipa, P. Lambert, C. Gosselin. For Mechanism and Machine Theory.</li>
-                <li><strong>Grasping dexterity of parallel robots with a rotationally articulated platform: a reduced graspability Jacobian.</strong> G. Aruquipa, A. M&uuml;ller, P. Lambert, C. Gosselin. For ASME JMR.</li>
-            </ul>
         </div>
     </section>
 
