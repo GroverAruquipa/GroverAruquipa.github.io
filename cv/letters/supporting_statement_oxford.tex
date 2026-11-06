@@ -1,0 +1,47 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{times}
+\usepackage[top=2cm,bottom=1.9cm,left=2.3cm,right=2.3cm]{geometry}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{8pt}
+
+\begin{document}
+
+{\large\bfseries Grover Aruquipa}\par\vspace{-5pt}
+{\small Qu\'ebec, QC, Canada \ \textbullet\ \ grover.aruquipa.9@gmail.com \ \textbullet\ \ groveraruquipa.github.io}
+
+\vspace{2pt}
+Supporting statement, Postdoctoral Research Assistant in Tensegrity Robot Design and Control (vacancy 189502)
+
+Here I go through what the post asks for and what I have done for each point, in my own words.
+
+\textbf{A PhD in engineering or robotics.}
+I am finishing my PhD in Mechanical Engineering at Universit\'e Laval with Cl\'ement Gosselin and Patrice Lambert. I submit the thesis in December and defend in January 2027. My thesis is about parallel robots where the mechanism does most of the work: the motors stay on the base, the gripper is driven through the structure, and the robot can turn what it holds without limit. I have 3 journal papers as first author (ASME Journal of Mechanisms and Robotics and Mechanism and Machine Theory, one of them a review of parallel robots for grasping) and 4 more under review, one at ICRA 2027.
+
+\textbf{Building and programming robots, including motor control.}
+This is what I spend most of my time on. I have built three robots, with 4, 7 and 8 motors. For each one I did everything myself: the kinematic model, the design in SolidWorks, machining and 3D printing (SLS and FDM), the wiring, and the motor control. The control runs at 500\,Hz with encoders on every motor, using OPAL-RT and Simulink Real-Time. During my master's at FEMTO-ST in France I also wrote the real-time control in C++ for a micro-manipulation robot. The smallest of my robots, a coaxial wrist-gripper with 0.25\,kg of moving mass, turned its tool ten full turns with less than a degree of error while holding the object. Right now I am building a Delta robot with a gripper that estimates the grasp force from the motor currents, so it can pick fragile things like eggs quickly.
+
+\textbf{Simulators such as IsaacLab or MuJoCo.}
+I use MuJoCo and Simscape to check my robots before building them, and then I compare the simulation with what the real robot does. For the Delta robot I validated the full dynamic model in Simscape first. I have also experimented with Isaac Sim, so I do not expect IsaacLab to slow me down much. In my experience the hard part of simulation is not the software but getting the mechanics right and checking it against hardware, and that is what I already do.
+
+\textbf{Co-optimising tensegrity designs and control.}
+In my robots, design and control are tied together. The geometry decides where the singularities are, and the way I use the extra motors decides whether the robot can stay away from them. One of my papers under review is exactly this problem: how to keep unlimited rotation free of collisions and singularities. The math behind it is close to tensegrities. A singularity in my robots and a soft mode in a tensegrity are the same kind of rank loss in the equilibrium matrix, and the prestress of a tensegrity lives in the null space of that same matrix. I would like to use these simple structural measures inside the simulation, so they help guide the search over designs and control policies instead of leaving everything to trial and error.
+
+\textbf{Supervising students.}
+I supervise two graduate students day to day on one of my robots, an 8-motor (6+2)-DoF design. We took it from the idea to a working prototype and a joint paper submitted to ICRA 2027. I also led the Universit\'e Laval team that won first place in the graduate division of the 2025 ASME Student Mechanisms and Robotics Design Competition, and I give talks on parallel robots at universities in Bolivia.
+
+\textbf{Experience with tensegrities.}
+I have not built a tensegrity robot yet. The closest I have come is cable-driven parallel robots, where I studied statics and force closure, and platforms that change shape to change how forces are shared. I would come with the mechanics in place and a lot to learn on the building side, which is a big part of why this post attracts me.
+
+\textbf{Why this post, and what I would like to do.}
+What I like about your lab's work is that the body of the robot is part of how it solves the task, from the Nature paper on adaptive morphogenesis to Spikebot and the jumping tensegrity. That is the direction I want my research to take. The idea I would most like to try is using the shape change of a tensegrity not only to move but also to grasp and turn objects, which links straight to what I did in my PhD. Longer term I want an academic career, and I would also like to use this project as the base for a Branco Weiss application with your lab as host.
+
+I can start in early 2027 and would need a UK Skilled Worker visa. My referees are listed in my CV and in the application form.
+
+Grover Aruquipa
+
+\end{document}

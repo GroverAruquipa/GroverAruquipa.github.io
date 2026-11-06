@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to Screw Theory | Grover Aruquipa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2c5282;
+            --accent: #b7952b;
+            --light: #f7fafc;
+            --white: #ffffff;
+            --text: #1a202c;
+            --text-muted: #718096;
+            --success: #276749;
+            --code-bg: #1e1e1e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Serif 4', Georgia, serif;
+            color: var(--text);
+            background: var(--white);
+            line-height: 1.8;
+            font-size: 18px;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--primary);
+            padding: 16px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            color: var(--white);
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .nav-back {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+        }
+
+        .nav-back:hover {
+            color: var(--accent);
+        }
+
+        /* Header */
+        .tutorial-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+            padding: 80px 24px;
+            text-align: center;
+        }
+
+        .tutorial-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(183, 149, 43, 0.2);
+            border: 1px solid rgba(183, 149, 43, 0.4);
+            border-radius: 20px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            color: var(--accent);
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .tutorial-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .tutorial-meta {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .tutorial-meta span {
+            margin: 0 8px;
+        }
+
+        /* Content */
+        .tutorial-content {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 48px 0 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--light);
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--secondary);
+            margin: 36px 0 16px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Key Concept Box */
+        .key-concept {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e8f4f8 100%);
+            border-left: 4px solid var(--secondary);
+            padding: 24px 28px;
+            margin: 32px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .key-concept-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--secondary);
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .key-concept p {
+            margin-bottom: 0;
+            font-style: italic;
+        }
+
+        /* Formula Box */
+        .formula-box {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 32px;
+            margin: 32px 0;
+            text-align: center;
+        }
+
+        .formula {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin: 16px 0;
+        }
+
+        .formula-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        /* SVG Diagram Container */
+        .diagram-container {
+            background: var(--white);
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 32px;
+            margin: 32px 0;
+            text-align: center;
+        }
+
+        .diagram-container svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .diagram-caption {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 16px;
+            font-style: italic;
+        }
+
+        /* Interactive Diagram */
+        .interactive-diagram {
+            background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+            border-radius: 12px;
+            padding: 40px;
+            margin: 32px 0;
+        }
+
+        .interactive-diagram svg {
+            display: block;
+            margin: 0 auto;
+        }
+
+        .interactive-caption {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 20px 0 20px 24px;
+        }
+
+        li {
+            margin-bottom: 12px;
+        }
+
+        /* Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 32px 0;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        .comparison-table th {
+            background: var(--primary);
+            color: var(--white);
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 500;
+        }
+
+        .comparison-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: var(--light);
+        }
+
+        /* Example Box */
+        .example-box {
+            background: #fffbeb;
+            border: 1px solid #f59e0b;
+            border-radius: 12px;
+            padding: 28px;
+            margin: 32px 0;
+        }
+
+        .example-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #d97706;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Step by Step */
+        .steps {
+            counter-reset: step-counter;
+            margin: 32px 0;
+        }
+
+        .step {
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 32px;
+        }
+
+        .step::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 40px;
+            height: 40px;
+            background: var(--secondary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .step-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        /* Quiz Section */
+        .quiz-section {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 32px;
+            margin: 48px 0;
+        }
+
+        .quiz-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .quiz-question {
+            margin-bottom: 16px;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--white);
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--secondary);
+        }
+
+        .quiz-option.correct {
+            background: #d1fae5;
+            border-color: var(--success);
+        }
+
+        .quiz-option.incorrect {
+            background: #fee2e2;
+            border-color: #dc2626;
+        }
+
+        /* Navigation Footer */
+        .tutorial-nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 32px 0;
+            margin-top: 48px;
+            border-top: 1px solid #e2e8f0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .tutorial-nav a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tutorial-nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary);
+            color: rgba(255,255,255,0.5);
+            padding: 24px;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .tutorial-title {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            body {
+                font-size: 16px;
+            }
+
+            .formula {
+                font-size: 1rem;
+            }
+        }
+
+        /* Animation for SVG */
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .rotating {
+            animation: rotate 8s linear infinite;
+            transform-origin: center;
+        }
+
+        .pulsing {
+            animation: pulse 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="index.html" class="nav-brand">Grover Aruquipa</a>
+            <a href="index.html#tutorials" class="nav-back">← Back to Tutorials</a>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="tutorial-header">
+        <span class="tutorial-tag">SCREW THEORY</span>
+        <h1 class="tutorial-title">Introduction to Screw Theory</h1>
+        <p class="tutorial-meta">
+            <span>📐 Fundamentals</span>
+            <span>•</span>
+            <span>⏱ 15 min read</span>
+            <span>•</span>
+            <span>By Grover Aruquipa</span>
+        </p>
+    </header>
+
+    <!-- Content -->
+    <main class="tutorial-content">
+        
+        <!-- Introduction -->
+        <p>
+            Screw theory is one of the most elegant mathematical frameworks for analyzing robot kinematics. 
+            Instead of dealing with separate translations and rotations, screw theory unifies them into a 
+            single concept: the <strong>screw motion</strong>.
+        </p>
+
+        <div class="key-concept">
+            <p class="key-concept-title">💡 KEY INSIGHT</p>
+            <p>
+                Any rigid body motion in 3D space can be described as a rotation about an axis 
+                combined with a translation along that same axis — just like a screw going into wood.
+            </p>
+        </div>
+
+        <p>
+            This tutorial will introduce you to the fundamentals of screw theory, starting with 
+            intuitive concepts and building up to practical applications in serial and parallel robots.
+        </p>
+
+        <!-- What is a Screw -->
+        <h2>1. What is a Screw Motion?</h2>
+
+        <p>
+            Imagine turning a screw into a piece of wood. As you rotate it, the screw also moves 
+            forward along its axis. This combination of rotation and translation is the essence 
+            of a <strong>screw motion</strong>.
+        </p>
+
+        <!-- SVG: Screw Motion Illustration -->
+        <div class="interactive-diagram">
+            <svg viewBox="0 0 500 250" width="500" height="250">
+                <!-- Background grid -->
+                <defs>
+                    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+                    </pattern>
+                </defs>
+                <rect width="500" height="250" fill="url(#grid)"/>
+                
+                <!-- Screw axis -->
+                <line x1="100" y1="125" x2="400" y2="125" stroke="#b7952b" stroke-width="2" stroke-dasharray="8,4"/>
+                <text x="410" y="130" fill="#b7952b" font-family="Inter" font-size="12">Screw axis (ŝ)</text>
+                
+                <!-- Rotation arrow -->
+                <g transform="translate(200, 125)">
+                    <ellipse cx="0" cy="0" rx="40" ry="15" fill="none" stroke="#4299e1" stroke-width="2"/>
+                    <polygon points="40,-5 50,0 40,5" fill="#4299e1" transform="rotate(-10)"/>
+                    <text x="0" y="-25" fill="#4299e1" font-family="Inter" font-size="11" text-anchor="middle">ω (rotation)</text>
+                </g>
+                
+                <!-- Translation arrow -->
+                <g transform="translate(300, 125)">
+                    <line x1="0" y1="0" x2="60" y2="0" stroke="#48bb78" stroke-width="3"/>
+                    <polygon points="60,-6 72,0 60,6" fill="#48bb78"/>
+                    <text x="30" y="25" fill="#48bb78" font-family="Inter" font-size="11" text-anchor="middle">v (translation)</text>
+                </g>
+                
+                <!-- Screw symbol -->
+                <g transform="translate(150, 180)">
+                    <rect x="0" y="0" width="200" height="40" rx="6" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.3)"/>
+                    <text x="100" y="26" fill="white" font-family="JetBrains Mono" font-size="14" text-anchor="middle">$ = (ŝ; v) = screw</text>
+                </g>
+            </svg>
+            <p class="interactive-caption">A screw motion combines rotation (ω) around an axis with translation (v) along that axis</p>
+        </div>
+
+        <p>
+            Mathematically, a <strong>screw</strong> (denoted by $) consists of:
+        </p>
+
+        <ul>
+            <li><strong>Direction vector (ŝ)</strong>: The axis of the screw</li>
+            <li><strong>Angular velocity (ω)</strong>: How fast it rotates</li>
+            <li><strong>Linear velocity (v)</strong>: How fast it translates</li>
+            <li><strong>Pitch (h)</strong>: The ratio h = v/ω (translation per rotation)</li>
+        </ul>
+
+        <div class="formula-box">
+            <p class="formula-label">Screw (Twist) representation</p>
+            <p class="formula">$ = [ω; v]ᵀ = [ω₁, ω₂, ω₃, v₁, v₂, v₃]ᵀ</p>
+            <p class="formula-label">6-dimensional vector combining angular and linear velocity</p>
+        </div>
+
+        <!-- Pure Rotation vs Pure Translation -->
+        <h2>2. Special Cases: Pure Rotation & Pure Translation</h2>
+
+        <p>
+            The beauty of screw theory is that both <strong>pure rotations</strong> and 
+            <strong>pure translations</strong> are just special cases of screws:
+        </p>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Motion Type</th>
+                    <th>Pitch (h)</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Pure Rotation</strong></td>
+                    <td>h = 0</td>
+                    <td>No translation, only rotation (revolute joint)</td>
+                </tr>
+                <tr>
+                    <td><strong>General Screw</strong></td>
+                    <td>0 &lt; h &lt; ∞</td>
+                    <td>Combined rotation and translation (helical joint)</td>
+                </tr>
+                <tr>
+                    <td><strong>Pure Translation</strong></td>
+                    <td>h = ∞</td>
+                    <td>No rotation, only translation (prismatic joint)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- SVG: Joint Types -->
+        <div class="diagram-container">
+            <svg viewBox="0 0 600 180" width="600" height="180">
+                <!-- Revolute Joint -->
+                <g transform="translate(100, 90)">
+                    <circle cx="0" cy="0" r="30" fill="none" stroke="#2c5282" stroke-width="3"/>
+                    <line x1="-40" y1="0" x2="-30" y2="0" stroke="#1a365d" stroke-width="8"/>
+                    <line x1="30" y1="0" x2="40" y2="0" stroke="#1a365d" stroke-width="8"/>
+                    <circle cx="0" cy="0" r="8" fill="#b7952b"/>
+                    <!-- Rotation arrow -->
+                    <path d="M 0,-45 A 45,45 0 0,1 32,-32" fill="none" stroke="#4299e1" stroke-width="2"/>
+                    <polygon points="32,-32 38,-22 25,-28" fill="#4299e1"/>
+                    <text x="0" y="60" fill="#1a365d" font-family="Inter" font-size="12" text-anchor="middle" font-weight="600">Revolute (R)</text>
+                    <text x="0" y="75" fill="#718096" font-family="Inter" font-size="10" text-anchor="middle">h = 0</text>
+                </g>
+                
+                <!-- Helical Joint -->
+                <g transform="translate(300, 90)">
+                    <rect x="-35" y="-20" width="70" height="40" rx="5" fill="none" stroke="#2c5282" stroke-width="3"/>
+                    <line x1="-50" y1="0" x2="-35" y2="0" stroke="#1a365d" stroke-width="8"/>
+                    <line x1="35" y1="0" x2="50" y2="0" stroke="#1a365d" stroke-width="8"/>
+                    <!-- Helix pattern -->
+                    <path d="M -20,15 Q -10,5 0,15 Q 10,25 20,15" fill="none" stroke="#b7952b" stroke-width="2"/>
+                    <path d="M -20,-5 Q -10,-15 0,-5 Q 10,5 20,-5" fill="none" stroke="#b7952b" stroke-width="2"/>
+                    <text x="0" y="60" fill="#1a365d" font-family="Inter" font-size="12" text-anchor="middle" font-weight="600">Helical (H)</text>
+                    <text x="0" y="75" fill="#718096" font-family="Inter" font-size="10" text-anchor="middle">0 &lt; h &lt; ∞</text>
+                </g>
+                
+                <!-- Prismatic Joint -->
+                <g transform="translate(500, 90)">
+                    <rect x="-35" y="-15" width="70" height="30" rx="3" fill="none" stroke="#2c5282" stroke-width="3"/>
+                    <rect x="-25" y="-10" width="30" height="20" fill="#e2e8f0" stroke="#2c5282" stroke-width="2"/>
+                    <line x1="-50" y1="0" x2="-35" y2="0" stroke="#1a365d" stroke-width="8"/>
+                    <line x1="35" y1="0" x2="50" y2="0" stroke="#1a365d" stroke-width="8"/>
+                    <!-- Translation arrow -->
+                    <line x1="0" y1="-40" x2="30" y2="-40" stroke="#48bb78" stroke-width="2"/>
+                    <polygon points="30,-45 40,-40 30,-35" fill="#48bb78"/>
+                    <text x="0" y="60" fill="#1a365d" font-family="Inter" font-size="12" text-anchor="middle" font-weight="600">Prismatic (P)</text>
+                    <text x="0" y="75" fill="#718096" font-family="Inter" font-size="10" text-anchor="middle">h = ∞</text>
+                </g>
+            </svg>
+            <p class="diagram-caption">The three fundamental joint types as special cases of screw motion</p>
+        </div>
+
+        <!-- Twists and Wrenches -->
+        <h2>3. Twists and Wrenches</h2>
+
+        <p>
+            In screw theory, we use two fundamental 6-dimensional vectors:
+        </p>
+
+        <h3>Twist ($)</h3>
+        <p>
+            A <strong>twist</strong> describes the instantaneous velocity of a rigid body. 
+            It combines angular velocity (ω) and linear velocity (v):
+        </p>
+
+        <div class="formula-box">
+            <p class="formula">$ = [ω; v]ᵀ ∈ ℝ⁶</p>
+            <p class="formula-label">Twist: describes motion (velocity)</p>
+        </div>
+
+        <h3>Wrench (W)</h3>
+        <p>
+            A <strong>wrench</strong> describes the forces and torques acting on a rigid body. 
+            It combines torque (τ) and force (f):
+        </p>
+
+        <div class="formula-box">
+            <p class="formula">W = [τ; f]ᵀ ∈ ℝ⁶</p>
+            <p class="formula-label">Wrench: describes forces</p>
+        </div>
+
+        <div class="key-concept">
+            <p class="key-concept-title">💡 DUALITY</p>
+            <p>
+                Twists and wrenches are <strong>dual</strong> to each other. The power transmitted 
+                equals the dot product: P = $ᵀW = ωᵀτ + vᵀf
+            </p>
+        </div>
+
+        <!-- Example: 2R Planar Robot -->
+        <h2>4. Example: 2R Planar Robot</h2>
+
+        <p>
+            Let's apply screw theory to the simplest serial robot: a <strong>2R planar manipulator</strong> 
+            (two revolute joints in a plane).
+        </p>
+
+        <!-- SVG: 2R Robot -->
+        <div class="interactive-diagram">
+            <svg viewBox="0 0 500 350" width="500" height="350">
+                <!-- Grid -->
+                <defs>
+                    <pattern id="grid2" width="25" height="25" patternUnits="userSpaceOnUse">
+                        <path d="M 25 0 L 0 0 0 25" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+                    </pattern>
+                </defs>
+                <rect width="500" height="350" fill="url(#grid2)"/>
+                
+                <!-- Base -->
+                <rect x="80" y="280" width="80" height="20" fill="#4a5568" rx="3"/>
+                <line x1="80" y1="300" x2="160" y2="300" stroke="#2d3748" stroke-width="4"/>
+                
+                <!-- Coordinate frame at base -->
+                <g transform="translate(120, 280)">
+                    <line x1="0" y1="0" x2="40" y2="0" stroke="#e53e3e" stroke-width="2"/>
+                    <polygon points="40,-4 48,0 40,4" fill="#e53e3e"/>
+                    <text x="50" y="4" fill="#e53e3e" font-family="Inter" font-size="11">x₀</text>
+                    
+                    <line x1="0" y1="0" x2="0" y2="-40" stroke="#48bb78" stroke-width="2"/>
+                    <polygon points="-4,-40 0,-48 4,-40" fill="#48bb78"/>
+                    <text x="8" y="-42" fill="#48bb78" font-family="Inter" font-size="11">y₀</text>
+                </g>
+                
+                <!-- Joint 1 -->
+                <circle cx="120" cy="260" r="15" fill="#2c5282" stroke="#1a365d" stroke-width="3"/>
+                <circle cx="120" cy="260" r="6" fill="#b7952b"/>
+                <text x="85" y="245" fill="#b7952b" font-family="Inter" font-size="12" font-weight="600">θ₁</text>
+                
+                <!-- Link 1 -->
+                <line x1="120" y1="260" x2="280" y2="160" stroke="#1a365d" stroke-width="12" stroke-linecap="round"/>
+                <text x="180" y="195" fill="white" font-family="Inter" font-size="11">L₁</text>
+                
+                <!-- Joint 2 -->
+                <circle cx="280" cy="160" r="15" fill="#2c5282" stroke="#1a365d" stroke-width="3"/>
+                <circle cx="280" cy="160" r="6" fill="#b7952b"/>
+                <text x="255" y="135" fill="#b7952b" font-family="Inter" font-size="12" font-weight="600">θ₂</text>
+                
+                <!-- Link 2 -->
+                <line x1="280" y1="160" x2="380" y2="100" stroke="#2c5282" stroke-width="10" stroke-linecap="round"/>
+                <text x="320" y="115" fill="white" font-family="Inter" font-size="11">L₂</text>
+                
+                <!-- End effector -->
+                <circle cx="380" cy="100" r="10" fill="#b7952b" stroke="#8b6914" stroke-width="2"/>
+                <text x="395" y="105" fill="#b7952b" font-family="Inter" font-size="12" font-weight="600">End Effector</text>
+                
+                <!-- Screw axes (z-direction, out of page) -->
+                <g transform="translate(120, 260)">
+                    <circle cx="0" cy="0" r="20" fill="none" stroke="#4299e1" stroke-width="1.5" stroke-dasharray="4,2"/>
+                    <circle cx="0" cy="0" r="3" fill="#4299e1"/>
+                    <text x="25" y="-15" fill="#4299e1" font-family="Inter" font-size="10">$₁ (⊙ out)</text>
+                </g>
+                
+                <g transform="translate(280, 160)">
+                    <circle cx="0" cy="0" r="20" fill="none" stroke="#4299e1" stroke-width="1.5" stroke-dasharray="4,2"/>
+                    <circle cx="0" cy="0" r="3" fill="#4299e1"/>
+                    <text x="25" y="-15" fill="#4299e1" font-family="Inter" font-size="10">$₂ (⊙ out)</text>
+                </g>
+                
+                <!-- Legend -->
+                <g transform="translate(20, 30)">
+                    <rect x="0" y="0" width="150" height="70" rx="6" fill="rgba(0,0,0,0.3)"/>
+                    <circle cx="20" cy="20" r="5" fill="#4299e1"/>
+                    <text x="35" y="24" fill="white" font-family="Inter" font-size="10">Screw axis (out of page)</text>
+                    <circle cx="20" cy="45" r="5" fill="#b7952b"/>
+                    <text x="35" y="49" fill="white" font-family="Inter" font-size="10">Joint / End effector</text>
+                </g>
+            </svg>
+            <p class="interactive-caption">2R planar robot with two revolute joints. Both screw axes point out of the page (ẑ direction).</p>
+        </div>
+
+        <h3>Step-by-Step: Finding the Screws</h3>
+
+        <div class="steps">
+            <div class="step">
+                <p class="step-title">Define the reference frame</p>
+                <p>Place the origin at joint 1. The x-axis points right, y-axis points up, z-axis points out of the page.</p>
+            </div>
+            
+            <div class="step">
+                <p class="step-title">Identify screw axis for Joint 1</p>
+                <p>Joint 1 is a revolute joint at the origin. The rotation axis is ẑ = [0, 0, 1]ᵀ.</p>
+                <div class="formula-box">
+                    <p class="formula">$₁ = [0, 0, 1, 0, 0, 0]ᵀ</p>
+                    <p class="formula-label">Pure rotation about z-axis at origin</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <p class="step-title">Identify screw axis for Joint 2</p>
+                <p>Joint 2 is also revolute, but located at position r₂ = [L₁, 0, 0]ᵀ (assuming θ₁ = 0). The screw includes a velocity component from the offset.</p>
+                <div class="formula-box">
+                    <p class="formula">$₂ = [0, 0, 1, 0, L₁, 0]ᵀ</p>
+                    <p class="formula-label">Rotation about z-axis at distance L₁ from origin</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <p class="step-title">Build the Jacobian matrix</p>
+                <p>The Jacobian relates joint velocities to end-effector velocity:</p>
+                <div class="formula-box">
+                    <p class="formula">J = [$₁ | $₂]</p>
+                    <p class="formula-label">6×2 Jacobian matrix</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobility -->
+        <h2>5. Mobility: How Many DOF?</h2>
+
+        <p>
+            One of the most useful applications of screw theory is calculating the <strong>mobility</strong> 
+            (degrees of freedom) of a mechanism using the <strong>Chebychev-Grübler-Kutzbach formula</strong>:
+        </p>
+
+        <div class="formula-box">
+            <p class="formula">M = d(n - 1) - Σᵢ(d - fᵢ)</p>
+            <p class="formula-label">where d = 6 (spatial) or 3 (planar), n = number of links, fᵢ = DOF of joint i</p>
+        </div>
+
+        <div class="example-box">
+            <p class="example-title">📝 EXAMPLE: 2R PLANAR ROBOT</p>
+            <p>For our 2R planar robot:</p>
+            <ul>
+                <li>d = 3 (planar mechanism)</li>
+                <li>n = 3 (ground + 2 links)</li>
+                <li>Two revolute joints, each with f = 1</li>
+            </ul>
+            <p style="margin-top: 16px;">
+                <strong>M = 3(3 - 1) - 2(3 - 1) = 6 - 4 = 2 DOF</strong>
+            </p>
+            <p style="margin-top: 8px; color: var(--text-muted); font-size: 0.9rem;">
+                The robot can position its end-effector in 2D (x, y), confirming our intuition!
+            </p>
+        </div>
+
+        <!-- Parallel vs Serial -->
+        <h2>6. Serial vs Parallel Robots</h2>
+
+        <p>
+            Screw theory is particularly powerful for analyzing <strong>parallel robots</strong>, 
+            where multiple kinematic chains connect the base to the end-effector.
+        </p>
+
+        <!-- SVG: Serial vs Parallel -->
+        <div class="diagram-container">
+            <svg viewBox="0 0 600 250" width="600" height="250">
+                <!-- Serial Robot -->
+                <g transform="translate(150, 200)">
+                    <!-- Base -->
+                    <rect x="-30" y="0" width="60" height="15" fill="#4a5568" rx="2"/>
+                    
+                    <!-- Links -->
+                    <line x1="0" y1="0" x2="0" y2="-60" stroke="#1a365d" stroke-width="10" stroke-linecap="round"/>
+                    <circle cx="0" cy="-60" r="8" fill="#2c5282" stroke="#1a365d" stroke-width="2"/>
+                    
+                    <line x1="0" y1="-60" x2="50" y2="-100" stroke="#2c5282" stroke-width="8" stroke-linecap="round"/>
+                    <circle cx="50" cy="-100" r="8" fill="#2c5282" stroke="#1a365d" stroke-width="2"/>
+                    
+                    <line x1="50" y1="-100" x2="70" y2="-140" stroke="#4299e1" stroke-width="6" stroke-linecap="round"/>
+                    <circle cx="70" cy="-140" r="6" fill="#b7952b"/>
+                    
+                    <text x="0" y="35" fill="#1a365d" font-family="Inter" font-size="13" text-anchor="middle" font-weight="600">Serial Robot</text>
+                    <text x="0" y="50" fill="#718096" font-family="Inter" font-size="10" text-anchor="middle">Single kinematic chain</text>
+                </g>
+                
+                <!-- Parallel Robot (3-RRR) -->
+                <g transform="translate(450, 200)">
+                    <!-- Base (triangle) -->
+                    <polygon points="0,-10 -50,20 50,20" fill="none" stroke="#4a5568" stroke-width="3"/>
+                    
+                    <!-- Three chains -->
+                    <!-- Chain 1 -->
+                    <circle cx="0" cy="-10" r="6" fill="#2c5282"/>
+                    <line x1="0" y1="-10" x2="0" y2="-80" stroke="#1a365d" stroke-width="6" stroke-linecap="round"/>
+                    <circle cx="0" cy="-50" r="5" fill="#2c5282"/>
+                    <line x1="0" y1="-80" x2="0" y2="-110" stroke="#2c5282" stroke-width="5" stroke-linecap="round"/>
+                    
+                    <!-- Chain 2 -->
+                    <circle cx="-50" cy="20" r="6" fill="#2c5282"/>
+                    <line x1="-50" y1="20" x2="-30" y2="-60" stroke="#1a365d" stroke-width="6" stroke-linecap="round"/>
+                    <circle cx="-35" cy="-30" r="5" fill="#2c5282"/>
+                    <line x1="-30" y1="-60" x2="-15" y2="-100" stroke="#2c5282" stroke-width="5" stroke-linecap="round"/>
+                    
+                    <!-- Chain 3 -->
+                    <circle cx="50" cy="20" r="6" fill="#2c5282"/>
+                    <line x1="50" y1="20" x2="30" y2="-60" stroke="#1a365d" stroke-width="6" stroke-linecap="round"/>
+                    <circle cx="35" cy="-30" r="5" fill="#2c5282"/>
+                    <line x1="30" y1="-60" x2="15" y2="-100" stroke="#2c5282" stroke-width="5" stroke-linecap="round"/>
+                    
+                    <!-- End effector (moving platform) -->
+                    <polygon points="0,-110 -15,-100 15,-100" fill="#b7952b" stroke="#8b6914" stroke-width="2"/>
+                    
+                    <text x="0" y="50" fill="#1a365d" font-family="Inter" font-size="13" text-anchor="middle" font-weight="600">Parallel Robot</text>
+                    <text x="0" y="65" fill="#718096" font-family="Inter" font-size="10" text-anchor="middle">Multiple kinematic chains</text>
+                </g>
+                
+                <!-- Comparison arrows -->
+                <g transform="translate(300, 100)">
+                    <line x1="-30" y1="0" x2="30" y2="0" stroke="#e2e8f0" stroke-width="2"/>
+                    <text x="0" y="-10" fill="#718096" font-family="Inter" font-size="10" text-anchor="middle">vs</text>
+                </g>
+            </svg>
+            <p class="diagram-caption">Serial robots have one chain; parallel robots have multiple chains connecting base to end-effector</p>
+        </div>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Serial Robot</th>
+                    <th>Parallel Robot</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Structure</td>
+                    <td>Open kinematic chain</td>
+                    <td>Closed kinematic chains</td>
+                </tr>
+                <tr>
+                    <td>Workspace</td>
+                    <td>Large</td>
+                    <td>Limited</td>
+                </tr>
+                <tr>
+                    <td>Stiffness</td>
+                    <td>Lower</td>
+                    <td>Higher</td>
+                </tr>
+                <tr>
+                    <td>Speed</td>
+                    <td>Lower (moving motors)</td>
+                    <td>Higher (fixed motors)</td>
+                </tr>
+                <tr>
+                    <td>Accuracy</td>
+                    <td>Error accumulates</td>
+                    <td>Error averages out</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Summary -->
+        <h2>Summary</h2>
+
+        <div class="key-concept">
+            <p class="key-concept-title">🎯 KEY TAKEAWAYS</p>
+            <ul style="margin-bottom: 0;">
+                <li><strong>Screw motion</strong> unifies rotation and translation</li>
+                <li><strong>Twist</strong> ($) describes velocity; <strong>Wrench</strong> (W) describes forces</li>
+                <li>Joint types are special cases of screws (h = 0, h = ∞)</li>
+                <li>The <strong>Jacobian</strong> maps joint velocities to end-effector velocity</li>
+                <li>Screw theory works for both serial and parallel robots</li>
+            </ul>
+        </div>
+
+        <!-- Quiz -->
+        <div class="quiz-section">
+            <p class="quiz-title">🧠 Quick Check</p>
+            <div class="quiz-question">
+                <p>A revolute joint has what pitch value?</p>
+                <div class="quiz-options" id="quiz1">
+                    <div class="quiz-option" data-correct="false" onclick="checkAnswer(this, false)">
+                        <span>○</span> h = ∞
+                    </div>
+                    <div class="quiz-option" data-correct="true" onclick="checkAnswer(this, true)">
+                        <span>○</span> h = 0
+                    </div>
+                    <div class="quiz-option" data-correct="false" onclick="checkAnswer(this, false)">
+                        <span>○</span> h = 1
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="tutorial-nav">
+            <a href="index.html#tutorials">← All Tutorials</a>
+            <a href="tutorial-jacobian.html">Next: Jacobian Analysis →</a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2025 Grover Aruquipa · Université Laval</p>
+    </footer>
+
+    <script>
+        function checkAnswer(element, isCorrect) {
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+                if (opt.dataset.correct === 'true') {
+                    opt.classList.add('correct');
+                } else if (opt === element && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

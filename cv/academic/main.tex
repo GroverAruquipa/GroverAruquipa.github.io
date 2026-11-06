@@ -1,0 +1,351 @@
+% Preamble
+% Compile with XeLaTeX
+
+\documentclass[11pt,oneside,a4paper]{article} % no titlepage
+\usepackage{preamble}
+\usepackage{enumitem}
+\graphicspath{{PIC/}}
+
+% Compactar espaciado de secciones para evitar overflow de página 1
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{6pt}{2pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\sidebar{sideBarColor!25}
+\simpleheader{titleBackColor}{Grover}{Aruquipa}{PhD Candidate \textbar\ Parallel Robotics}{white}
+
+% Start Minipages
+\vspace*{3.3cm}
+\adjustbox{valign=t}{\begin{minipage}{7.3cm}
+\vspace*{0.5cm}
+
+% Picture
+\begin{center}
+\begin{tikzpicture}
+\node[
+circle,
+minimum size=\cvPictureWidth,
+path picture={
+\node at (path picture bounding box.center){
+\includegraphics[width=\cvPictureWidth]{Picture.jpg}
+};
+}]
+{};
+\end{tikzpicture}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Research Interests section
+\ruleline{\textbf{Research Interests}}
+\footnotesize
+My research develops geometric and kinematic foundations for advanced parallel robots with \textbf{kinematic redundancy}, \textbf{unlimited rotations}, and \textbf{integrated grasping}. I combine screw theory, Lie group methods, and higher-order mobility analysis with hardware prototyping and real-time experimental validation. I am increasingly interested in bridging classical kinematic rigor with modern manipulation learning through geometric priors and differentiable kinematic models.
+\normalsize
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Contact Section
+\ruleline{\textbf{Contact}}
+\begin{tikzpicture}[every node/.style={inner sep=0pt, outer sep=0pt}]
+\matrix[
+column 1/.style={anchor=center,contactIcon},
+column 2/.style={anchor=west,align=left,contactIcon},
+column sep=5pt,
+row sep=5pt] (contact) {
+\node{\faEnvelope}; & \node{\href{mailto:grover.aruquipa-aruquipa.1@ulaval.ca}{grover.aruquipa-aruquipa.1@ulaval.ca}};\\
+\node{\faEnvelopeO}; & \node{\href{mailto:grover.aruquipa.9@gmail.com}{grover.aruquipa.9@gmail.com}};\\
+\node{\faPhone}; & \node{+33 6 29 77 92 25};\\
+\node{\faMapMarker}; & \node{Qu\'ebec, QC, Canada};\\
+\node{\faLinkedinSquare}; & \node{\href{https://www.linkedin.com/in/grover-aruquipa-996917126}{linkedin.com/in/grover-aruquipa-996917126}};\\
+\node{\aiResearchGateSquare}; & \node{\href{https://www.researchgate.net/profile/Grover-Aruquipa}{ResearchGate: Grover Aruquipa}};\\
+\node{\aiOrcid}; & \node{\href{https://orcid.org/0000-0003-0243-3187}{ORCID: 0000-0003-0243-3187}};\\
+\node{\faGithub}; & \node{\href{https://groveraruquipa.github.io/}{groveraruquipa.github.io}};\\
+};
+\end{tikzpicture}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Languages
+\ruleline{\textbf{Languages}}
+\begin{tikzpicture}[every node/.style={inner sep=0pt, outer sep=0pt}]
+\matrix[
+column 1/.style={anchor=center,contactIcon},
+column 2/.style={anchor=west,align=left,contactIcon},
+column sep=5pt,
+row sep=5pt] (langs) {
+\node{\flag{Spain.png}}; & \node{Spanish --- Native};\\
+\node{\flag{England.png}}; & \node{English --- Full Professional Proficiency};\\
+\node{\flag{France.png}}; & \node{French --- Intermediate};\\
+};
+\end{tikzpicture}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Research Skills
+\ruleline{\textbf{Research Skills}}
+\begin{center}
+\cvtag{Parallel Robots}\cvtag{Kinematic Modeling}\cvtag{Screw Theory}\cvtag{Lie Groups}\cvtag{Singularity Analysis}\cvtag{Robot Design}\cvtag{Hardware Prototyping}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Hobbies
+\ruleline{\textbf{Hobbies \& Lifestyle}}
+\begin{center}
+\footnotesize
+\cvtag{\faRunning\ Running}\cvtag{\faMusic\ Salsa Dancing}\cvtag{\faLeaf\ Healthy Lifestyle}
+\normalsize
+\end{center}
+
+\end{minipage}}%
+\hfill
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% MAIN SECTION (PAGE 1) %%%%%%%%%%%%%%%%%%%%
+\adjustbox{valign=t}{\begin{minipage}{11.3cm}
+\vspace*{0.95cm}
+
+% ==========================================================
+% 1) EDUCATION
+% ==========================================================
+\section*{{\faGraduationCap} EDUCATION}
+
+\MySection{2023--2026}{Books.png}{PhD in Mechanical Engineering}{\textit{Universit\'e Laval} --- Defense expected December 2026}{Qu\'ebec, Canada}
+{Dissertation: Kinematically redundant parallel robots with \textbf{unlimited rotations} and \textbf{grasping capabilities}; three prototypes built and tested.}
+{Supervisor: Prof.\ Cl\'ement Gosselin. Co-director: Prof.\ Patrice Lambert.}
+
+\vspace*{0.04cm}
+
+\MySection{2021--2023}{Books.png}{MSc in Ing\'enierie des Syst\`emes Complexes}{Universit\'e Bourgogne--Franche-Comt\'e (UBFC)}{Besan\c{c}on, France}
+{Smart Integrated Systems --- Robotics and Micro-Robotics. Tres Bien; 120 ECTS.}{Supervisor: Prof.\ Redwan Dahmouche.}
+{Research thesis in collaboration with FEMTO-ST (CNRS UMR 6174).}
+
+\vspace*{0.04cm}
+
+\MySection{2022}{Books.png}{Postgraduate Specialization in Robotics and Automation}{Bolivian Catholic University}{La Paz, Bolivia}
+{Diplomas: Industrial Automation, Internet of Things, Robotics, and Machine Learning.}
+
+
+\vspace*{0.04cm}
+
+\MySection{2014--2019}{Books.png}{BEng in Mechatronics Engineering}{Bolivian Catholic University}{La Paz, Bolivia}
+{Bachelor Thesis on a  Delta-type parallel robot for product picking.}{}
+
+% ==========================================================
+% 2) PROFESSIONAL & RESEARCH EXPERIENCE
+% ==========================================================
+\section*{{\faSuitcase} PROFESSIONAL \& RESEARCH EXPERIENCE}
+
+\MySectionNoPic{Apr--May 2026}{Visiting Researcher --- Institute of Robotics, Johannes Kepler University Linz}{Linz, Austria}
+{Host: Univ.-Prof.\ Dr.-Ing.\ habil.\ Andreas M\"uller}
+{Collaboration on singularity analysis and graspability performance indices for parallel robots with integrated grasping. Funded by the Mitacs Globalink Research Award. Outputs: two journal papers in preparation.}
+
+\vspace*{0.04cm}
+
+\MySectionNoPic{2022--2023}{Research Intern --- FEMTO-ST (CNRS UMR 6174)}{Besan\c{c}on, France}
+{Master's thesis research}
+{Research on parallel robots for micro-manipulation applications.}
+
+\vspace*{0.04cm}
+
+\MySectionNoPic{2021}{Computer Vision Engineer --- Sencon Srl}{Remote}
+{Industrial collaboration}
+{Developed computer vision solutions for anomaly detection.}
+
+\vspace*{0.04cm}
+
+\MySectionNoPic{2021}{Data Scientist --- KTH Royal Institute of Technology}{Sweden}
+{Research collaboration}
+{Data analysis for environmental impact assessment.}
+
+\vspace*{0.04cm}
+
+\MySectionNoPic{2020}{Graduate Research Intern --- Hitachi ABB Power Grids R\&D}{Zurich, Switzerland}
+{Industrial R\&D internship}
+{Analysis of complex datasets for high-voltage circuit breakers.}
+
+% ==========================================================
+% 4) HONORS & AWARDS
+% ==========================================================
+\section*{{\faTrophy}\;HONORS \& AWARDS}
+\begin{itemize}[leftmargin=*, itemsep=0ex, topsep=0.2ex]
+\footnotesize
+\item \textbf{1st Place, Graduate Division --- ASME Student Mechanisms and Robotics Design Competition, 2025} \textperiodcentered{} ASME IDETC/MR
+\item \textbf{Mitacs Globalink Research Award, 2026} \textperiodcentered{} Research stay at JKU Linz with Prof.\ A.\ M\"uller
+\item \textbf{1st Place, Student Paper Competition --- Jornadas Argentinas de Rob\'otica, 2019}
+\item \textbf{Citoyens du Monde Grant} \textperiodcentered{} Gouvernement du Qu\'ebec
+\item \textbf{Screw Theory Summer School (2023)} \textperiodcentered{} TU Delft, Netherlands
+\item \textbf{UBFC Master's Scholarship} (France) \textperiodcentered{} \textbf{Universit\'e Laval PhD Scholarship} (Canada)
+\end{itemize}
+
+\end{minipage}}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PAGE 2 (Publications + everything else)
+\newpage
+
+\sidebar{sideBarColor!25}
+\newpageheader{titleBackColor}{Grover}{Aruquipa}{PhD Candidate \faLightbulbO \hspace{1mm} Parallel Robotics}{white}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SIDEBAR (PAGE 2) %%%%%%%%%%%%%%%%%%%
+\adjustbox{valign=t}{%
+\begin{minipage}{7.3cm}
+\vspace*{0.4cm}
+
+\ruleline{\textbf{Technical Skills}}
+\footnotesize
+\begin{itemize}[leftmargin=*, itemsep=0.1ex, topsep=0.2ex]
+\item \textbf{Robotics:} ROS/ROS~2, Pinocchio, OpenCV
+\item \textbf{Real-time:} OPAL-RT RT-LAB, Simulink Real-Time; multi-motor prototypes at 500~Hz
+\item \textbf{Modelling:} MATLAB, Maple
+\item \textbf{AI:} PyTorch, TensorFlow
+\item \textbf{CAD \& FEA:} SolidWorks, ANSYS; Creo, Altium (intermediate)
+\end{itemize}
+\normalsize
+
+\ruleline{\textbf{Selected Certifications}}
+\footnotesize
+\begin{itemize}[leftmargin=*, itemsep=0.1ex, topsep=0.2ex]
+\item IBM AI Engineering --- \textit{Coursera} (2022)
+\item Deep Learning Specialization --- \textit{DeepLearning.AI} (2020)
+\item Reinforcement Learning Specialization --- \textit{University of Alberta} (2020)
+\item Engineering Simulations --- \textit{Cornell University} (2020)
+\end{itemize}
+\normalsize
+
+\ruleline{\textbf{Academic Service}}
+\footnotesize
+\begin{itemize}[leftmargin=*, itemsep=0.1ex, topsep=0.2ex]
+\item Co-supervision of graduate research --- \textit{(6+2)-DoF redundant architecture} (2025--2026)
+\item Journal Reviewer --- \textit{Journal of Mechanisms and Robotics} (ASME) (2024--present)
+\item Scholarship Mentor --- \textit{TuBeca Bolivia} (2023--present)
+\item Volunteer --- \textit{HOPE Worldwide} (2016--present)
+\end{itemize}
+\normalsize
+
+\ruleline{\textbf{References}}
+\footnotesize
+Available upon request. Primary referees:
+\begin{itemize}[leftmargin=*, itemsep=0.1ex, topsep=0.2ex]
+\item Prof.\ Cl\'ement Gosselin --- Universit\'e Laval
+\item Univ.-Prof.\ Andreas M\"uller --- JKU Linz
+\item Prof.\ Patrice Lambert --- Universit\'e Laval
+\item Prof.\ Redwan Dahmouche --- FEMTO-ST
+\end{itemize}
+\normalsize
+
+\end{minipage}
+}%
+\hfill
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MAIN (PAGE 2) %%%%%%%%%%%%%%%%%%%%%%%%%
+\adjustbox{valign=t}{%
+\begin{minipage}{11.3cm}
+\vspace*{0.4cm}
+
+% ==========================================================
+% PUBLICATIONS (PAGE 2)
+% ==========================================================
+\section*{{\aiOBP}\;PUBLICATIONS}
+
+\vspace*{0.15cm}
+
+% ---- PUBLISHED ----
+\textbf{\color{titleBackColor} Published}\\[2pt]
+
+\publication{Journal (ASME JMR)}{2026}{
+Analysis and Design of a Compact Four-DoF Parallel Robot with Unlimited Rotation}
+{G.~Aruquipa, V.~Muralidharan, P.~Lambert, C.~Gosselin}
+{Journal of Mechanisms and Robotics (ASME)}
+{Published}
+
+\vspace*{0.04cm}
+
+\publication{Journal (MMT)}{2026}{
+Analysis and Design of a Novel (6+1)-DoF Parallel Robot with Unlimited Rotation and Grasping Capabilities}
+{G.~Aruquipa, P.~Lambert, C.~Gosselin}
+{Mechanism and Machine Theory (Elsevier)}
+{Published}
+
+\vspace*{0.04cm}
+
+\publication{Journal (ASME JMR)}{2026}{
+Parallel Robots for Grasping Tasks: A Review}
+{G.~Aruquipa, P.~Lambert, R.~Dahmouche, C.~Gosselin}
+{Journal of Mechanisms and Robotics (ASME)}
+{Published --- available online}
+
+\vspace*{0.04cm}
+
+\publication{Conference}{2025}{
+Kinematic Analysis and Design of a 9-DoF Parallel Robot with Grasping Capabilities}
+{G.~Aruquipa, P.~Lambert, C.~Gosselin}
+{CCToMM M3 Symposium}
+{10.1007/978-3-031-95489-4\_10}
+
+\vspace*{0.08cm}
+
+% ---- UNDER REVIEW ----
+\textbf{\color{titleBackColor} Under Review}\\[2pt]
+
+\publication{Journal (RAS)}{}{
+A Compact Coaxial Parallel Wrist-Gripper with Unlimited Tool-Axis Rotation}
+{G.~Aruquipa, P.~Lambert, C.~Gosselin}
+{Robotics and Autonomous Systems (Elsevier)}
+{Under review}
+
+\vspace*{0.04cm}
+
+\publication{Journal (MMT)}{}{
+Architecture, Kinematics, and Workspace Analysis of a Redundant 8RSS Parallel Robot with Two Unlimited Rotations}
+{G.~Aruquipa, A.~Ayoub, R.~Dahmouche}
+{Mechanism and Machine Theory (Elsevier)}
+{Under review --- ms.\ MECHMT-D-26-01903}
+
+\vspace*{0.08cm}
+
+% ---- IN PREPARATION / SUBMISSION IMMINENT ----
+\textbf{\color{titleBackColor} In Preparation / Submission Imminent}\\[2pt]
+
+\publication{Journal}{}{
+An Analytical Framework for Collision-Free and Singularity-Free Unlimited Rotation in Spatial Parallel Mechanisms}
+{G.~Aruquipa, P.~Lambert, C.~Gosselin}
+{Q1 robotics journal}
+{Submission imminent}
+
+\vspace*{0.04cm}
+
+\publication{Journal (ASME JMR)}{}{
+A (6+2)-DoF Kinematically Redundant Parallel Robot with Two Unlimited Rotations and Integrated Grasping}
+{G.~Aruquipa, J.~Valencia, P.~Lambert, C.~Gosselin}
+{Journal of Mechanisms and Robotics (ASME)}
+{Submission imminent}
+
+\vspace*{0.04cm}
+
+\publication{Journal (MMT)}{}{
+Singularity Analysis of Two-Body Parallel Robots with Reconfigurable Platforms}
+{G.~Aruquipa, P.~Lambert, C.~Gosselin, A.~M\"uller}
+{Mechanism and Machine Theory (Elsevier)}
+{In preparation}
+
+\vspace*{0.04cm}
+
+\publication{Journal (T-RO / IJRR)}{}{
+Graspability Performance Indices for Parallel Robots with Integrated Grasping}
+{G.~Aruquipa, A.~M\"uller, C.~Gosselin}
+{Target: IEEE T-RO or IJRR --- JKU Linz collaboration}
+{In preparation}
+
+\vspace*{0.04cm}
+
+\publication{Journal (IEEE RA-L)}{}{
+Experimental Validation of a 9-DoF Parallel Robot Prototype with Unlimited Rotation and Grasping}
+{G.~Aruquipa, P.~Lambert, C.~Gosselin}
+{IEEE Robotics and Automation Letters}
+{In preparation}
+
+\vspace*{0.04cm}
+
+\publication{Journal (IEEE RA-L)}{}{
+Experimental Validation of a Second-Generation Parallel Robot Prototype}
+{G.~Aruquipa, P.~Lambert, C.~Gosselin}
+{IEEE Robotics and Automation Letters}
+{In preparation}
+
+\end{minipage}}
+\end{document}
