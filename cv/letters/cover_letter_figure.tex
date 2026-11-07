@@ -1,0 +1,39 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[scaled=0.95]{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[top=1.7cm,bottom=1.5cm,left=2.2cm,right=2.2cm]{geometry}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{7pt}
+
+\begin{document}
+
+{\large\bfseries Grover Aruquipa}\par\vspace{-6pt}
+{\small Qu\'ebec, QC, Canada \ \textbullet\ \ grover.aruquipa.9@gmail.com \ \textbullet\ \ groveraruquipa.github.io}
+
+\vspace{4pt}
+Hiring Team, Figure AI, San Jose\\
+Systems Integration Engineer, Hand Subsystem
+
+Dear Hiring Team,
+
+A robot hand only becomes real the day it is powered up, calibrated and made to grasp something without breaking it or dropping it. That moment, when the mechanics, the electronics and the code meet for the first time and something does not work, is the part of robotics I like most. It is what I have done for three years, and it is what your hand integration team does every day.
+
+I am finishing my PhD at Universit\'e Laval with Prof.\ Cl\'ement Gosselin and Prof.\ Patrice Lambert, and I defend in early 2027. I designed and built three multi-DoF robots with integrated grippers, with 4, 7 and 8 actuators, and I brought each of them up myself. I wired the motors, drives and encoders, wrote the real-time control in C++ and Simulink running at 500\,Hz on OPAL-RT, tuned the controllers, and wrote the scripts to log and analyze every test. When a joint lost tracking, I had to find out whether the cause was the model, the gains, a loose encoder or a part that was flexing, and fix it. That is the debugging your posting describes.
+
+The results are on the bench. My 4-DoF coaxial wrist-gripper sends four actuation channels through concentric shafts and turned its tool ten full revolutions with less than one degree of tracking error while the gripper held the object. Right now I am integrating a Delta robot with a Sarrus gripper that estimates the grasp force from the motor currents, without any sensor in the fingers, so it can pick fragile objects quickly. Combining that kind of proprioceptive force estimate with position and tactile sensing in a real-time hand controller is exactly the problem I want to work on at Figure.
+
+I also bring the modeling side. I write the kinematics, the redundancy resolution and the singularity checks that my controllers use, I simulate my robots in MuJoCo and Isaac Sim, and I work in Python, C++, MATLAB and Linux every day. I lead two graduate students day to day, so I am used to working with people who own other parts of the system and to explaining a problem clearly when it crosses their side.
+
+I am available from January 2027 and ready to relocate to San Jose and work in the office five days a week. Prof.\ Gosselin, Prof.\ Lambert and Univ.-Prof.\ Andreas M\"uller of JKU Linz can speak to my work; their details are in my CV.
+
+Thank you for your time. I would be glad to show you my robots running, on video or live.
+
+Sincerely,\\
+Grover Aruquipa
+
+\end{document}
