@@ -6,7 +6,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[scaled=0.95]{helvet}
 \renewcommand{\familydefault}{\sfdefault}
-\usepackage[top=1.0cm,bottom=0.8cm,left=1.5cm,right=1.5cm]{geometry}
+\usepackage[top=0.9cm,bottom=0.7cm,left=1.4cm,right=1.4cm]{geometry}
 \usepackage{enumitem}
 \usepackage{titlesec}
 \usepackage{xcolor}
@@ -32,70 +32,77 @@
 
 %================ HEADER ================
 {\LARGE\bfseries Grover Aruquipa}\par\vspace{2pt}
-{\large Mechatronics Engineer, Robotics and Grasping \textbar\ Robot Design, Integration and Testing}\par\vspace{3pt}
+{\large Mechatronics Engineer, Robotics and Grasping \textbar\ Mechanism Design, Real-Time Control and Vision}\par\vspace{3pt}
 {\small Qu\'ebec, QC, Canada \ \textbullet\ \
 \href{mailto:grover.aruquipa.9@gmail.com}{grover.aruquipa.9@gmail.com} \ \textbullet\ \
 \href{https://www.linkedin.com/in/grover-aruquipa-996917126}{linkedin.com/in/grover-aruquipa-996917126} \ \textbullet\ \
 \href{https://groveraruquipa.github.io}{groveraruquipa.github.io}}\par\vspace{1pt}
-{\small\bfseries Available from January 2027 \ \textbullet\ \ Open to relocation}\par
-
+{\small\bfseries Available from January 2027 \ \textbullet\ \ Open to relocation \ \textbullet\ \ Eligible for an open Post-Graduation Work Permit in Canada}\par
+% TODO: add a current phone number on the line above if you want it on the CV.
 
 %================ SUMMARY ================
 \section{Summary}
-Mechatronics engineer finishing a PhD (Universit\'e Laval, defense early 2027) who designs and builds robots with
-integrated grasping, hands-on and hardware-first. I designed, built and brought up three robots with 4, 7 and 8 actuators
-and integrated grippers: SolidWorks design, motor, encoder and gearbox selection, wiring, real-time C++ control at 500\,Hz,
-Python tests and debugging on the bench. Before my PhD I worked as a computer vision engineer on industrial vision.
-Eligible for an open Post-Graduation Work Permit in Canada, no sponsorship required.
+Mechatronics engineer finishing a PhD in Mechanical Engineering (Universit\'e Laval, defense January 2027). I have designed,
+built and controlled three robots with integrated grippers, taking each one from mathematical model and SolidWorks CAD
+through fabrication to 500\,Hz closed-loop control and experimental validation. Earlier industry work as a computer
+vision engineer (industrial anomaly detection) and in machine learning at Hitachi ABB Power Grids R\&D.
 
 %================ SKILLS ================
 \section{Technical Skills}
 \begin{itemize}
-\item \textbf{Mechanical design:} SolidWorks; mechanisms, grippers, transmissions, mounts and assemblies; 3D printing and
-assembly of prototypes; design iterations driven by bench tests.
-\item \textbf{Electrical and integration:} motor, encoder and gearbox selection; wiring of motors, drives and encoders;
-current sensing; bring-up of multi-axis robots; tracing failures across mechanics, electronics and software; Altium (PCB).
-\item \textbf{Software:} Python (test scripts, data analysis, tooling); C++ (real time); MATLAB and Simulink; multi-axis
-control at 500\,Hz (OPAL-RT RT-LAB, Simulink Real-Time); Linux, Git.
-\item \textbf{Robotics and vision:} kinematics, Jacobians and singularity analysis; motion and trajectory planning;
-ROS and ROS~2, MoveIt, Pinocchio; MuJoCo and NVIDIA Isaac Sim; industrial computer vision.
+\item \textbf{Mechanical design and fabrication:} mechanism, gripper and transmission design; SolidWorks, Creo, ANSYS;
+fabrication and assembly of research prototypes (machining, SLS and FDM printing).
+\item \textbf{Mechatronics and control:} electric motors and drives, incremental encoders; multi-axis joint control at
+500\,Hz, PID tuning, trajectory generation and tracking; OPAL-RT RT-LAB, Simulink Real-Time; Altium (PCB).
+\item \textbf{Software and vision:} Python, C++ (real-time control), MATLAB and Simulink; OpenCV; ROS and ROS~2, MoveIt
+(motion planning), Pinocchio; MuJoCo and NVIDIA Isaac Sim; Linux, Git.
+\item \textbf{Robotics theory:} kinematics and dynamics, Jacobians, closed-form inverse kinematics, singularity and
+workspace analysis, grasp analysis, screw theory.
 \end{itemize}
 
 %================ EXPERIENCE ================
 \section{Experience}
 \role{Doctoral Researcher}{Robotics Laboratory, Universit\'e Laval}{Qu\'ebec, Canada}{2023 -- present}
 \begin{itemize}
-\item \textbf{Designed, built and brought up three robots with integrated grippers} (4, 7 and 8 actuators): concept,
-SolidWorks design, actuator and sensor selection, wiring, real-time control, tuning and validation on the bench.
-\item \textbf{4-DoF coaxial wrist-gripper:} four actuation channels through concentric shafts in a 180\,mm footprint;
-measured ten continuous revolutions with sub-degree tracking error at 500\,Hz while the gripper held the object.
-\item \textbf{Delta robot with integrated Sarrus gripper (in progress):} grasp force estimated from motor currents,
-without a sensor in the fingers, to pick fragile objects without crushing them.
-\item \textbf{Simulation before hardware:} every kinematic model and trajectory validated in MuJoCo before running on the
-real robot. Day-to-day lead of two graduate students on an 8-actuator robot.
+\item Designed, built and controlled three parallel manipulators (4, 7 and 8 actuators) with every motor
+mounted on the base and the gripper driven through the mechanism, enabling unlimited rotation of the grasped object.
+\item Implemented real-time multi-motor control at 500\,Hz; validated a 4-DoF coaxial wrist-gripper (0.25\,kg moving mass,
+180\,mm footprint) over ten continuous tool revolutions with sub-degree tracking.
+\item Derived closed-form inverse kinematics, Jacobians and singularity conditions, and developed a redundancy
+strategy that keeps unlimited rotation free of collisions and singularities.
+\item Led two graduate students from concept to working prototype on an 8-actuator (6+2)-DoF robot; joint paper
+submitted to ICRA 2027.
+\item Validate every kinematic model and trajectory in MuJoCo before running it on the real robot.
+\item Building a Delta robot with an integrated Sarrus gripper, aimed at sensing the grasp force through the motor
+currents to handle delicate objects; reinforcement learning policy in NVIDIA Isaac Sim (simulation).
+\item First author of 3 journal papers (ASME J.\ Mechanisms and Robotics, Mechanism and Machine Theory) and 4 more
+under review; reviewer for ASME J.\ Mechanisms and Robotics.
 \end{itemize}
 
 \vspace{3pt}
 \role{Visiting Researcher}{Institute of Robotics, Johannes Kepler University Linz}{Linz, Austria}{Apr. -- May 2026}
 \begin{itemize}
-\item Developed singularity and grasp-quality indices for manipulators with integrated grasping, hosted by Univ.-Prof.~A.~M\"uller (Mitacs Globalink Research Award).
+\item Developed grasp-quality indices for manipulators with integrated grasping (Mitacs Globalink Research Award).
 \end{itemize}
 
 \vspace{3pt}
 \role{Research Intern}{FEMTO-ST (CNRS)}{Besan\c{c}on, France}{2022 -- 2023}
 \begin{itemize}
-\item Designed and modeled a redundant dexterous parallel robot with two unlimited rotations for micro-manipulation, and wrote its real-time C++ control software; clean-room fabrication projects.
+\item Modeled a redundant dexterous parallel robot with two unlimited rotations for micro-manipulation.
+\item Wrote real-time control software in C++ for the robot experiments.
 \end{itemize}
 
 \vspace{3pt}
-\textbf{Industry roles} \hfill {\color{muted}2020 -- 2021}\par
-{\small Computer Vision Engineer, Sencon Srl (industrial vision, scaffolding detection) \ \textbullet\ \ Data Science
-Intern, Hitachi ABB Power Grids, Zurich (machine learning for high-voltage circuit breakers) \ \textbullet\ \ Data
-Scientist, KTH Royal Institute of Technology.}
+\textbf{Industry roles in vision and machine learning} \hfill {\color{muted}2020 -- 2021}\par
+\begin{itemize}
+\item \textbf{Computer Vision Engineer}, Sencon Srl (remote, 2021): computer vision for industrial anomaly detection.
+\item \textbf{Graduate Research Intern}, Hitachi ABB Power Grids R\&D (Zurich, 2020): machine learning on sensor data from high-voltage circuit breakers.
+\item \textbf{Data Scientist}, KTH Royal Institute of Technology (remote, 2021): data analysis for environmental impact assessment.
+\end{itemize}
 
 %================ EDUCATION ================
 \section{Education}
-\textbf{PhD, Mechanical Engineering}, Universit\'e Laval \hfill {\color{muted}Qu\'ebec, Canada \textbar\ 2023 -- 2027 (expected)}\par
+\textbf{PhD, Mechanical Engineering}, Universit\'e Laval \hfill {\color{muted}Qu\'ebec, Canada \textbar\ 2023 -- Jan.\ 2027 (expected)}\par
 {\small Kinematically redundant parallel robots with unlimited rotations and integrated grasping. Advisors: C.~Gosselin, P.~Lambert.}\par\vspace{2pt}
 \textbf{MSc, Smart Integrated Systems}, Universit\'e Bourgogne--Franche-Comt\'e \hfill {\color{muted}Besan\c{c}on, France \textbar\ 2021 -- 2023}\par\vspace{2pt}
 \textbf{BEng, Mechatronics Engineering}, Bolivian Catholic University \hfill {\color{muted}La Paz, Bolivia \textbar\ 2014 -- 2019}\par
@@ -110,7 +117,7 @@ Scientist, KTH Royal Institute of Technology.}
 \item Languages: Spanish (native), English (full professional), French (intermediate).
 \end{itemize}
 
-\newpage
+
 %================ PUBLICATIONS
 \section{Selected Publications}
 {\small First author on all papers. Full list at groveraruquipa.github.io.}\par\vspace{2pt}
