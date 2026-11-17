@@ -1515,6 +1515,7 @@ body {
 }
 
 .skills-list { color: var(--gray-700); }
+.skills-list a { color: var(--black); }
 
 /* ----- Research vision (on dark background) ----- */
 .vision-box {
@@ -2052,4 +2053,165 @@ body {
     border: 1px solid var(--black);
     background: rgba(255,255,255,0.85);
     color: var(--black);
+}
+
+/* ----- Simulation: MuJoCo and Isaac Sim ----- */
+.sim-section {
+    padding: 72px 32px;
+    background: var(--gray-50);
+    border-top: 1px solid var(--gray-150);
+}
+
+.sim-tools {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px 22px;
+    margin-bottom: 28px;
+}
+
+.sim-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    height: 46px;
+    padding: 6px 14px 6px 8px;
+    background: var(--white);
+    border: 1px solid var(--gray-150);
+    border-radius: var(--radius-sm);
+}
+
+.sim-logo-icon { height: 34px; width: 34px; }
+.sim-logo-banner { height: 32px; border-radius: 3px; }
+.sim-logo:has(.sim-logo-banner) { padding: 6px; }
+
+.sim-logo-text {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.86rem;
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--black);
+}
+
+.sim-logo-text small {
+    font-size: 0.54rem;
+    font-weight: 600;
+    letter-spacing: 1.4px;
+    color: #76b900;
+}
+
+.sim-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    flex: 1 1 260px;
+}
+
+.sim-chip {
+    font-size: 0.64rem;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 12px;
+    border: 1px solid var(--gray-300);
+    background: var(--white);
+    color: var(--gray-700);
+}
+
+.media-tag.isaac {
+    background: var(--black);
+    color: var(--white);
+    border-color: var(--black);
+}
+
+.media-tag.isaac::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin-right: 6px;
+    border-radius: 50%;
+    background: #76b900;
+    vertical-align: 1px;
+}
+
+.sim-grid .robot-media { aspect-ratio: 16 / 9; }
+
+.sim-numbers { margin: 32px 0 28px; }
+
+.sim-steps {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 28px;
+    counter-reset: none;
+}
+
+.sim-steps li {
+    position: relative;
+    font-size: 0.7rem;
+    line-height: 1.55;
+    color: var(--gray-700);
+    padding: 14px 14px 14px;
+    background: var(--white);
+    border: 1px solid var(--gray-150);
+    border-radius: var(--radius-sm);
+}
+
+.sim-steps li strong {
+    display: block;
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 4px;
+}
+
+.sim-step-n {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    margin-bottom: 8px;
+    border-radius: 50%;
+    background: var(--black);
+    color: var(--white);
+    font-size: 0.62rem;
+    font-weight: 600;
+}
+
+.sim-finding {
+    padding: 22px 24px;
+    background: var(--white);
+    border: 1px solid var(--gray-150);
+    border-left: 3px solid var(--black);
+    border-radius: var(--radius-sm);
+}
+
+.sim-finding p {
+    font-size: 0.78rem;
+    line-height: 1.65;
+    color: var(--gray-700);
+}
+
+.sim-finding p.skills-title { margin-bottom: 8px; }
+
+.sim-finding p.robot-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    margin-top: 12px;
+}
+
+@media (max-width: 768px) {
+    .sim-section { padding: 56px 24px; }
+    .sim-steps { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 640px) {
+    .sim-section { padding: 48px 16px; }
+    .sim-grid { grid-template-columns: 1fr; }
+    .sim-steps { grid-template-columns: 1fr; }
+    .sim-numbers { grid-template-columns: 1fr; }
 }

@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
             var video = this.querySelector('video');
             var img = this.querySelector('img');
             if (video) {
-                openVideo(video.getAttribute('src'));
+                openVideo(video.getAttribute('data-full') || video.getAttribute('src'));
             } else if (img && img.src) {
                 openImage(img.src);
             }
