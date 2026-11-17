@@ -69,10 +69,10 @@
         <div class="nav-content">
             <span class="nav-name">G. Aruquipa</span>
             <div class="nav-links">
+                <a href="#simulation">Isaac Sim</a>
                 <a href="#research">Research</a>
                 <a href="#robots">Robots</a>
                 <a href="#videos">Videos</a>
-                <a href="#simulation">Simulation</a>
                 <a href="#publications">Publications</a>
                 <a href="#experience">Experience</a>
                 <a href="#contact">Contact</a>
@@ -90,6 +90,7 @@
             <p class="header-title">Ph.D. Candidate in Mechanical Engineering (Robotics) &middot; Universit&eacute; Laval, Qu&eacute;bec, Canada</p>
             <p class="header-institution">Advised by Prof. Cl&eacute;ment Gosselin and Prof. Patrice Lambert &middot; Thesis submission December 2026 &middot; Defense January 2027</p>
             <p class="header-available">Available from early 2027 for Postdoctoral and Research Scientist positions &middot; Open to relocation</p>
+            <a href="#simulation" class="header-featured"><span class="header-featured-new">New</span><img src="images/logos/isaac_sim.svg" alt="">My 9-DoF robot in NVIDIA Isaac Sim: 16 copies simulated in parallel, cross-checked with MuJoCo &rarr;</a>
 
 
             <div class="header-links">
@@ -129,6 +130,65 @@
                     <div class="skills-row"><span class="skills-cat">Simulation</span><span class="skills-list">MuJoCo (closed-chain models, contact, tasks) &middot; NVIDIA Isaac Sim (PhysX closed-loop articulations, OpenUSD, RTX rendering, parallel scenes; <a href="#simulation">see below</a>) &middot; Simscape Multibody &middot; Pinocchio</span></div>
                     <div class="skills-row"><span class="skills-cat">Control &amp; software</span><span class="skills-list">multi-motor real-time control at 500&nbsp;Hz &middot; OPAL-RT RT-LAB &middot; Simulink Real-Time &middot; C++ &middot; Python &middot; MATLAB &middot; ROS&nbsp;/&nbsp;ROS&nbsp;2 &middot; PyTorch &middot; Docker &middot; cloud GPU (Google Cloud)</span></div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SIMULATION: MUJOCO AND ISAAC SIM ========== -->
+    <section class="sim-section" id="simulation">
+        <div class="container-narrow">
+            <h2 class="section-title">Simulation: MuJoCo and NVIDIA Isaac Sim</h2>
+            <p class="section-lead">The 9-DoF robot of my CCToMM paper, ported from MuJoCo to NVIDIA Isaac Sim. Both physics engines run the same closed-chain model built from the CAD, and I use one to check the other.</p>
+
+            <div class="sim-tools" aria-label="Tools">
+                <span class="sim-logo"><img src="images/logos/isaac_sim.svg" alt="" class="sim-logo-icon"><span class="sim-logo-text"><small>NVIDIA</small>Isaac Sim</span></span>
+                <span class="sim-logo"><img src="images/logos/mujoco.svg" alt="MuJoCo" class="sim-logo-banner"></span>
+                <span class="sim-chips">
+                    <span class="sim-chip">PhysX</span><span class="sim-chip">OpenUSD</span><span class="sim-chip">RTX rendering (Replicator)</span><span class="sim-chip">Python</span><span class="sim-chip">Docker</span><span class="sim-chip">Google Cloud GPU (NVIDIA L4)</span>
+                </span>
+            </div>
+
+            <div class="robot-grid sim-grid">
+                <article class="robot-card">
+                    <div class="robot-media contain">
+                        <video src="media/video/nine_dof_isaac_grid_card.mp4" data-full="media/video/nine_dof_isaac_grid.mp4" poster="media/video/nine_dof_isaac_grid.jpg" muted loop playsinline preload="none" aria-label="16 copies of the 9-DoF robot simulated at once in Isaac Sim"></video>
+                        <span class="media-tag isaac">Isaac Sim &middot; PhysX</span>
+                    </div>
+                    <div class="robot-body">
+                        <h4>16 robots in one PhysX scene</h4>
+                        <p>Each copy has its own servo stiffness, from 2&middot;10<sup>4</sup> N/m in front to 2&middot;10<sup>6</sup> N/m at the back. All 16 follow the same trajectory with gravity, at 1&nbsp;kHz on one GPU.</p>
+                    </div>
+                </article>
+
+                <article class="robot-card">
+                    <div class="robot-media contain">
+                        <video src="media/video/nine_dof_isaac_card.mp4" data-full="media/video/nine_dof_isaac.mp4" poster="media/video/nine_dof_isaac.jpg" muted loop playsinline preload="none" aria-label="9-DoF robot rendered in Isaac Sim"></video>
+                        <span class="media-tag isaac">Isaac Sim &middot; RTX</span>
+                    </div>
+                    <div class="robot-body">
+                        <h4>The robot in Isaac Sim</h4>
+                        <p>CAD of the paper converted to OpenUSD and rendered with RTX: translations, rigid rotations and the relative rotations that close the grasp.</p>
+                    </div>
+                </article>
+            </div>
+
+            <div class="glance-grid sim-numbers">
+                <div class="glance-item"><span class="glance-num">8</span><span class="glance-label">kinematic loops closed in a PhysX articulation<br>(9 actuators, 21 bodies, 29 joints)</span></div>
+                <div class="glance-item"><span class="glance-num">0.7&nbsp;mm</span><span class="glance-label">largest difference between Isaac Sim and MuJoCo over the 56&nbsp;s trajectory</span></div>
+                <div class="glance-item"><span class="glance-num">16</span><span class="glance-label">robots simulated in parallel for a servo stiffness sweep</span></div>
+            </div>
+
+            <ol class="sim-steps">
+                <li><span class="sim-step-n">1</span><strong>CAD to model.</strong> Joint centres, masses and the reference trajectory exported from the STEP file and the paper kinematics.</li>
+                <li><span class="sim-step-n">2</span><strong>OpenUSD.</strong> A tree of bodies plus eight loop-closing joints, prismatic drives on the nine actuators.</li>
+                <li><span class="sim-step-n">3</span><strong>Two engines.</strong> The same file drives PhysX in Isaac Sim and a MuJoCo twin; the results are compared segment by segment.</li>
+                <li><span class="sim-step-n">4</span><strong>Render.</strong> Recorded poses replayed in a physics-free stage and rendered with RTX through Replicator.</li>
+            </ol>
+
+            <div class="sim-finding">
+                <p class="skills-title">What the simulation showed</p>
+                <p>The actuators follow their targets within 0.3&nbsp;mm, yet the platforms deviate up to 40 times more: the geometry lies close to a Type&nbsp;II singularity, which amplifies any actuator compliance. A stiffer servo helps at the reference pose but not during the rigid rotation about x, where even the stiffest copy deviates 2.9&nbsp;mm. The fix belongs in the geometry, not in the controller gain.</p>
+                <p class="robot-links"><a href="https://github.com/GroverAruquipa/9dof-parallel-robot-ros2/tree/isaac-sim/isaac_sim" target="_blank">Code on GitHub &rarr;</a><a href="https://doi.org/10.1007/978-3-031-95489-4_10" target="_blank">CCToMM 2025 paper &rarr;</a></p>
             </div>
         </div>
     </section>
@@ -332,65 +392,6 @@
                     <span class="vtile-title">9-DoF robot: degrees of freedom</span>
                     <span class="vtile-cap">Translations, rigid-body rotations and the relative rotations that close the grasp.</span>
                 </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== SIMULATION: MUJOCO AND ISAAC SIM ========== -->
-    <section class="sim-section" id="simulation">
-        <div class="container-narrow">
-            <h2 class="section-title">Simulation</h2>
-            <p class="section-lead">The 9-DoF robot of my CCToMM paper, ported from MuJoCo to NVIDIA Isaac Sim. Both physics engines run the same closed-chain model built from the CAD, and I use one to check the other.</p>
-
-            <div class="sim-tools" aria-label="Tools">
-                <span class="sim-logo"><img src="images/logos/isaac_sim.svg" alt="" class="sim-logo-icon"><span class="sim-logo-text"><small>NVIDIA</small>Isaac Sim</span></span>
-                <span class="sim-logo"><img src="images/logos/mujoco.svg" alt="MuJoCo" class="sim-logo-banner"></span>
-                <span class="sim-chips">
-                    <span class="sim-chip">PhysX</span><span class="sim-chip">OpenUSD</span><span class="sim-chip">RTX rendering (Replicator)</span><span class="sim-chip">Python</span><span class="sim-chip">Docker</span><span class="sim-chip">Google Cloud GPU (NVIDIA L4)</span>
-                </span>
-            </div>
-
-            <div class="robot-grid sim-grid">
-                <article class="robot-card">
-                    <div class="robot-media contain">
-                        <video src="media/video/nine_dof_isaac_grid_card.mp4" data-full="media/video/nine_dof_isaac_grid.mp4" poster="media/video/nine_dof_isaac_grid.jpg" muted loop playsinline preload="none" aria-label="16 copies of the 9-DoF robot simulated at once in Isaac Sim"></video>
-                        <span class="media-tag isaac">Isaac Sim &middot; PhysX</span>
-                    </div>
-                    <div class="robot-body">
-                        <h4>16 robots in one PhysX scene</h4>
-                        <p>Each copy has its own servo stiffness, from 2&middot;10<sup>4</sup> N/m in front to 2&middot;10<sup>6</sup> N/m at the back. All 16 follow the same trajectory with gravity, at 1&nbsp;kHz on one GPU.</p>
-                    </div>
-                </article>
-
-                <article class="robot-card">
-                    <div class="robot-media contain">
-                        <video src="media/video/nine_dof_isaac_card.mp4" data-full="media/video/nine_dof_isaac.mp4" poster="media/video/nine_dof_isaac.jpg" muted loop playsinline preload="none" aria-label="9-DoF robot rendered in Isaac Sim"></video>
-                        <span class="media-tag isaac">Isaac Sim &middot; RTX</span>
-                    </div>
-                    <div class="robot-body">
-                        <h4>The robot in Isaac Sim</h4>
-                        <p>CAD of the paper converted to OpenUSD and rendered with RTX: translations, rigid rotations and the relative rotations that close the grasp.</p>
-                    </div>
-                </article>
-            </div>
-
-            <div class="glance-grid sim-numbers">
-                <div class="glance-item"><span class="glance-num">8</span><span class="glance-label">kinematic loops closed in a PhysX articulation<br>(9 actuators, 21 bodies, 29 joints)</span></div>
-                <div class="glance-item"><span class="glance-num">0.7&nbsp;mm</span><span class="glance-label">largest difference between Isaac Sim and MuJoCo over the 56&nbsp;s trajectory</span></div>
-                <div class="glance-item"><span class="glance-num">16</span><span class="glance-label">robots simulated in parallel for a servo stiffness sweep</span></div>
-            </div>
-
-            <ol class="sim-steps">
-                <li><span class="sim-step-n">1</span><strong>CAD to model.</strong> Joint centres, masses and the reference trajectory exported from the STEP file and the paper kinematics.</li>
-                <li><span class="sim-step-n">2</span><strong>OpenUSD.</strong> A tree of bodies plus eight loop-closing joints, prismatic drives on the nine actuators.</li>
-                <li><span class="sim-step-n">3</span><strong>Two engines.</strong> The same file drives PhysX in Isaac Sim and a MuJoCo twin; the results are compared segment by segment.</li>
-                <li><span class="sim-step-n">4</span><strong>Render.</strong> Recorded poses replayed in a physics-free stage and rendered with RTX through Replicator.</li>
-            </ol>
-
-            <div class="sim-finding">
-                <p class="skills-title">What the simulation showed</p>
-                <p>The actuators follow their targets within 0.3&nbsp;mm, yet the platforms deviate up to 40 times more: the geometry lies close to a Type&nbsp;II singularity, which amplifies any actuator compliance. A stiffer servo helps at the reference pose but not during the rigid rotation about x, where even the stiffest copy deviates 2.9&nbsp;mm. The fix belongs in the geometry, not in the controller gain.</p>
-                <p class="robot-links"><a href="https://github.com/GroverAruquipa/9dof-parallel-robot-ros2/tree/isaac-sim/isaac_sim" target="_blank">Code on GitHub &rarr;</a><a href="https://doi.org/10.1007/978-3-031-95489-4_10" target="_blank">CCToMM 2025 paper &rarr;</a></p>
             </div>
         </div>
     </section>
